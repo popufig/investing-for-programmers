@@ -1,0 +1,1491 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>chapter-3</title>
+  <link href="../Styles/stylesheet.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <div class="readable-text" id="p1"> 
+   <h1 class=" readable-text-h1"><span class="chapter-title-numbering"><span class="num-string">3</span></span> <span class="chapter-title-text">Collecting data</span></h1> 
+  </div> 
+  <div class="introduction-summary"> 
+   <h3 class="introduction-header">This chapter covers</h3> 
+   <ul> 
+    <li class="readable-text" id="p2">Data collection from financial platforms </li> 
+    <li class="readable-text" id="p3">The types of data used for financial assessments</li> 
+    <li class="readable-text" id="p4">Selecting Python libraries for financial analysis</li> 
+    <li class="readable-text" id="p5">Comparing free Python libraries and commercial libraries</li> 
+    <li class="readable-text" id="p6">Fundamental and technical analysis using Python</li> 
+   </ul> 
+  </div> 
+  <div class="readable-text" id="p7"> 
+   <p>Chapter 2 focused on <em>what</em> we can analyze to make sound investment decisions. With that knowledge, it’s time to show <em>how</em> to collect and explore data. Some data analysts claim that financial data is cleaner than data from other domains. Still, even with superb data, we need to invest time in preparing it for analytical algorithms and determining how to extract insights most efficiently.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p8"> 
+   <p>This chapter teaches you how to gather financial data using Python. We’ll focus on yfinance, a powerful open source library for scraping data from sources such as Yahoo Finance, Google Finance, and Finviz.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p9"> 
+   <p>While yfinance is excellent for our initial data exploration, we’ll also discuss its limitations and explore more robust, production-ready alternatives. All the libraries we cover are either free or offer a freemium model.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p10"> 
+   <p>We’ll start by examining the unique characteristics of financial data. Then, you’ll learn to use these Python libraries to collect it. With this knowledge, you’ll be ready for the first use case in chapter 4.</p> 
+  </div> 
+  <div class="readable-text" id="p11"> 
+   <h2 class=" readable-text-h2"><span class="num-string">3.1</span> Financial data</h2> 
+  </div> 
+  <div class="readable-text" id="p12"> 
+   <p>Many data projects, independent of a specific domain, often raise data quality issues, making it difficult to predict whether the provided facts and numbers lead to insights that enable better investment decisions. One advantage of financial data is that it’s regularly audited, and financial statements are required to meet predefined accounting standards. Whether data analysts receive data from free or paid sources, the information in the data represents the information that a company’s accountants have officially reported.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p13"> 
+   <p>This high-quality data is unavailable to analysts working with data in other fields. Data scientists working with machine data from factories are more likely to face issues where defective sensors can mismeasure data or multiple unforeseen environmental conditions might affect results.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p14"> 
+   <p>Still, people working with financial data may face different challenges in interpreting data. The purpose of the obligatory accounting statements is to provide insights about a company’s economic situation. However, different accounting strategies may conceal corporate problems or exaggerate profits. How accountants present numbers in detail can lead to varying interpretations of a company’s results. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p15"> 
+   <p>But before we collect the data, let’s try to classify it first. To analyze financial assets, we can divide the data into three categories:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p16"> <em>Fundamental data</em>—Fundamental data doesn’t change regularly within short time frames. Consider regularly published quarterly financial documents, such as income statements, balance sheets, or cash flow statements. They are updated in intervals, such as with quarterly reports. We expect public companies to follow accounting standards, as their reports may be subject to audit. However, the reported data may still contain accounting tricks that make a company’s balance sheet appear more favorable. </li> 
+   <li class="readable-text" id="p17"> <em>Technical data</em>—As a prominent example of technical data, share prices of company stocks change continuously during the open hours of stock exchanges. Many traders try to predict trends from these price movements. As many people depend on this data to earn money as day traders, we can also assume that the data is usually reported correctly. While data delivery speed isn’t crucial for fundamental data, traders who focus on making decisions based on technical data may benefit from receiving data more quickly and executing orders faster. Besides historical share prices of companies, examples of other technical data are trading volume and short interest rates. </li> 
+   <li class="readable-text" id="p18"> <em>Nonfinancial data</em>—In the 2010s, big data became a buzzword for all data sources—primarily in unstructured form—that store information that can be mined to find hidden insights. We can analyze data from social media to determine the frequency of mentions of a stock ticker and to identify whether the conversations tend to be positive or negative. Machine learning (ML) engineers may use algorithms to analyze executives’ emotions when presenting their company’s earnings reports to detect potential discrepancies in their statements. </li> 
+  </ul> 
+  <div class="readable-text print-book-callout" id="p19"> 
+   <p><span class="print-book-callout-head">Note </span> AI algorithms that analyze human emotions in video and audio streams demonstrate a potential future for investment analysis. For instance, by processing footage of a company’s general assembly, these AI tools could detect whether employee morale is more positive or negative than anticipated. Most people will likely agree that this also raises ethical questions.</p> 
+  </div> 
+  <div class="readable-text" id="p20"> 
+   <p>Fundamental, technical, and nonfinancial data differ fundamentally (no pun intended). While fundamental analysis is primarily based on comparing financial data between companies within an industry to identify good investment opportunities, technical analysis is used to make quick trading decisions that benefit from bullish or bearish market trends. The next step is to look at the origins of the data.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p21"> 
+    <h5 class=" callout-container-h5 readable-text-h5">All roads lead to Rome</h5> 
+   </div> 
+   <div class="readable-text" id="p22"> 
+    <p>This chapter introduces many platforms and libraries, although they solve the same generic problems (providing financial information and interpretations to allow clients to make better investment decisions). It’s fair to ask whether focusing only on one library is sufficient.</p> 
+   </div> 
+   <div class="readable-text" id="p23"> 
+    <p>Different open source and commercial platforms may offer varying quality standards and perspectives on financial data. One framework might meet the demands of one group of users, but another framework better suits the needs of others. Investment decisions can significantly affect our lives; the more diverse sources we have backing our decision-making, the lower the risk we face.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p24"> 
+   <p>Before we process data with Python, let’s explore some financial platforms that provide data through a user interface (UI). Although we could load everything into Python data structures right away, it often helps to use these platforms to preselect what to explore in depth.</p> 
+  </div> 
+  <div class="readable-text" id="p25"> 
+   <h2 class=" readable-text-h2"><span class="num-string">3.2</span> Financial analysis platforms</h2> 
+  </div> 
+  <div class="readable-text" id="p26"> 
+   <p>Many financial analysis platforms help investors make better decisions by providing insights into various assets. The scope of these platforms can differ significantly: some focus on a single asset class, such as stocks or cryptocurrencies, while others limit their coverage to specific geographic regions.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p27"> 
+   <p><span class="print-book-callout-head">Note </span> We’ll focus on stocks in this chapter and address bonds and crypto in later chapters.</p> 
+  </div> 
+  <div class="readable-text" id="p28"> 
+   <p>According to various sources, globally, there are between 47,000 and 58,000 publicly listed companies. Given this vast universe, one of the primary functions of financial platforms is to help users narrow down choices efficiently. This is where stock screeners come in. A <em>stock screener</em> is a tool that allows investors to filter listed stocks based on customizable criteria and displays relevant information onscreen to support informed decision-making. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p29"> 
+   <p>Imagine you’re an investor with a strong understanding of software companies. While you already hold many US stocks, you’re considering diversifying internationally. To reduce risk, you focus on companies that are “too big to fail”—industry giants with massive market capitalizations. Your strategy is to identify potential candidates and then conduct a more in-depth analysis of their software offerings and market opportunities.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p30"> 
+   <p>Many financial analysis platforms offer screeners that allow investors to filter stocks based on specific criteria. While these tools often share similar features, investors typically choose based on personal preferences. In this book, we demonstrate how to create a preselection using the Finviz platform (<a href="https://finviz.com">https://finviz.com</a>).</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p31"> 
+   <p>In the example shown in figure 3.1, we screen for technology companies outside the United States with a market capitalization of more than $200 billion, matching the “mega-cap” category. You can access this filter directly at <a href="https://mng.bz/0zJW">https://mng.bz/0zJW</a>. The results may vary slightly from those captured in the screenshot on June 16, 2025.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p32">  
+   <img alt="figure" src="../Images/3-1.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.1</span> Finviz (<a href="https://finviz.com">https://finviz.com</a>) is one of many financial services platforms that offer a stock screener to help users find companies through various filters. In this screenshot, we selected non-US technology companies with a market capitalization of more than $200 billion and received three results. </h5>
+  </div> 
+  <div class="readable-text" id="p33"> 
+   <p>As shown in the figure, stock screeners allow users to filter by various criteria, functioning like data mining tools. Investors can drill down into individual companies to explore detailed information. For example, clicking on the link for SAP provides access to the company’s key financials and other relevant data. Figure 3.2 shows SAP’s fundamentals, illustrating just one example of what can be uncovered during the screening process. Of course, the level of detail and presentation varies across different financial platforms.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p34">  
+   <img alt="figure" src="../Images/3-2.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.2</span> Looking at the fundamental data of SAP on Finviz</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p35"> 
+   <p>A stock screener is like a landing zone or home base for investors. When individual investors seek specific information about stocks, the platform might offer advisory services or a more refined analysis as a paid subscription feature. Table 3.1 categorizes financial platforms.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p36"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.1</span> Categorization of financial platforms for developers </h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Platform category 
+       </div> </th> 
+      <th> 
+       <div>
+         Examples 
+       </div> </th> 
+      <th> 
+       <div>
+         Summary 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Finance pages of a search engine provider <br/> </td> 
+      <td>  Yahoo Finance, Google Finance, or MSN Money <br/> </td> 
+      <td>  They provide financial data and insights without asking users to pay for a subscription (except for Yahoo Finance, which offers a premium subscription). <br/>  In many cases, open source developers create libraries to scrape data from the platforms to provide that data to programmers. The yfinance library is a good example of such a library.  <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Financial advisory platform for private investors <br/> </td> 
+      <td>  Seeking Alpha, The Motley Fool, Morningstar, Ziggma, Zacks, Koyfin, Stock Rover, Empower, Simply Wall St, TipRanks <br/> </td> 
+      <td>  They provide insights about financial assets on a tiered subscription model. <br/>  With yearly subscription packages, typically ranging from $10 to $350 for standard plans, you gain access to more in-depth insights. <br/>  Only a few advisory platforms provide an API to programmers. <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Financial data providers for fintech start-ups <br/> </td> 
+      <td>  EODHD, Alpha Vantage, OpenBB <br/> </td> 
+      <td>  They provide financial data through APIs. Most of them also offer a freemium version, providing limited access to economic data. <br/>  Prices for commercial packages, which include more data, more requests, and faster access, vary but are often in the range of $240 to $1,200 per year. <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Commercial products for large investment firms <br/> </td> 
+      <td>  Bloomberg Terminal, Refinitiv, MSCI <br/> </td> 
+      <td>  These products normally exceed the budget of individual investors. They provide an immense amount of data and insights for analysts and fund managers. <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p37"> 
+   <p>We could use libraries for web scraping and collect financial information from these platforms if they don’t offer an API. However, using a web scraper means cleaning data and facing the risk of unpredictable errors, so we want to load the data into our environment using an API. Before doing that, we should address some basics about how we want to process financial data.</p> 
+  </div> 
+  <div class="readable-text" id="p38"> 
+   <h2 class=" readable-text-h2"><span class="num-string">3.3</span> Data science notebooks</h2> 
+  </div> 
+  <div class="readable-text" id="p39"> 
+   <p>Pythonistas and data scientists have worked with Jupyter, Databricks, and similar platforms that provide notebooks to users. A <em>notebook</em> is an environment where you can run code in single cells and use the results from those cells in other cells, providing an interactive environment for engineers.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p40"> 
+   <p>The appendix includes a section explaining how to install the relevant tools necessary for working with data, including Python libraries. However, addressing “application versus notebook” in advance makes sense. Many software engineers may consider themselves app-centric. If they know they can collect and process data, they might also be tempted to build a UI to display everything to users. In a later chapter, we demonstrate how to do this using Streamlit; however, this is often not the primary approach to exploring financial data for personal investment decisions.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p41"> 
+   <p>For personal financial research, creating frontends might be an unnecessary overhead. Each investment assessment is a unique research project that may require research in different data sources. As the goal of a personal investment decision is to buy, sell, or hold based on data, numbers in a console are good enough. All programmers might need are data science notebooks, in which they can write down an investment hypothesis and start exploring data to prove or disprove their theses. Occasionally, they might rerun some cells with different data, or they might copy and adjust them for alternative analyses.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p42"> 
+   <p>In this chapter, we’ll introduce libraries and code snippets to analyze some core investment aspects of companies. In chapter 4, we’ll continue to apply this knowledge to identify concrete investment opportunities. Until then, become familiar with the development environment of your choice and become accustomed to working with data science notebooks. The code presented in this chapter can also be found in the book’s downloads and the Git repository.</p> 
+  </div> 
+  <div class="readable-text" id="p43"> 
+   <h2 class=" readable-text-h2"><span class="num-string">3.4</span> yfinance</h2> 
+  </div> 
+  <div class="readable-text" id="p44"> 
+   <p>Pick a random book covering financial data exploration with Python or look for relevant code snippets online, and, most likely, you’ll find code that collects data through the yfinance library. This library is the perfect starting point for exploring financial data by experimentation.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p45"> 
+   <p>The yfinance library enables developers to load a wide range of data from the Yahoo Finance platform into Python data structures, making yfinance the best choice for programmers getting started with exploring financial data. We can use yfinance for technical and fundamental analysis.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p46"> 
+   <p><span class="print-book-callout-head">Note </span> As you know, a stock ticker is a unique company identifier on a stock exchange. In chapter 2, for example, you saw NVDA for Nvidia, AAPL for Apple, and so on. For international exchanges, platforms add an acronym for the stock exchange. So, if we use Yahoo Finance, we find Rolls-Royce listed as RR.L on the London Stock Exchange (LSE), or Allianz SE as ALV.DE on the Frankfurt Stock Exchange. We need to watch out for mismatches, as there is, for instance, a ticker ALV registered on the New York Stock Exchange (NYSE). Unfortunately, the acronyms to identify stock exchanges may differ between APIs. We’ll show in a later example that another library, EODHD, uses the logical LSE as an identifier for the London Stock Exchange.</p> 
+  </div> 
+  <div class="readable-text" id="p47"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.4.1</span> Fundamental analysis</h3> 
+  </div> 
+  <div class="readable-text" id="p48"> 
+   <p>Programmers can retrieve a company’s accounting data, introduced in chapter 2, using yfinance and the code snippets shown here. This DataFrame contains all the information a company provides when reporting this data, such as aggregated sales figures over time. In this example, we used Microsoft (MSFT is Microsoft’s stock ticker, a unique identifier for the company on the NASDAQ stock exchange, where Microsoft is listed):</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p49"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+microsoft = yf.Ticker('MSFT')
+microsoft.income_stmt
+microsoft.balance_sheet
+microsoft.cash_flow</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p50"> 
+   <p>For each of the fetched properties of the <code>microsoft</code> object, the returned object is a DataFrame representing an accounting statement with the reporting dates as columns and the metric for each report as a row. Table 3.2 shows the output of the DataFrame returned by the property <code>income_stmt</code>. The properties <code>balance_sheet</code> and <code>cash_flow</code> would return data in the same data structure, but with different values representing the accounting statements.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p51"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.2</span> Microsoft’s income statement in a DataFrame</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th/> 
+      <th> 
+       <div>
+         2024-06-30 
+       </div> </th> 
+      <th> 
+       <div>
+         2023-06-30 
+       </div> </th> 
+      <th> 
+       <div>
+         2022-06-30 
+       </div> </th> 
+      <th> 
+       <div>
+         2021-06-30 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Tax effect of unusual items <br/> </td> 
+      <td>  -99918000.0 <br/> </td> 
+      <td>  -2850000.0 <br/> </td> 
+      <td>  43754000.0 <br/> </td> 
+      <td>  180160797.164637 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Tax rate for calcs <br/> </td> 
+      <td>  0.182 <br/> </td> 
+      <td>  0.19 <br/> </td> 
+      <td>  0.131 <br/> </td> 
+      <td>  0.138266 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Normalized EBITDA <br/> </td> 
+      <td>  133558000000.0 <br/> </td> 
+      <td>  105155000000.0 <br/> </td> 
+      <td>  99905000000.0 <br/> </td> 
+      <td>  83031000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Total unusual item <br/> </td> 
+      <td>  -549000000.0 <br/> </td> 
+      <td>  -15000000.0 <br/> </td> 
+      <td>  334000000.0 <br/> </td> 
+      <td>  1303000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Total unusual item excluding goodwill <br/> </td> 
+      <td>  -549000000.0 <br/> </td> 
+      <td>  -15000000.0 <br/> </td> 
+      <td>  334000000.0 <br/> </td> 
+      <td>  1303000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Net income from continuing operational net <br/> </td> 
+      <td>  88136000000.0 <br/> </td> 
+      <td>  72361000000.0 <br/> </td> 
+      <td>  72738000000.0 <br/> </td> 
+      <td>  61271000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Reconciled depreciation <br/> </td> 
+      <td>  22287000000.0 <br/> </td> 
+      <td>  13861000000.0 <br/> </td> 
+      <td>  14461000000.0 <br/> </td> 
+      <td>  11686000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Reconciled cost of revenue <br/> </td> 
+      <td>  74114000000.0 <br/> </td> 
+      <td>  65863000000.0 <br/> </td> 
+      <td>  62650000000.0 <br/> </td> 
+      <td>  52232000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  EBITDA <br/> </td> 
+      <td>  133009000000.0 <br/> </td> 
+      <td>  105140000000.0 <br/> </td> 
+      <td>  100239000000.0 <br/> </td> 
+      <td>  85134000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  EBIT <br/> </td> 
+      <td>  110722000000.0 <br/> </td> 
+      <td>  91279000000.0 <br/> </td> 
+      <td>  85779000000.0 <br/> </td> 
+      <td>  73448000000.0 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: yfinance <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p52"> 
+   <p>We can access the specific information in financial account statements by referring to the data and the specific identifier of the information we’re looking for, as shown in the following:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p53"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">microsoft.income_stmt["2024-06-30"]["EBITDA"]</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p54"> 
+   <p>Users who explore the content of an object’s attribute can iterate through columns representing report filing dates. Programmers interested in the quarterly results of the three account statements can also use the same approach by calling an attribute with the identifier <code>quarterly_</code> followed by the identifier of the accounting statement, as shown here:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p55"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">microsoft.quarterly_income_stmt
+microsoft.quarterly_balance_sheet
+microsoft.quarterly_cash_flow</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p56"> 
+   <p>In chapter 2, we introduced several financial ratios. Collecting financial ratios of companies with Python is easy, as most ratios can be obtained through attributes from simple objects populated using the yfinance functionality. We continue with the object <code>microsoft</code>. The <code>microsoft.info</code> property is an object of the type dictionary. Converting it into a Pandas Series allows us to access the information referenced by the dictionary’s keys as attributes of the newly generated object:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p57"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import pandas as pd
+info = pd.Series(microsoft.info)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p58"> 
+   <p>This <code>info</code> object contains numerous attributes related to corporate information, including headquarters address and financial ratios, such as the P/E value. When writing this book, the library offered 132 attributes to explore. The following code returns the details of what can be queried:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p59"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">print(', '.join(info.keys()))</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p60"> 
+   <p>Accessing that one attribute is a one-liner. Next, we collect Microsoft’s current share price:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p61"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">info.currentPrice</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p62"> 
+   <p>We define a small helper function to collect the company’s ratios. The following snippet returns a DataFrame containing a list of ratios we pass as identifiers: </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p63"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import pandas as pd
+import yfinance as yf
+
+def collect_ratios(tickers: list, ratios: list):
+    rows = []
+
+    for ticker in tickers:
+        info = yf.Ticker(ticker).info
+        row = [ticker] + [info.get(ratio, None) for ratio in ratios]
+        rows.append(row)
+
+    return pd.DataFrame(rows, columns=["Ticker"] + ratios)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p64"> 
+   <p>In chapter 2, we presented various query results in tables. The <code>collect_ratios</code> method makes it easy to get multiple <code>ratios</code>. In the following code, we collect the current and quick ratios of four companies: Walmart (<code>WMT</code>), Altria (<code>MO</code>), NVIDIA (<code>NVDA</code>), and Salesforce (<code>CRM</code>). We also add the sector and industry to the output: </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p65"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">collect_ratios(["WMT", "MO", "NVDA", "CRM"], ["sector", "industry",
+"currentRatio", "quickRatio"])</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p66"> 
+   <p>The output of these methods can be reviewed in chapter 2, as we’ve used this method to collect all the data for the ratios that have been introduced there. Using this method, we can collect more ratios and analysis using attributes, such as <code>debtToEquity</code>, <code>forwardPE</code>, <code>trailingPE</code>, <code>pegRatio</code>, <code>priceToSalesTrailing12Months</code>, <code>priceToBook</code>, <code>beta</code>, or <code>recommendations_summary</code>. The book contains a data science notebook called Ratios, which includes a set of reference commands to generate the results for the ratios shown in chapter 2. Feel free to explore them and choose companies that interest you.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p67"> 
+   <p>It’s time to discuss some ratios we introduced in chapter 2 that aren’t provided as attributes. First, we need to collect a ticker. We’ll also collect references to the latest accounting statements as they are returned to us, in a DataFrame where columns represent the reporting dates:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p68"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+company = yf.Ticker("MSFT")
+col_latest_inc_stmt = company.income_stmt.columns[0]
+col_latest_bs = company.balance_sheet.columns[0]</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p69"> 
+   <p>As shown in table 3.3, we can use code to collect the information. Note that we reference specific financial accounting documents at a particular date, and you may need to adjust the dates accordingly.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p70"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.3</span> How to collect specific ratios using the collected object and helper functions</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Ratio 
+       </div> </th> 
+      <th> 
+       <div>
+         Code 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Return on assets <br/> </td> 
+      <td>  <code>company.income_stmt[col_latest_inc_stmt]["Net Income"]/company.balance_sheet[col_latest_bs]["Total Assets"] * 100</code> <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Return on equity <br/> </td> 
+      <td>  <code>company.income_stmt[col_latest_inc_stmt]["Net Income"]/company.balance_sheet[col_latest_bs]["Stockholders Equity"] * 100</code> <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Profit margin <br/> </td> 
+      <td>  <code>company.income_stmt[col_latest_inc_stmt]["Net Income"]/company.income_stmt[col_latest_inc_stmt]["Total Revenue"] * 100</code> <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Asset turnover ratio <br/> </td> 
+      <td>  <code>company.income_stmt[col_latest_inc_stmt]["Total Revenue"]/company.balance_sheet[col_latest_bs]["Total Assets"]</code> <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Debt-to-equity <br/> </td> 
+      <td>  <code>company.balance_sheet[col_latest_bs]['Total Debt']/company.balance_sheet[col_latest_bs] ['Stockholders Equity']</code> <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p71"> 
+   <p>Another interesting fact is the development of ratios over time. Apple has a higher debt-to-equity (D/E) ratio than its peers, which is likely related to accounting practices. However, it could be a bad sign if the last value suddenly rises significantly. The following code indicates that this ratio fluctuates within years (in 2021, 2.16; in 2022, 2.61; in 2023, 1.78; and in 2024, 1.87), and we can conclude that this D/E ratio won’t prevent us from making an investment decision:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p72"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">company = yf.Ticker("AAPL")
+for i in range(0,4):
+    print(f"{company.balance_sheet.iloc[:,i].name}: 
+{company.balance_sheet.iloc[:,i]['Total 
+Debt']/company.balance_sheet.iloc[:,i]['Stockholders Equity']}")</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p73"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.4.2</span> Technical analysis</h3> 
+  </div> 
+  <div class="readable-text" id="p74"> 
+   <p>We can use yfinance to examine time series data. In the following example, we load Microsoft’s historical stock data into a DataFrame for one year, as shown in table 3.4. In the following code, we load the data for one year by executing this query:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p75"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+historical_data = yf.Ticker("MSFT").history(start="2024-05-08", 
+end="2025-05-08 
+historical_data</pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p76"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.4</span> Microsoft’s historical price data showing open, high, low, and close prices, as well as trading volume</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Date 
+       </div> </th> 
+      <th> 
+       <div>
+         Open price ($) 
+       </div> </th> 
+      <th> 
+       <div>
+         High price ($) 
+       </div> </th> 
+      <th> 
+       <div>
+         Low price ($) 
+       </div> </th> 
+      <th> 
+       <div>
+         Close price ($) 
+       </div> </th> 
+      <th> 
+       <div>
+         Volume 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  2025-05-07 00:00:00-04:00 <br/> </td> 
+      <td>  433.05 <br/> </td> 
+      <td>  437.32 <br/> </td> 
+      <td>  430.32 <br/> </td> 
+      <td>  432.56 <br/> </td> 
+      <td>  23,295,300 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2025-05-06 00:00:00-04:00 <br/> </td> 
+      <td>  431.41 <br/> </td> 
+      <td>  436.93 <br/> </td> 
+      <td>  430.38 <br/> </td> 
+      <td>  432.52 <br/> </td> 
+      <td>  15,104,200 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2025-05-05 00:00:00-04:00 <br/> </td> 
+      <td>  432.08 <br/> </td> 
+      <td>  438.69 <br/> </td> 
+      <td>  431.32 <br/> </td> 
+      <td>  435.37 <br/> </td> 
+      <td>  20,136,100 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2025-05-02 00:00:00-04:00 <br/> </td> 
+      <td>  430.95 <br/> </td> 
+      <td>  438.63 <br/> </td> 
+      <td>  429.20 <br/> </td> 
+      <td>  434.48 <br/> </td> 
+      <td>  30,757,400 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2025-05-01 00:00:00-04:00 <br/> </td> 
+      <td>  430.32 <br/> </td> 
+      <td>  436.19 <br/> </td> 
+      <td>  424.12 <br/> </td> 
+      <td>  424.62 <br/> </td> 
+      <td>  58,938,100 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: yfinance data from June 8, 2025 <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p77"> 
+   <p>Occasionally, we prefer to have exact time intervals; in the following code, we show how to collect data for 2023. The source code output here would return the same data structure as in table 3.4, with different dates and values:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p78"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+hd_msft_2023 = yf.Ticker("MSFT").history(start="2023-01-01", 
+end="2023-12-31")
+hd_msft_2023</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p79"> 
+   <p>The everyday use case uses technical data to explore how stock prices evolve: What is the spread between highs and lows, and how volatile is the stock? The more volatile the share price has been in the past, the higher the likelihood that it will continue to be erratic.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p80"> 
+   <p><span class="print-book-callout-head">Note </span> Past performance doesn’t guarantee future results. However, if you take several stocks with stable past performance and put them in a portfolio, you can absorb single stocks performing below expectations. Providing risk-optimized portfolios is often the domain of exchange-traded funds (ETFs).</p> 
+  </div> 
+  <div class="readable-text" id="p81"> 
+   <p>In chapter 2, we concluded that the share prices of companies from the consumer staples sector, such as Coca-Cola, are likely more stable. This sector represents goods for everyday needs, but consumers will also purchase during crises. If we compare Coca-Cola with a start-up, we can see this difference in the numbers. Let’s load the required data and compare Coca-Cola with NuScale (<code>SMR</code>), a company focusing on building small modular reactors. We also add Apple (<code>AAPL</code>) to the portfolio to diversify our baseline with a third company:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p82"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+hist_prices_2023 = yf.Tickers(["AAPL", "SMR", "KO"]).history
+(start= "2023-01-01", end= "2023-12-31")</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p83"> 
+   <p>The share prices of different stocks don’t give us a basis for comparing stocks. Company A might be traded at $1,000 per share, and Company B at $10. The price is just a number without the number of shares outstanding. Companies with high share prices often consider a share split to reduce the cost of purchasing a single share. If Company A decided to split the shares in a 1:10 ratio, and you held 1 share, after the split, you would have 10 shares of stock with a share price of $100. Therefore, we need to set a starting date for our comparison and assume the price of each company starts at 100%, from which we track the price changes in percentage terms.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p84"> 
+   <p>NuScale’s share price could have been better in 2023. We’ll plot the share prices as a percentage over time to illustrate this. The following code extracts the closing prices and creates a DataFrame with the percentage changes for each ticker at the beginning of the period (you may need to install the Matplotlib library):</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p85"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">def plot_closing_prices(data):
+    import matplotlib.pyplot as plt
+    close_prices = data["Close"]
+    price_change_in_percentage = (close_prices / close_prices.iloc[0] * 100)
+    price_change_in_percentage.plot(figsize = (12,8), fontsize = 12)
+    plt.ylabel("Percentage")
+    plt.title(f"Price Chart", fontsize = 15)
+    plt.show()</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p86"> 
+   <p>By calling this method with the DataFrame as a parameter, such as by <code>plot_closing_ prices(hist_prices)</code>, we can generate a plot, as shown in figure 3.3.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p87">  
+   <img alt="figure" src="../Images/3-3.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.3</span> The share price development of Apple (AAPL), Coca-Cola (KO), and NuScale (SMR)</h5>
+  </div> 
+  <div class="readable-text" id="p88"> 
+   <p>If you looked purely at 2023, you might be tempted to say that it would be wise to invest in Apple and short sell NuScale. However, if you look at the results of 2024, in which the share price of NuScale soared, this would have been a disastrous decision. Figure 3.4 shows the results if we picked the stock starting from November 22 and one year back. We collect the data using the stock tickers as identifiers and then call the method to plot the graph:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p89"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+hd_nvda_smr_aapl_1yr = yf.Tickers(["AAPL", "SMR", "KO"]).history
+(start= "2023-11-22", end= "2024-11-22")
+plot_closing_prices(hd_nvda_smr_aapl_1yr)<span class="aframe-location"/></pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container figure-container" id="p90">  
+   <img alt="figure" src="../Images/3-4.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.4</span> The share price development of Apple (AAPL), Coca-Cola (KO) and NuScale (SMR) in 2024</h5>
+  </div> 
+  <div class="readable-text" id="p91"> 
+   <p>In chapter 4, we’ll explore more details on how to identify other companies, such as NuScale, that can grow stronger than the market. Let’s begin by exploring the market returns. We have the closing price of a share and can compare it with the previous day’s price. With that, we can calculate daily returns:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p92"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">simple_returns = hist_prices_24 ["Close"].pct_change
+(fill_method=None).dropna()
+simple_returns</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p93"> 
+   <p>Returns calculated this way are called <em>simple returns</em>. A second method for calculating returns is using <em>logarithmic returns</em>. Instead of subtracting the end price from the starting price, we use log functions: </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p94"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import numpy as np
+log_rets = hist_prices_24["Close"].apply(lambda x: np.log(x / 
+x.shift())).dropna()
+log_rets</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p95"> 
+   <p>Logarithmic returns have found broad application in calculating returns compared to simple returns, which we would obtain if we simply subtracted the previous day’s closing price from the current day’s closing price. Logarithmic returns differ in that they measure the continuous compounded rate of returns, which is more beneficial for statistical analysis. We can also plot the returns in a histogram to discover how often we had outliers (see figure 3.5 for the results):</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p96"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">log_rets_2023 = hist_prices_2023["Close"].apply(lambda x: np.log(x / 
+x.shift())).dropna()
+log_rets_2023.hist(bins=35, figsize=(10, 6))<span class="aframe-location"/></pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container figure-container" id="p97">  
+   <img alt="figure" src="../Images/3-5.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.5</span> The histogram of the returns for Apple (AAPL), Coca-Cola (KO), and NuScale (SMR)</h5>
+  </div> 
+  <div class="readable-text" id="p98"> 
+   <p>To finalize our primer on technical analysis, let’s look at three standard metrics: mean, standard deviation, and variance. Again, we use a snippet here to visualize the differences between these statistical methods (see the results in table 3.5):</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p99"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">summary = log_rets_2023.agg(["mean", "std", "var"]).T
+summary.columns = ["Mean", "Std", "Var"]
+summary</pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p100"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.5</span> Statistics for Apple, Coca-Cola, and NuScale</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Company 
+       </div> </th> 
+      <th> 
+       <div>
+         mean 
+       </div> </th> 
+      <th> 
+       <div>
+         std 
+       </div> </th> 
+      <th> 
+       <div>
+         var 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Coca-Cola <br/> </td> 
+      <td>  -0.035349 <br/> </td> 
+      <td>  0.134959 <br/> </td> 
+      <td>  0.018214 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Apple <br/> </td> 
+      <td>  0.442217 <br/> </td> 
+      <td>  0.199222 <br/> </td> 
+      <td>  0.039690 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  NuScale <br/> </td> 
+      <td>  -1.149094 <br/> </td> 
+      <td>  0.799615 <br/> </td> 
+      <td>  0.639385 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: yfinance 2023 data <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p101"> 
+   <p>The <em>mean</em> is the average stock price over the given period, representing the “central” value of the dataset. <em>Variance</em> measures how far each price deviates from the mean in squared units. The <em>standard deviation</em> is the square root of the variance, bringing the measure back to the same units as the prices. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p102"> 
+   <p>The data shows that NuScale exhibits significant fluctuations. However, someone who in 2023 made a short-term bet on Coca-Cola would have been disappointed as well. These metrics already give us an idea about the performance of stocks. In later chapters, we’ll delve into more detail and demonstrate how to determine if stocks in a portfolio correlate. </p> 
+  </div> 
+  <div class="readable-text" id="p103"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.4.3</span> Limitations of yfinance</h3> 
+  </div> 
+  <div class="readable-text" id="p104"> 
+   <p>Digging into the source code of the yfinance code on GitHub, we see that it uses web scraping frameworks, such as Beautiful Soup. On the landing page, the author introduces this library as a wrapper for Yahoo’s internal API, highlighting that Yahoo doesn’t maintain the yfinance library. For developers who rely on getting valid results, this scenario poses a risk. Yahoo is unlikely to inform the maintainers of an open source product that scrapes its data about upcoming changes. In the worst case, Yahoo might even decide, at some point, to implement anti-scraping methods to restrict access to its financial data at any time.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p105"> 
+   <p>As shown in figure 3.6, sustainability data wasn’t supported with a version of yfinance in the middle of 2024. Programmers who wanted to incorporate sustainability data into their analysis would have to use a different library.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p106">  
+   <img alt="figure" src="../Images/3-6.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.6</span> Initial limitations of yfinance with sustainability data. Note that this problem is gone with newer versions.</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p107"> 
+   <p>The good news is that with the latest version of yfinance, this problem disappeared. Still, yfinance depends on Yahoo’s benevolence, so it’s essential to know alternative products.</p> 
+  </div> 
+  <div class="readable-text" id="p108"> 
+   <h2 class=" readable-text-h2"><span class="num-string">3.5</span> Commercial libraries</h2> 
+  </div> 
+  <div class="readable-text" id="p109"> 
+   <p>For many personal investment assessments, yfinance is just fine. While commercial libraries primarily target companies seeking to develop their financial products, there are still compelling reasons for private investors to collaborate with these libraries.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p110"> 
+   <p>The freemium model of commercial libraries encompasses certain aspects of analysis for personal use. If, for instance, the limitation of a free plan is that some data arrives delayed or you have a limited quota of API calls, you might still run some algorithms on stocks in your portfolio. In this book, we primarily use yfinance, but in some examples later, we’ll use some of these commercial libraries in their freemium versions, where it makes sense.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p111"> 
+   <p><span class="print-book-callout-head">Note </span> Commercial libraries require you to create API keys. In the appendix, we show a general approach to working with API keys.</p> 
+  </div> 
+  <div class="readable-text" id="p112"> 
+   <p>Before we explore commercial libraries, let’s see how the ideal data provision works. Scraping data from a UI, as in yfinance, adds risks and overhead. The moment the UI structure changes, we may need to adjust our code to scrape the platform. One risk that users of yfinance face is that Yahoo could change its policy to allow an open source library to scrape its data. While we can transition as private investors to a different library, some of us prefer not to make that effort and are ready to pay a small sum for a commercial product, especially if it helps us generate better returns.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p113"> 
+   <p>The root for technical data is the exchange that lists the stocks we’re interested in. As we have many exchanges, various entities provide data from different sources. Don’t forget that we also have international exchanges, in addition to US exchanges, and collect data from all over the world. Each of these exchanges may provide different APIs and standards. We need to dedicate some effort to maintaining the data collection process if we aim to build a commercial library that provides data from all exchanges.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p114"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Financial providers and their data providers</h5> 
+   </div> 
+   <div class="readable-text" id="p115"> 
+    <p>Yahoo Finance statistics (<a href="https://mng.bz/z2Dg">https://mng.bz/z2Dg</a>) confirm that Yahoo Finance uses data providers such as Refinitiv, Edgar Online, and Morningstar to collect information. The provider EODHD (<a href="https://eodhd.com/">https://eodhd.com/</a>) claims in its FAQ that it collects data through direct contracts with various exchanges. They also collect fundamental data from financial news providers, corporate websites, and annual reports, with direct extraction from <a href="http://www.sec.gov">www.sec.gov</a> for the US and <a href="http://www.sedarplus.ca/landingpage/">www.sedarplus.ca/landingpage/</a> for Canada.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p116"> 
+   <p>Fundamental data is extracted from accounting statements; the best source is to load data from those entities where the data is filed. This information should be available to the public anyway. Let’s examine figure 3.7, which illustrates a reference process.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p117">  
+   <img alt="figure" src="../Images/3-7.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.7</span> In a slightly simplified way, users can collect data from financial data providers, who collect technical data from one or more exchanges per country and one regulator per country. </h5>
+  </div> 
+  <div class="readable-text" id="p118"> 
+   <p>Data providers collect data from exchanges and government agencies. While accounting statements are filed quarterly, share prices change frequently during an exchange’s opening times, so data from exchanges is likely a streaming source.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p119"> 
+   <p><span class="print-book-callout-head">Note </span> We can integrate generative AI (GenAI) platforms into our source code, submit prompts, and interpret results using frameworks such as LangChain. Large language models (LLMs) and AI agents will eventually transform the way we analyze investments. For now, being able to collect data to obtain reproducible results deterministically is a use case that GenAI hasn’t yet replaced.</p> 
+  </div> 
+  <div class="readable-text" id="p120"> 
+   <p>Many companies provide financial data to consumers. Some, such as Refinitiv and Morgan Stanley, are focused on business-to-business (B2B) companies. In this book, we focus on four providers that may be of interest to start-ups, as listed in table 3.6.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p121"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.6</span> APIs and their packages</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Platform 
+       </div> </th> 
+      <th> 
+       <div>
+         Packages 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Finviz <br/> </td> 
+      <td>  Elite subscription costs $24.96 per month. <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  EODHD <br/> </td> 
+      <td>  Packages range from $0 to $199.00 per month. <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Alpha Vantage <br/> </td> 
+      <td>  Packages range from $0 to $249.99 per month. <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  OpenBB <br/> </td> 
+      <td>  Pricing isn’t disclosed. <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p122"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.5.1</span> Finviz</h3> 
+  </div> 
+  <div class="readable-text" id="p123"> 
+   <p>Finviz is a popular financial platform best known for its feature-rich stock screener on the platform’s webpage, as shown in figure 3.8. The major downside of this platform is that it only provides data for companies listed on US exchanges. Because Finviz is popular among investors and often featured in finance training videos, it still makes sense to introduce the API to users who plan to invest only in the United States and appreciate the stock screener’s richness. However, we won’t use this API for samples in the book.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p124">  
+   <img alt="figure" src="../Images/3-8.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.8</span> Finviz stock screener home page showing various tickers</h5>
+  </div> 
+  <div class="readable-text" id="p125"> 
+   <p>Finviz offers a paid subscription called Finviz Elite, which offers an API. You can set up an authentication token to parse the screener, as shown in figure 3.9.<span class="aframe-location"/> </p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p126">  
+   <img alt="figure" src="../Images/3-9.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.9</span> Finviz screen that explains how to use the API</h5>
+  </div> 
+  <div class="readable-text" id="p127"> 
+   <p>After generating a token, we can access stock data. In this example, we can use the following code to access Finviz and export data to a CSV file. We use a REST API to collect information about the stock. It exports all data based on predefined filters, allowing us to collect fundamental data. Note that to execute the following code, you need to define a variable token that contains your access token. This token is required for multiple requests to collect data from Finviz:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p128"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import requests
+URL = f"https://elite.finviz.com/export.ashx?[allYourFilters]&amp;auth={token}"
+response = requests.get(URL)
+open("export.csv", "wb").write(response.content)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p129"> 
+   <p>The commercial Finviz API also lets users collect data for the portfolios they create on the platform. Figure 3.10 shows a sample portfolio in Finviz. A portfolio is a list of stocks a user tracks to which they can add the number of shares they own. With that, you can quickly run a personalized portfolio analysis if you’ve already tracked your portfolio on Finviz.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p130">  
+   <img alt="figure" src="../Images/3-10.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.10</span> Example portfolio with Finviz containing assets associated with climate change</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p131"> 
+   <p>A unique ID identifies every user portfolio. Using the paid Finviz API, users can collect data via the following URL by passing the portfolio ID as a variable:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p132"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">https://elite.finviz.com/portfolio_export.ashx?
+pid={pid}&amp;o=price&amp;auth={token}</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p133"> 
+   <p>Python Package Index (PyPI) lists alternative and free libraries that scrape Finviz data without using Finviz’s paid service. These libraries follow the same strategy as yfinance: They scrape data from the web and return data in Pandas DataFrames. These libraries also share the same risks as yfinance. If the financial platform deploys anti-scraping methods, the libraries become unusable.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p134"> 
+   <p><span class="print-book-callout-head">Note </span> Finviz users might observe that stocks of companies with a headquarters outside the United States are displayed, even though Finviz only supports US stock markets. For example, users may be able to explore a Danish company that produces weight loss drugs (Novo Nordisk), but they don’t see a large windmill producer from Denmark (&Oslash;rsted A/S). The reason is American Depositary Receipts (ADRs), which mirror a stock from a foreign exchange to the US exchange. However, this vehicle has downsides, including dividend custody fees and other risks.</p> 
+  </div> 
+  <div class="readable-text" id="p135"> 
+   <p>The paid Finviz API may be a suitable alternative for investors who primarily use US stock exchanges and want to avoid potential long-term risks associated with incompatibilities with open source libraries. Still, we must continue our search, as we need a library that covers a wide range of stock exchanges.</p> 
+  </div> 
+  <div class="readable-text" id="p136"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.5.2</span> EODHD</h3> 
+  </div> 
+  <div class="readable-text" id="p137"> 
+   <p>Finviz and yfinance, the libraries we’ve explored so far, attract users with powerful UIs that provide stock screening functionality and add libraries to collect data as an additional feature. EODHD, in contrast, is a platform where data provision is the primary business model.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p138"> 
+   <p>EODHD offers a freemium model that provides historical data from the previous year. It’s limited to 20 API calls per day, which may be helpful to private investors who run analyses on their data infrequently. The paid subscription helps programmers build a product that expects many API calls from clients, as their pricing data includes features such as 100,000 API calls per day or 1,000 API requests per minute.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p139"> 
+   <p>The first part of the following code is self-explanatory. We instantiate a client object using an API key as a parameter that identifies us:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p140"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">from eodhd import APIClient
+client = APIClient(api_key)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p141"> 
+   <p>The platform then determines whether we’re authorized to use specific features based on our subscription model (see the appendix for more information on API keys). The biggest challenge with the Finviz library is that it only supported US exchanges. Let’s confirm that we aren’t limited in such a way using EODHD. We run code to collect the number of exchanges and obtain 77 exchanges connected to this platform, as shown in table 3.7:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p142"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">client.get_exchanges()</pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p143"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.7</span> A query that returns 77 possible exchanges for EODHD</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th/> 
+      <th> 
+       <div>
+         Name 
+       </div> </th> 
+      <th> 
+       <div>
+         Code 
+       </div> </th> 
+      <th> 
+       <div>
+         OperatingMIC 
+       </div> </th> 
+      <th> 
+       <div>
+         Country 
+       </div> </th> 
+      <th> 
+       <div>
+         Currency 
+       </div> </th> 
+      <th> 
+       <div>
+         CountryISO02 
+       </div> </th> 
+      <th> 
+       <div>
+         CountryISO03 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  0 <br/> </td> 
+      <td>  USA Stocks <br/> </td> 
+      <td>  US <br/> </td> 
+      <td>  XNAS, XNYS, OTCM <br/> </td> 
+      <td>  US <br/> </td> 
+      <td>  USD <br/> </td> 
+      <td>  US <br/> </td> 
+      <td>  US <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  1 <br/> </td> 
+      <td>  London Stock Exchange <br/> </td> 
+      <td>  LSE <br/> </td> 
+      <td>  XLON <br/> </td> 
+      <td>  UK <br/> </td> 
+      <td>  GBP <br/> </td> 
+      <td>  GB <br/> </td> 
+      <td>  GBR <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2 <br/> </td> 
+      <td>  Toronto Exchange <br/> </td> 
+      <td>  TO <br/> </td> 
+      <td>  XTSE <br/> </td> 
+      <td>  Canada <br/> </td> 
+      <td>  CAD <br/> </td> 
+      <td>  CA <br/> </td> 
+      <td>  CAN <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  3 <br/> </td> 
+      <td>  TSX Venture Exchange <br/> </td> 
+      <td>  V <br/> </td> 
+      <td>  XTSX <br/> </td> 
+      <td>  Canada <br/> </td> 
+      <td>  CAD <br/> </td> 
+      <td>  CA <br/> </td> 
+      <td>  CAN <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  4 <br/> </td> 
+      <td>  NEO Exchange <br/> </td> 
+      <td>  NEO <br/> </td> 
+      <td>  NEOE <br/> </td> 
+      <td>  Canada <br/> </td> 
+      <td>  CAD <br/> </td> 
+      <td>  CA <br/> </td> 
+      <td>  CAN <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: Data is from the DataFrame. <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p144"> 
+   <p>With 77 exchanges, we can build a product that caters to the international market. Let’s load some historical data from Rolls-Royce on the LSE and display the results in table 3.8.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p145"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">resp = client.get_eod_historical_stock_market_data(symbol = 'RR.LSE',
+ period='d', from_date = '2024-06-01', to_date = '2024-06-17', order='a')
+df = pd.DataFrame(resp)
+df</pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p146"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.8</span> EODHD showing the data for Rolls-Royce</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Date 
+       </div> </th> 
+      <th> 
+       <div>
+         Open 
+       </div> </th> 
+      <th> 
+       <div>
+         High 
+       </div> </th> 
+      <th> 
+       <div>
+         Low 
+       </div> </th> 
+      <th> 
+       <div>
+         Close 
+       </div> </th> 
+      <th> 
+       <div>
+         Adjusted close 
+       </div> </th> 
+      <th> 
+       <div>
+         Volume 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  2024-06-03 <br/> </td> 
+      <td>  459.30000000 <br/> </td> 
+      <td>  468.10000000 <br/> </td> 
+      <td>  458.60000000 <br/> </td> 
+      <td>  460.90000000 <br/> </td> 
+      <td>  460.90000000 <br/> </td> 
+      <td>  51,917,078 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2024-06-04 <br/> </td> 
+      <td>  460.20000000 <br/> </td> 
+      <td>  462.70000000 <br/> </td> 
+      <td>  448.00000000 <br/> </td> 
+      <td>  448.00000000 <br/> </td> 
+      <td>  448.00000000 <br/> </td> 
+      <td>  31,952,811 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2024-06-05 <br/> </td> 
+      <td>  450.70000000 <br/> </td> 
+      <td>  458.00000000 <br/> </td> 
+      <td>  448.80000000 <br/> </td> 
+      <td>  453.30000000 <br/> </td> 
+      <td>  453.30000000 <br/> </td> 
+      <td>  19,116,760 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2024-06-06 <br/> </td> 
+      <td>  458.00000000 <br/> </td> 
+      <td>  463.10000000 <br/> </td> 
+      <td>  450.50000000 <br/> </td> 
+      <td>  458.20000000 <br/> </td> 
+      <td>  458.20000000 <br/> </td> 
+      <td>  19,410,820 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2024-06-07 <br/> </td> 
+      <td>  458.20000000 <br/> </td> 
+      <td>  462.30000000 <br/> </td> 
+      <td>  451.00000000 <br/> </td> 
+      <td>  456.90000000 <br/> </td> 
+      <td>  456.90000000 <br/> </td> 
+      <td>  15,420,780 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: London Stock Exchange <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p147"> 
+   <p>Comparing the results of this DataFrame with the yfinance DataFrame reveals that both have a similar column structure. If we’re willing to pay for EODHD as a data provider, we would eliminate these limitations and be able to switch from yfinance to EODHD without having to rewrite a lot of code, as the interfaces are similar. </p> 
+  </div> 
+  <div class="readable-text" id="p148"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.5.3</span> Alpha Vantage</h3> 
+  </div> 
+  <div class="readable-text" id="p149"> 
+   <p>Like EODHD, Alpha Vantage’s primary business model is to provide financial data via an API. The provider offers a free package and advanced services through a paid subscription.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p150"> 
+   <p>Let’s collect some time series data. In this example, we load data from Apple. As with EODHD, we need a key that authenticates us. We’ll get access to more data if we upgrade our key with a paid subscription:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p151"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">from alpha_vantage.timeseries import TimeSeries
+import pandas as pd
+
+symbol = 'AAPL'
+ts = TimeSeries(key)
+data, meta_data = ts.get_daily(symbol=symbol)
+df = pd.DataFrame(data)
+df</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p152"> 
+   <p>The result is again a DataFrame, as shown in table 3.9. However, the columns and rows are displayed transposed by default in EODHD and yfinance.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p153"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.9</span> The results of querying data from Alpha Vantage (inverted compared to yfinance or EODHD)</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Type 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-06-06 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-06-05 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-06-04 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-06-03 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-06-02 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-05-30 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-05-29 
+       </div> </th> 
+      <th> 
+       <div>
+         2025-05-28 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Open <br/> </td> 
+      <td>  203.0000 <br/> </td> 
+      <td>  203.5000 <br/> </td> 
+      <td>  202.9100 <br/> </td> 
+      <td>  201.3500 <br/> </td> 
+      <td>  200.2800 <br/> </td> 
+      <td>  199.3700 <br/> </td> 
+      <td>  203.5750 <br/> </td> 
+      <td>  200.5900 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  High <br/> </td> 
+      <td>  205.7000 <br/> </td> 
+      <td>  204.7500 <br/> </td> 
+      <td>  206.2400 <br/> </td> 
+      <td>  203.7700 <br/> </td> 
+      <td>  202.1300 <br/> </td> 
+      <td>  201.9600 <br/> </td> 
+      <td>  203.8100 <br/> </td> 
+      <td>  202.7300 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Low <br/> </td> 
+      <td>  202.0500 <br/> </td> 
+      <td>  200.1500 <br/> </td> 
+      <td>  202.1000 <br/> </td> 
+      <td>  200.9550 <br/> </td> 
+      <td>  200.1200 <br/> </td> 
+      <td>  196.7800 <br/> </td> 
+      <td>  198.5100 <br/> </td> 
+      <td>  199.9000 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Close <br/> </td> 
+      <td>  203.9200 <br/> </td> 
+      <td>  200.6300 <br/> </td> 
+      <td>  202.8200 <br/> </td> 
+      <td>  203.2700 <br/> </td> 
+      <td>  201.7000 <br/> </td> 
+      <td>  200.8500 <br/> </td> 
+      <td>  199.9500 <br/> </td> 
+      <td>  200.4200 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Volume <br/> </td> 
+      <td>  46,607,693 <br/> </td> 
+      <td>  55,221,235 <br/> </td> 
+      <td>  43,603,985 <br/> </td> 
+      <td>  46,381,567 <br/> </td> 
+      <td>  35,423,294 <br/> </td> 
+      <td>  70,819,942 <br/> </td> 
+      <td>  51,477,938 <br/> </td> 
+      <td>  45,339,678 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: yfinance <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p154"> 
+   <p>Luckily, transforming to the style of yfinance and EODHD requires only one command, <code>df.T</code>, and the results are shown in table 3.10.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p155"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.10</span> Data from Alpha Vantage after a transpose operation to match the structure of yfinance and EODHD</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Date 
+       </div> </th> 
+      <th> 
+       <div>
+         Open 
+       </div> </th> 
+      <th> 
+       <div>
+         High 
+       </div> </th> 
+      <th> 
+       <div>
+         Low 
+       </div> </th> 
+      <th> 
+       <div>
+         Close 
+       </div> </th> 
+      <th> 
+       <div>
+         Volume 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  2025-06-06 <br/> </td> 
+      <td>  203.0000 <br/> </td> 
+      <td>  205.7000 <br/> </td> 
+      <td>  202.0500 <br/> </td> 
+      <td>  203.9200 <br/> </td> 
+      <td>  46,607,693 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2025-06-05 <br/> </td> 
+      <td>  203.5000 <br/> </td> 
+      <td>  203.5000 <br/> </td> 
+      <td>  200.1500 <br/> </td> 
+      <td>  200.6300 <br/> </td> 
+      <td>  55,221,235 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2025-06-04 <br/> </td> 
+      <td>  202.9100 <br/> </td> 
+      <td>  206.2400 <br/> </td> 
+      <td>  202.1000 <br/> </td> 
+      <td>  202.8200 <br/> </td> 
+      <td>  43,603,985 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: yfinance <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p156"> 
+   <p>There’s one hidden limitation. Many platforms return two different datasets for the closing price: the adjusted close and the close price. The adjusted close price returns data is adjusted for stock splits and dividend payouts. The good news is that we can obtain the adjusted close price using an alternative method. However, this method is part of a premium service. Calling the following method without a subscription would only return a message that tells us to subscribe to a premium service:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p157"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">data, meta_data = ts.get_daily_adjusted(symbol, outputsize='full')</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p158"> 
+   <p>The free package includes another feature that may be of interest to programmers. The following code collects news sentiments through the REST API from Alpha Vantage and stores them in a DataFrame. For this code example, we use the ticker <code>SMR</code>, which we used earlier to represent the stock of NuScale Power, a nuclear energy company that builds Small Modular Reactors (SMRs). Figure 3.11 shows the output of the following query: </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p159"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import requests
+import pandas as pd
+
+ticker = 'SMR'
+url = f'https://www.alphavantage.co/query?
+function=NEWS_SENTIMENT&amp;tickers={ticker}&amp;apikey={key}'
+r = requests.get(url)
+data = r.json()['feed']
+df = pd.DataFrame.from_dict(data)
+df<span class="aframe-location"/></pre>  
+   </div> 
+  </div> 
+  <div class="browsable-container figure-container" id="p160">  
+   <img alt="figure" src="../Images/3-11.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 3.11</span> The sentiment analysis results for the nuclear energy company NuScale</h5>
+  </div> 
+  <div class="readable-text" id="p161"> 
+   <h3 class=" readable-text-h3"><span class="num-string">3.5.4</span> OpenBB</h3> 
+  </div> 
+  <div class="readable-text" id="p162"> 
+   <p>OpenBB integrates various asset classes beyond stocks. However, first, let’s demonstrate how to collect data using methods similar to those employed by other libraries. Using two lines, we collect technical data on a stock:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p163"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">from openbb import obb
+obb.equity.price.historical("NVDA").to_df().head()</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p164"> 
+   <p>As shown in table 3.11, our output is like that of other libraries that load technical data for stocks.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p165"> 
+   <p><span class="print-book-callout-head">Note </span> At the time of writing this book, the OpenBB library didn’t yet support the latest available Python version (3.13). Users who want to explore this library can use Python version 3.12.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p166"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 3.11</span> Retrieving technical data through OpenBB</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Date 
+       </div> </th> 
+      <th> 
+       <div>
+         Open 
+       </div> </th> 
+      <th> 
+       <div>
+         High 
+       </div> </th> 
+      <th> 
+       <div>
+         Low 
+       </div> </th> 
+      <th> 
+       <div>
+         Close 
+       </div> </th> 
+      <th> 
+       <div>
+         Volume 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  2023-06-26 <br/> </td> 
+      <td>  42.460999 <br/> </td> 
+      <td>  42.76400 <br/> </td> 
+      <td>  40.099998 <br/> </td> 
+      <td>  40.632000 <br/> </td> 
+      <td>  594,322,000 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2023-06-27 <br/> </td> 
+      <td>  40.799000 <br/> </td> 
+      <td>  41.93999 <br/> </td> 
+      <td>  40.448002 <br/> </td> 
+      <td>  41.875999 <br/> </td> 
+      <td>  4,621,750,000 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2023-06-28 <br/> </td> 
+      <td>  40.660000 <br/> </td> 
+      <td>  41.845001 <br/> </td> 
+      <td>  40.518002 <br/> </td> 
+      <td>  41.117001 <br/> </td> 
+      <td>  582,639,000 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2023-06-29 <br/> </td> 
+      <td>  41.557999 <br/> </td> 
+      <td>  41.599998 <br/> </td> 
+      <td>  40.599998 <br/> </td> 
+      <td>  40.821999 <br/> </td> 
+      <td>  380,514,000 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  2023-06-30 <br/> </td> 
+      <td>  41.680000 <br/> </td> 
+      <td>  42.549999 <br/> </td> 
+      <td>  41.500999 <br/> </td> 
+      <td>  42.301998 <br/> </td> 
+      <td>  501,148,000 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Source: OpenBB <br/> </td> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+      <td/> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p167"> 
+   <p>Let’s focus on this API’s differentiator. The following code shows how to integrate multiple data providers into this API. We can work with various providers in theory, which increases our possibilities by allowing us to switch from one provider to another without requiring any code changes:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p168"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">obb.equity.price.historical("NVDA", provider="yfinance").to_df().head()</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p169"> 
+   <p>But this doesn’t end here. So far, we’ve been focused on stock information, but as we learned in chapter 1, the financial universe consists of many assets. Let’s look at the following self-explanatory snippets:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p170"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">obb.currency.price.historical("USDGBP").to_df().head()
+obb.fixedincome.government.treasury_rates(
+start_date="2024-01-02").to_df().dropna()
+obb.crypto.price.historical("SOLUSD").to_df().tail()</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p171"> 
+   <p>Using this library, we also get access to other assets. OpenBB might be the best library for programmers who want to explore markets other than stocks; they could choose this library.</p> 
+  </div> 
+  <div class="readable-text" id="p172"> 
+   <h2 class=" readable-text-h2"><span class="num-string">3.6</span> Other libraries</h2> 
+  </div> 
+  <div class="readable-text" id="p173"> 
+   <p>The Awesome Quant GitHub page at <a href="https://github.com/wilsonfreitas/awesome-quant">https://github.com/wilsonfreitas/awesome-quant</a> provides a comprehensive list of alternatives for collecting financial data. However, rewriting the code can be time-consuming if we choose libraries and later find out that they don’t meet our expectations.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p174"> 
+   <p>One parameter to see if the library meets today’s standards is the day of its last update. The PyPi web page is a commonly used repository for Python libraries and provides this information. All we need to do is look at the library’s page, as shown with yfinance here: <a href="https://pypi.org/project/yfinance/">https://pypi.org/project/yfinance/</a>. We can see regular releases in the PyPI release History page. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p175"> 
+   <p>Another source of information is a library’s GitHub repository, where the library’s source code is hosted. We can look for the dates of the most recent commits. Following is the link to the yfinance repository: <a href="https://github.com/ranaroussi/yfinance">https://github.com/ranaroussi/yfinance</a>.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p176"> 
+   <p>One rule of thumb is to use a library that has been updated within the past year. New Python versions are being released, and financial platforms are changing their interfaces. At some point, a library may become incompatible if nobody is left to maintain it. For that reason, we want libraries with multiple contributors. We should also compare libraries by the number of stars and forks and select more popular libraries, as this indicates a substantial likelihood of attracting new contributors.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p177"> 
+   <p>We aim to filter the existing library repository to identify further possible limitations. Let’s set some further criteria:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p178"> Some libraries require system-specific software and may only support specific operating systems. We want libraries that run on most platforms. </li> 
+   <li class="readable-text" id="p179"> Some APIs are designed specifically for stock exchanges in a single country. We look for libraries that support as many stock exchanges as possible. </li> 
+   <li class="readable-text" id="p180"> Although English is the default language for most projects, we may encounter projects that use a different documentation language. We want to exclude these projects. </li> 
+  </ul> 
+  <div class="readable-text" id="p181"> 
+   <p>For this book, we’ll focus as much as possible on yfinance. It’s the best-known API for investment analysis, and you’ll find tons of snippets and advice to extend the code you write.</p> 
+  </div> 
+  <div class="readable-text" id="p182"> 
+   <h2 class=" readable-text-h2">Summary</h2> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p183"> We can categorize data into three groups: fundamental, technical, and nonfinancial. </li> 
+   <li class="readable-text" id="p184"> Data science notebooks are ideal for analyzing individual stocks, as their interactive nature allows you to explore data and discover insights rapidly. </li> 
+   <li class="readable-text" id="p185"> Fundamental analysis involves examining financial reports and ratios. </li> 
+   <li class="readable-text" id="p186"> Technical analysis involves analyzing asset prices to inform sound investment decisions. </li> 
+   <li class="readable-text" id="p187"> Nonfinancial analysis encompasses all data unrelated to technical and fundamental analysis and may, for instance, include sentiment analysis about a company. </li> 
+   <li class="readable-text" id="p188"> Different libraries offer different advantages and have other constraints. It’s good to know more than one library to load financial data. </li> 
+   <li class="readable-text" id="p189"> yfinance is the best library for beginners experimenting with financial data because it’s free and provides stock data from numerous exchanges (both US and non-US) for fundamental and technical analysis. </li> 
+   <li class="readable-text" id="p190"> Using the yfinance library for professional financial products is risky because Yahoo doesn’t officially support it. Any changes to the Yahoo Finance platform can cause the library to break without warning. </li> 
+   <li class="readable-text" id="p191"> To build a commercial product using financial data, you need libraries that offer a paid subscription and provide service guarantees. EODHD, Finviz, Alpha Vantage, and OpenBB are candidates that could be explored further. </li> 
+   <li class="readable-text" id="p192"> Finviz provides an API on a paid subscription basis and supports only stocks listed on US exchanges. It can be a good option for investors who plan to invest only in the US market. </li> 
+   <li class="readable-text" id="p193"> EODHD is a commercial data provider that offers a free version with limited API calls, supporting many exchanges. If you have a limited number of daily calls, use the free EODHD version. </li> 
+   <li class="readable-text" id="p194"> Alpha Vantage is a commercial data provider with a limited free version. One challenge with the free API is that it doesn’t provide adjusted close prices. Alpha Vantage allows you to collect news sentiments through its library, making it unique among similar libraries. </li> 
+   <li class="readable-text" id="p195"> OpenBB is a commercial data provider that offers access to a wide range of assets beyond stocks, including bonds, cryptocurrencies, and foreign exchange markets. Use this library if you’re interested in more generic investment strategies and aren’t limited to investing in stocks. </li> 
+  </ul>
+ </body>
+</html>

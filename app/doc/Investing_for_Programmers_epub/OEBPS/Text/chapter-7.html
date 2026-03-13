@@ -1,0 +1,1527 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>chapter-7</title>
+  <link href="../Styles/stylesheet.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <div class="readable-text" id="p1"> 
+   <h1 class=" readable-text-h1"><span class="chapter-title-numbering"><span class="num-string">7</span></span> <span class="chapter-title-text">Risk management</span></h1> 
+  </div> 
+  <div class="introduction-summary"> 
+   <h3 class="introduction-header">This chapter covers</h3> 
+   <ul> 
+    <li class="readable-text" id="p2">Classifying risks</li> 
+    <li class="readable-text" id="p3">Mitigating risks </li> 
+    <li class="readable-text" id="p4">Hedging strategies</li> 
+    <li class="readable-text" id="p5">Optimizing your portfolio using the Markowitz model</li> 
+    <li class="readable-text" id="p6">Assessing nonfinancial risks</li> 
+   </ul> 
+  </div> 
+  <div class="readable-text" id="p7"> 
+   <p>Exploring assets that can multiply their original value many times is thrilling. However, if you stake your life savings on extraordinary profits, you might find yourself sleepless at night, questioning whether you abandoned your common sense the moment you made that investment.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p8"> 
+   <p>In our minds, we can picture the stereotype of a gambler who seeks the thrill. However, we can also envision a stereotype of a risk-averse investor: a dry person who lectures us on efficient market theory and continually advocates for putting all of our money into diversified ETFs. They occasionally insist that investing in single stocks with low-risk ratings is too risky. Encountering them when you dream about living in a big mansion with the potential returns can feel like a slap in the face. No matter how enthusiastic we are, they always have an explanation for why things won’t unfold as we hope. Whether it’s human bias, statistics about fund managers and their historical returns, or something else, the recommendation remains the same: you can’t beat the market, so invest in it by buying shares in index funds.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p9"> 
+   <p>The debates about risks versus returns are endless. One side argues that investors like Warren Buffett, Jim Simons, and Peter Lynch have consistently outperformed the market, suggesting that anyone can do the same. Energy goes where attention flows; if you’re patient and self-reflective, you’ll become wealthy if you focus on the right topics. The other side keeps reasoning about the academic insights of giants such as Eugene Fama or Burton Malkiel, including the efficient market theory and random walks. It often seems that each side has its statistics: one shows that actively managed hedge funds by a strong fund manager beat passive funds, and the other claims that studies show that blindfolded monkeys throwing darts can pick a portfolio that beats those of seasoned investors, as the market is unpredictable.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p10"> 
+   <p>This chapter can be seen as an antithesis to chapter 4, in which we focused on what we could gain if we analyzed the growth potential of stocks. Here, we explore what we can lose if things go wrong, arriving at the synthesis: we need to study both risk and returns and decide how much risk we can accept in a nondeterministic environment. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p11"> 
+   <p>In this chapter, we first classify risks. After learning about risks, we examine ways to measure them and, finally, how to mitigate them.</p> 
+  </div> 
+  <div class="readable-text" id="p12"> 
+   <h2 class=" readable-text-h2"><span class="num-string">7.1</span> Ukemi</h2> 
+  </div> 
+  <div class="readable-text" id="p13"> 
+   <p>In martial arts, the first lesson isn’t how to jump or kick—it’s how to fall safely. The Japanese call this <em>ukemi</em>. The same principle applies to systems: safeguard first, then scale.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p14"> 
+   <p>Developers already understand this concept through test-driven development (TDD), where unit tests are written before the code. Experienced developers have likely encountered projects lacking clean code and TDD practices—they often turn into black boxes where small changes lead to unpredictable results. Returning to chaos is unthinkable once you’ve worked in a clean, structured environment. While clean development may seem slower due to peer reviews and careful implementation, it reduces costly bug fixes.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p15"> 
+   <p>Risk management in investing follows a similar logic. By implementing best practices early, you prevent problems before they arise, protecting both your portfolio and peace of mind.</p> 
+  </div> 
+  <div class="readable-text" id="p16"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.1.1</span> Stop-loss</h3> 
+  </div> 
+  <div class="readable-text" id="p17"> 
+   <p>A crucial <em>ukemi</em> in investing is the stop-loss order. Think of it as a safety net: a predefined price at which your broker automatically sells a position to limit losses. If there’s one thing you can do to reduce stress, it’s setting a stop-loss for every position. Without it, investing is like performing acrobatics without a net—why risk unnecessary losses when they can be prevented?</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p18"> 
+   <p>Stop-losses can also be adjusted as share prices rise. Suppose you buy a stock at $8, which surges to $25. Believing in further growth, you initially set a stop-loss at $7. Instead of selling at $25, you raise the stop-loss to $22 after the surge. This resolves a common dilemma: if the stock climbs higher, you stay in the game, but if it falls, you still lock in gains at $22. Without a stop-loss, you might regret not securing your profits if the stock drops back to $8. Figure 7.1 illustrates a stop-loss order.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p19">  
+   <img alt="figure" src="../Images/7-1.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.1</span> In this reference for a stop-loss order, the stop loss is adjusted to $22 on day 6 after the share price rises. When the stock goes below $22, the stop loss will be triggered, and the investor will sell at a market price on day 9.</h5>
+  </div> 
+  <div class="readable-text" id="p20"> 
+   <p>In chapter 11, we’ll cover how to set stop-loss orders effectively through an API. However, you can put one through your broker if you hold assets. Select Good Till Canceled for your order to keep your safety net in place.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p21"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Stop-loss in practice</h5> 
+   </div> 
+   <div class="readable-text" id="p22"> 
+    <p>The example in figure 7.1 shows that if I set a stop loss at $22 and the share price falls below $22, the shares will be sold. Would it not be wise to place a stop loss on all positions? Let’s consider three aspects:</p> 
+   </div> 
+   <ul> 
+    <li class="readable-text" id="p23"> <em>Taxes</em>—If you sell a stock at $22 that you bought at $8, you’ve made a profit. Depending on local tax regulations, this profit may fall under capital gains tax. Sometimes, you don’t want to pay taxes immediately, especially if you could write off gains in positions to cover losses in others at a different time. </li> 
+    <li class="readable-text" id="p24"> <em>Transaction costs</em>—If you sell, you must pay a small fee for the transaction. If you want to buy again immediately, remember the spread between the ask and bid price: If you sell all of your shares and immediately repurchase the same number, you would likely lose money. Sometimes, you want to hold stocks long-term, and rebuying them at a similar price might be costly. </li> 
+   </ul> 
+   <ul> 
+    <li class="readable-text" id="p25"> <em>Fluctuations</em>—Assume the share price is below $22. You sell, but right after, the price goes up again, far above $22. You can rebuy the shares at a higher price, but you would have made a loss. What if you could buy the right to sell at a fixed price and the right to buy at a certain price? This would be the next complexity to manage risks after stop loss: welcome to the world of options.  </li> 
+   </ul> 
+  </div> 
+  <div class="readable-text" id="p26"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.1.2</span> Risk classification</h3> 
+  </div> 
+  <div class="readable-text" id="p27"> 
+   <p>As a developer, you thrive on creative momentum when implementing new features. The excitement of exploring ideas can feel intoxicating, and overthinking potential failures may slow progress.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p28"> 
+   <p>The software needs to be deployed at some point, and the threat of real users complaining about bugs might keep developers and their managers awake at night. Suddenly, Murphy’s Law takes over—what can go wrong will go wrong, and your perspective shifts. Site reliability engineers (SREs) embody this mindset, ensuring flawless execution. While early-stage development is driven by creativity, SREs must think destructively, anticipating failure at every step. A good SRE always classifies and prioritizes risks.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p29"> 
+   <p>Engineers recognize that a complete system outage is worse than a partial slow response time. Likewise, owning a stock experiencing daily share price fluctuations is preferable to holding assets in a company that goes bankrupt. Of course, the first scenario might lead to the second and can be a warning sign, and, at the same time, fluctuations are part of the market. To manage risk effectively, we must be able to measure risks and classify them by their possible effect.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p30"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Bikeshedding</h5> 
+   </div> 
+   <div class="readable-text" id="p31"> 
+    <p>“Bikeshedding,” or Parkinson’s Law of Triviality, describes the tendency to focus excessively on minor, easy-to-understand details while overlooking more complex and critical issues. The term originates from an example where a committee debates the color of a bike shed for hours but barely discusses a nuclear power plant proposal.  </p> 
+   </div> 
+   <div class="readable-text" id="p32"> 
+    <p>Bikeshedding is a common problem in all fields, including investing. You might fixate on a temporary 5% dip in one stock while ignoring a far more serious risk—another company in your portfolio teetering on the edge of default. Staying focused on what truly matters is key to sound decision-making.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p33"> 
+   <p>To understand systemic risk, we can create a mental model of the market and identify events that could destabilize the entire system. <em>Systemic risk</em> refers to disruptions that threaten the financial system. A classic example is the 2008 financial crisis, where the collapse of major institutions nearly triggered an economic meltdown. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p34"> 
+   <p>While doomsday scenarios such as nuclear war technically qualify as systemic risks, they are beyond the scope of financial planning. Building a bunker is more practical than safeguarding your portfolio if you’re worried about such events.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p35"> 
+   <p>Excluding extreme catastrophes, we can still categorize financial risks systematically, helping investors prepare for market-wide threats and mitigate potential damage. Let’s see what can go wrong to understand how we can prepare ourselves:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p36"> <em>Market risk</em>—Stock prices are significantly affected by overall market trends. Economic downturns, geopolitical events, or shifts in market sentiment can lead to widespread declines, even when individual companies perform well. </li> 
+   <li class="readable-text" id="p37"> <em>Sector risk</em>—Investing in stocks concentrated in a specific sector (e.g., technology, energy) exposes investors to risks that may affect that entire sector, such as regulatory changes, demand shifts, or technological disruption. </li> 
+   <li class="readable-text" id="p38"> <em>Asset-specific risk</em>—Individual stocks carry the risk of poor performance due to company-specific issues such as mismanagement, declining sales, product failures, or scandals. This is also known as <em>unsystematic risk</em>. </li> 
+  </ul> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p39"> 
+    <h5 class=" callout-container-h5 readable-text-h5">The power of compounding vs. high-risk investing</h5> 
+   </div> 
+   <div class="readable-text" id="p40"> 
+    <p>Imagine two investors: Ivan is an aggressive investor willing to take significant risks, while Alicia takes calculated risks, only as much as necessary.</p> 
+   </div> 
+   <div class="readable-text" id="p41"> 
+    <p>Both start with $100,000 and invest for 10 years.</p> 
+   </div> 
+   <ul> 
+    <li class="readable-text" id="p42"> <em>Ivan’s approach</em>—He wins big sometimes and loses big at other times, ultimately breaking even at $100,000 by year 10. However, at that point, he makes an exceptional investment that doubles his money overnight, bringing his total to $200,000. </li> 
+    <li class="readable-text" id="p43"> <em>Alicia’s approach</em>—She achieves a steady 10% return per year. If she withdraws her profits each year, she also ends up with $200,000, the same as Ivan. </li> 
+   </ul> 
+   <div class="readable-text list-body-item" id="p44"> 
+    <p>But if she reinvests her gains, the formula for compound interest applies:</p> 
+   </div> 
+   <div class="browsable-container equation-container" id="p45"> 
+    <p>P(1 + i)<sup>n</sup></p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p46"> 
+    <p>where</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p47"> 
+    <p>P = 100,000 (initial capital)</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p48"> 
+    <p>i = 0.10 (10% return)</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p49"> 
+    <p>n = 10 (years)</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p50"> 
+    <p>These numbers result in the following:</p> 
+   </div> 
+   <div class="browsable-container equation-container" id="p51"> 
+    <p>100,000(1.1)<sup>10</sup> = 259,374</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p52"> 
+    <p>By reinvesting her returns, Alicia ended up with $259,374, outperforming Ivan’s final amount. In the long run, consistent compounding often beats sporadic windfalls.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p53"> 
+   <p>Every investor hears this phrase at some point in their career: “Past performance is no guarantee of future results.” Relying too heavily on history repeating itself can lead to costly mistakes. Yet completely ignoring historical patterns is just as dangerous. Because we can classify risk, we must consider how to measure it based on past evidence.</p> 
+  </div> 
+  <div class="readable-text" id="p54"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.1.3</span> Risk measurement</h3> 
+  </div> 
+  <div class="readable-text" id="p55"> 
+   <p>The economy is a complex, interconnected system that moves in cycles—bubbles, crashes, and recoveries. While no event unfolds identically, recurring patterns emerge. The challenge is distinguishing between genuine trends and coincidences. This perspective helps macroeconomists predict the ripple effects of disruptions. Take the war in Ukraine: concerns over the Ukrainian grain harvest signaled potential famine risks, leading to fears of unrest in emerging markets that are rich in raw materials. Such unrest could disrupt mining, affecting companies reliant on gold, cobalt, and nickel. Similarly, sanctions on Russian gas drove up European energy prices, fueling inflation.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p56"> 
+   <p>Figure 7.2 illustrates risk factors for a hypothetical US-based AI company. What if an emerging AI platform such as DeepSeek disrupts the market in 2025? Or what if a societal countermovement against AI gains traction, which can be seen as a market risk, making it harder to sell AI services? AI developers in some countries experience more challenging regulatory environments than their peers from different regions. Those who worked in environments with more strict regulations can attest that new regulatory frameworks might become a problem for companies unprepared for this change.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p57">  
+   <img alt="figure" src="../Images/7-2.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.2</span> A high-level risk model containing some of the challenges an AI startup faces</h5>
+  </div> 
+  <div class="readable-text" id="p58"> 
+   <p>These are just a few potential risks, reinforcing the “Understand the businesses you invest in” principle. Before investing, ask yourself these questions:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p59"> Do you know what could go wrong in a company? </li> 
+   <li class="readable-text" id="p60"> Do you understand its most significant risks and threats? </li> 
+  </ul> 
+  <div class="readable-text" id="p61"> 
+   <p>If not, reconsider your investment. Otherwise, you would have to learn how catalysts, which you’re unaware of, play a role in driving share prices up and down.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p62"> 
+   <p>Figure 7.3 presents a risk matrix to classify threats. Take the risk of an anti-AI movement: unlikely, but potentially catastrophic if it gains momentum and demands AI bans. Another risk—rising energy prices—could slow AI expansion if power plants can’t scale fast enough to control costs.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p63">  
+   <img alt="figure" src="../Images/7-3.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.3</span> How to map risk in a matrix based on severity and likelihood. We commonly create strategies to meet risks with higher harm severity first to mitigate the effect once the consequences become unavoidable.</h5>
+  </div> 
+  <div class="readable-text" id="p64"> 
+   <p>To use risk matrices efficiently, you can review your positions and assess risks to define actions. Let’s go through an example. Let’s assume you hold Coca-Cola, Apple, and Pfizer stock. You can research possible risk scenarios, such as the following: “What if there is another pandemic?” or “What if there are new trade wars?” Let’s assume further that we conclude through a small assessment of the current political situation that, based on a personal evaluation, we consider an escalation of a trade war between the United States and China as possible. Then, we can go through all positions in the portfolio. Quick research and personal assessments indicate that potential harm from Coca-Cola and Pfizer is marginal. Still, we may conclude that an escalation of a trade war would be critical for Apple, leading to a high-risk rating based on the matrix.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p65"> 
+   <p>Investor Ray Dalio recommends acting on principles when investing. Some investors may decide to get active in times of high risk. Others might be more relaxed and act only when the risk rating reaches “very high.” One key principle of managing risks is to define what to do if catastrophes happen. Defining concrete actions when events occur and following these actions no matter what ensures efficiency. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p66"> 
+   <p>So, let’s assume you decide your principle is to sell all shares when they reach the highest risk level, and let’s imagine an event that makes a trade war certain. Following your principle, you would immediately sell all the shares of high-risk companies. Yes, this may sound bureaucratic, but you can never forget a quote attributed to Mike Tyson: “Everybody has a plan until they get punched in the face.” When filled with emotions, you might still do the right things, if you have clear guidance on what to do. Without guidance, and when panic takes over, it can become more difficult to make rational and correct decisions.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p67"> 
+   <p>Assessing risks also means understanding <em>beta</em>, a measure of an asset’s sensitivity to market fluctuations:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p68"> <em>Beta = 1</em>—Moves with the market </li> 
+   <li class="readable-text" id="p69"> <em>Beta &gt; 1</em>—More volatile than the market </li> 
+   <li class="readable-text" id="p70"> <em>Beta &lt; 1</em>—More stable than the market </li> 
+  </ul> 
+  <div class="readable-text" id="p71"> 
+   <p>Think of beta like a system’s performance under load. High-beta assets spike under stress, while low-beta assets remain stable.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p72"> 
+   <p>Beta often aligns with common sense. In a bear market, unemployment rises, consumers prioritize essentials (supermarkets benefit), and discretionary spending declines (car dealers suffer). However, company-specific risks can be independent of market trends—mismanagement alone can drive a company into distress. In the next section, we’ll explore how to measure risk effectively.</p> 
+  </div> 
+  <div class="readable-text" id="p73"> 
+   <h2 class=" readable-text-h2"><span class="num-string">7.2</span> Generating risk profiles for individual stocks</h2> 
+  </div> 
+  <div class="readable-text" id="p74"> 
+   <p>Historical data about a company helps us assess performance by examining fundamental factors (e.g., debt trends). In addition, we can study chart movements, often referred to as <em>technical analysis</em>, to explore the potential risks of a decline in share prices. The approach varies based on a company’s stage and size.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p75"> 
+   <p>As a programmer, you’ve likely encountered applications with inconsistent response times—high variability erodes user trust. The same principle applies to stock prices. If an asset’s price has fluctuated significantly in the past, it signals risk. And sometimes, what goes down doesn’t always come back up. Let’s take a deeper look at past price movements.</p> 
+  </div> 
+  <div class="readable-text" id="p76"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.2.1</span> Value at risk (VaR)</h3> 
+  </div> 
+  <div class="readable-text" id="p77"> 
+   <p><em>Value at risk (VaR)</em> is a tool for measuring the potential loss of an investment or portfolio over a specified period, under normal market conditions, at a given confidence level. It answers the question, “What’s the worst loss I could face, and how likely is it?”</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p78"> 
+   <p>As a programmer, you can think of VaR as setting a threshold for system downtime: “What’s the maximum downtime we might experience within a week, 95% of the time?” Now, replace “downtime” with “loss,” and that’s essentially what VaR is. Let’s break it down:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p79"> You monitor a portfolio (a collection of assets). </li> 
+   <li class="readable-text" id="p80"> You need a time frame (e.g., days, months) and a confidence level. </li> 
+   <li class="readable-text" id="p81"> These can be used to determine risk, such as the following: “We’re 95% confident that the portfolio won’t lose more than $30,000 in one day.” </li> 
+  </ul> 
+  <div class="readable-text" id="p82"> 
+   <p>Here’s a practical example: your portfolio is worth $1,000,000. Analysts estimate a one-day VaR at 95% confidence of $30,000. This means there’s only a 5% chance your portfolio will lose more than $30,000 on any given day. So, 95% of the time, your loss will be $30,000 or less.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p83"> 
+   <p>To calculate VaR, we simulate the potential future risks based on historical data. There are two common approaches:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p84"> <em>Variance-coeffect method</em>—This approach assumes that returns follow a normal distribution. It’s similar to predicting load times using standard deviation. </li> 
+   <li class="readable-text" id="p85"> <em>Monte Carlo simulation</em>—This method simulates numerous potential outcomes, like stress-testing code under various edge cases. </li> 
+  </ul> 
+  <div class="readable-text" id="p86"> 
+   <p>Using these methods, we can estimate the potential risk to our portfolio, just like you’d analyze system performance under different scenarios.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p87"> 
+   <p>A <em>Monte Carlo simulation</em> is a computational technique for modeling the probability of different outcomes in a process with inherent uncertainty. It relies on repeated random sampling to obtain numerical results, making it useful for scenarios where traditional analytical methods are infeasible. In listing 7.1, we outline an example of a Monte Carlo simulation using Apple share prices. We need parameters such as confidence level. Then, we load the stock data to collect returns and calculate the means and standard deviation. This is the basis for running a Monte Carlo simulation, meaning we simulate future returns based on past returns. We plot and print the results.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p88"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.1</span> Monte Carlo simulation for VaR on Apple</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import numpy as np
+import yfinance as yf
+import matplotlib.pyplot as plt
+
+ticker = "AAPL"              <span class="aframe-location"/> #1
+confidence_level = 0.95       #1
+num_simulations = 10000       #1
+time_horizon = 1              #1
+
+stock = yf.Ticker(ticker)                       <span class="aframe-location"/> #2
+hist = stock.history(period="1y")                #2
+returns = hist['Close'].pct_change().dropna()    #2
+
+mu = returns.mean()       <span class="aframe-location"/> #3
+sigma = returns.std()      #3
+
+last_price = hist['Close'].iloc[-1]                <span class="aframe-location"/> #4
+sim_returns = np.random.normal(mu, 
+                               sigma, 
+                               num_simulations)    #4
+sim_prices = last_price * (1 + sim_returns)        #4
+
+threshold = np.percentile(sim_prices - last_price, 
+                          (1 - confidence_level) * 100)   <span class="aframe-location"/> #5
+
+plt.hist(simulated_prices - last_price, bins=50, 
+         alpha=0.75, color="blue", edgecolor="black")    <span class="aframe-location"/> #6
+plt.axvline(threshold, color="red", 
+         linestyle="dashed", linewidth=2)            #6    
+plt.title(f"Monte Carlo Simulated "
+          f"P&amp;L Distribution for {ticker}")      #6        
+plt.xlabel("Profit/Loss")                            #6    
+plt.ylabel("Frequency")                              #6    
+plt.show()                                           #6    
+
+print(f"{confidence_level * 100}% Monte Carlo "
+      f"VaR for {ticker}: ${-var_threshold:.2f}")    #6</pre> 
+    <div class="code-annotations-overlay-container"> #1 Sets up the parameters
+     <br/>#2 Fetches historical stock data and calculates historical returns
+     <br/>#3 Estimates the mean and standard deviation of returns
+     <br/>#4 Monte Carlo simulation of stock price paths
+     <br/>#5 Calculates VaR at given confidence level
+     <br/>#6 Puts out the result
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p89"> 
+   <p>Figure 7.4 shows the result of a Monte Carlo simulation as a plot, outlining that this stock is relatively stable. The results indicate that there is a 95% chance the loss won’t exceed $5.50 per share.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p90">  
+   <img alt="figure" src="../Images/7-4.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.4</span> The result of a Monte Carlo simulation concludes that based on the historical data, only 5% of the time were the losses of Apple share prices higher than $5.50 a day.</h5>
+  </div> 
+  <div class="readable-text" id="p91"> 
+   <p>For this, we calculated an example based on Apple. We can run a Monte Carlo simulation on all portfolio stocks and aggregate these results to the total VaR of the whole portfolio.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p92"> 
+   <p>Please remember that Black Swan events are unpredictable events beyond what is normally expected. Excluding these outliers, VaRs can be seen as worst-case scenarios based on historical data under normal circumstances. Investors can calculate the VaRs of all their holdings and match them with their risk appetite. In some cases, investors may decide to decrease (or also increase) the risks.</p> 
+  </div> 
+  <div class="readable-text" id="p93"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.2.2</span> Correlation</h3> 
+  </div> 
+  <div class="readable-text" id="p94"> 
+   <p><em>Correlation</em> measures how assets move relative to one another. Positively correlated assets move in the same direction; negatively correlated ones move oppositely. It’s like service dependencies—when one microservice fails, does it take down others? </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p95"> 
+   <p>In chapter 3, we already logged returns and simple returns. Using the code we used in previous chapters, let’s load the data for three companies:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p96"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">def collect_prices_returns(tickers: list):
+    close_prices = pd.DataFrame()
+    log_returns = pd.DataFrame()
+
+    for ticker in tickers:
+        close_prices[ticker] = yf.Ticker(ticker).history(
+            start='2024-01-01', 
+            end='2024-12-31', 
+            interval="1d")['Close']
+        log_returns[ticker] = np.log(close_prices[ticker] 
+                                     / close_prices[ticker].shift(1))
+    return close_prices, log_returns
+tickers = ["MSFT", "AMZN", "GOOGL"]
+close_prices, log_returns  = collect_prices_returns(tickers)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p97"> 
+   <p>Now that we have the log returns and the closing prices in memory, we can run a fundamental statistical analysis. The following code shows how to run the mean, standard deviation, and variance aggregations on the stock prices: </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p98"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">price_stats = (
+    close_prices[tickers]
+    .agg(['mean', 'std', 'var'])
+    .T.reset_index()
+    .rename(columns={'index': 'ticker'})
+)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p99"> 
+   <p>The closing prices of the stocks fluctuate, as shown in table 7.1, over the year.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p100"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.1</span> Mean, standard deviation, and variance on share prices of Microsoft, Amazon, and Alphabet</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Company 
+       </div> </th> 
+      <th> 
+       <div>
+         mean 
+       </div> </th> 
+      <th> 
+       <div>
+         std 
+       </div> </th> 
+      <th> 
+       <div>
+         var 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Microsoft (MSFT) <br/> </td> 
+      <td>  418.73445 <br/> </td> 
+      <td>  18.19813 <br/> </td> 
+      <td>  331.17207 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Amazon (AMZN) <br/> </td> 
+      <td>  184.49020 <br/> </td> 
+      <td>  17.32285 <br/> </td> 
+      <td>  300.08126 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Alphabet (GOOGL) <br/> </td> 
+      <td>  163.31029 <br/> </td> 
+      <td>  15.40605 <br/> </td> 
+      <td>  237.34623 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text intended-text" id="p101"> 
+   <p>Let’s investigate standard deviation (<code>std</code>) and variance (<code>var</code>). <em>Variance</em> measures the average squared deviation from the mean. It tells you how much the values in a dataset spread out from the mean. Variance is in squared units, making it less interpretable for practical use.</p> 
+  </div> 
+  <div class="readable-text" id="p102"> 
+   <p>Standard deviation is simply the square root of variance. It measures the same dispersion but in the same units as the original data, making it more interpretable. Variance (<code>var</code>) is helpful in theoretical statistics and when comparing relative dispersion across datasets. standard deviation (<code>std</code>) is used in most practical applications because it retains the original unit of measurement.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p103"> 
+   <p><span class="print-book-callout-head">Tip </span> As some analysts may use variance, it’s still essential to understand how variance can be used in financial analysis. Otherwise, you can focus on standard deviation in your analyses.</p> 
+  </div> 
+  <div class="readable-text" id="p104"> 
+   <p>Previous chapters show that the overall share price is just one part of a company’s capitalization; for example, 418 (the mean of Microsoft) doesn’t mean we’re doing better than 163 (the mean of Google). A company’s share price is just a number that doesn’t relate to any other share price. If Microsoft decided to split the shares 1:10, the mean would be 41.8, with 10 times more shares than before.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p105"> 
+   <p>The absolute price of a share in a given currency is not a reliable measure for comparing the performance of different stocks. For meaningful comparisons, we should use percentage changes in value, with log returns offering an even better basis for analysis:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p106"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">rets = (
+    log_returns[tickers]
+    .agg(['mean', 'std', 'var'])
+    .T * [TRADING_DAYS, TRADING_DAYS**0.5, TRADING_DAYS]
+)
+rets = rets.reset_index().rename(columns={'index': 'ticker'})
+rets</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p107"> 
+   <p>The results of this script, shown in table 7.2, help us compare the companies. Microsoft was more stable during the test period than Amazon and Alphabet. Keep in mind that these patterns might be different in other years. </p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p108"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.2</span> Mean, standard deviation, and variance on log returns of Microsoft, Amazon, and Alphabet</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Company 
+       </div> </th> 
+      <th> 
+       <div>
+         mean 
+       </div> </th> 
+      <th> 
+       <div>
+         std 
+       </div> </th> 
+      <th> 
+       <div>
+         var 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Microsoft <br/> </td> 
+      <td>  0.14443 <br/> </td> 
+      <td>  0.20078 <br/> </td> 
+      <td>  0.04031 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Amazon <br/> </td> 
+      <td>  0.39247 <br/> </td> 
+      <td>  0.28154 <br/> </td> 
+      <td>  0.07926 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Alphabet <br/> </td> 
+      <td>  0.33129 <br/> </td> 
+      <td>  0.28045 <br/> </td> 
+      <td>  0.07865 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p109"> 
+   <p>Let’s put stocks in correlation: when calculating the <em>covariance</em> between stocks, you measure how their returns move relative to each other. Covariance helps you understand the relationship between different assets in a portfolio. If we call the <code>cov()</code> method on the DataFrame with the log returns and multiply it with the number of trading days, we get the covariance matrix:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p110"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">cov_matrix = log_returns.cov() * TRADING_DAYS
+cov_matrix</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p111"> 
+   <p>Let’s look at the results. Covariance tells us if the variables move together, but not how much. If the covariance value is larger than 0, the assets tend to move in the same direction, and if the value is lower than 0, they tend to move in opposite directions. The numbers in table 7.3 indicate that there might be some dependencies among the price movements of these three stocks.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p112"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.3</span> Covariance of Microsoft, Amazon, and Alphabet</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Company 
+       </div> </th> 
+      <th> 
+       <div>
+         MSFT 
+       </div> </th> 
+      <th> 
+       <div>
+         AMZN 
+       </div> </th> 
+      <th> 
+       <div>
+         GOOGL 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Microsoft <br/> </td> 
+      <td>  0.04031 <br/> </td> 
+      <td>  0.03887 <br/> </td> 
+      <td>  0.03239 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Amazon <br/> </td> 
+      <td>  0.03887 <br/> </td> 
+      <td>  0.07926 <br/> </td> 
+      <td>  0.04290 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Alphabet <br/> </td> 
+      <td>  0.03239 <br/> </td> 
+      <td>  0.04290 <br/> </td> 
+      <td>  0.07865 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p113"> 
+   <p>We need the correlation to understand how much these variables move with each other. This tells us both the strength and the direction of the relationship. Correlation standardizes covariance by dividing by the standard deviation, resulting in a bounded value between –1 and 1. We get results such as the following:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p114"> +1: Perfect positive correlation (move exactly together) </li> 
+   <li class="readable-text" id="p115"> 0: No relationship </li> 
+   <li class="readable-text" id="p116"> –1: Perfect negative correlation (move exactly opposite) </li> 
+  </ul> 
+  <div class="readable-text" id="p117"> 
+   <p>To calculate the correction, we need to run the <code>corr()</code> method on the DataFrame with the log returns. Note that as the correlation is independent of dimensions, we don’t need to multiply by trading days as we had to with the covariance:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p118"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">corr_matrix = log_returns.corr() 
+corr_matrix</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p119"> 
+   <p>Like variance and standard deviation, we might prefer one method (correlation) over the other (covariance). As covariance might be used in some analyses, it’s still helpful to know that this method exists.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p120"> 
+   <p>Looking at the results in table 7.4, we get deeper insights. These three companies correlate a lot, which is logical. They all focus on cloud computing and AI, and they provide similar solutions to clients.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p121"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.4</span> Correlation of Microsoft, Amazon, and Alphabet</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Company 
+       </div> </th> 
+      <th> 
+       <div>
+         MSFT 
+       </div> </th> 
+      <th> 
+       <div>
+         AMZN 
+       </div> </th> 
+      <th> 
+       <div>
+         GOOGL 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Microsoft <br/> </td> 
+      <td>  1.00000 <br/> </td> 
+      <td>  0.68765 <br/> </td> 
+      <td>  0.57522 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Amazon <br/> </td> 
+      <td>  0.68765 <br/> </td> 
+      <td>  1.00000 <br/> </td> 
+      <td>  0.54331 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Alphabet <br/> </td> 
+      <td>  0.57522 <br/> </td> 
+      <td>  0.54331 <br/> </td> 
+      <td>  1.00000 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p122"> 
+   <p>This leads to a hypothesis: if the market believes there is no more room to grow in the cloud business or the AI hype is over, all three positions might lose heavily. Let’s look at another example by comparing NVIDIA with Walmart:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p123"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">close_price, log_returns = collect_prices_returns(["WMT", "NVDA"])
+corr_matrix = log_returns.corr()
+print(corr_matrix)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p124"> 
+   <p>Looking at table 7.5, we observe an intuitively correct result. NVDA is a technology stock. If things go well, investors will believe in AI growth and purchase stocks like NVIDIA’s. However, they might want to move to more defensive stocks, such as Walmart, if they start doubting AI.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p125"> 
+   <p>Conclusively, one possible strategy is to pick stocks with a negative correlation. Based on historical data, if NVIDIA goes down, Walmart goes up. This might reduce possible gains in a sunny-day scenario, but also mitigate losses in a rainy-day scenario.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p126"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.5</span> Correlation between Walmart and NVIDIA</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Company 
+       </div> </th> 
+      <th> 
+       <div>
+         WMT 
+       </div> </th> 
+      <th> 
+       <div>
+         NVDA 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Walmart <br/> </td> 
+      <td>  1.00000 <br/> </td> 
+      <td>  -0.00532 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  NVIDIA <br/> </td> 
+      <td>  -0.00532 <br/> </td> 
+      <td>  1.00000 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p127"> 
+   <p>This means we can use algorithms to assess risks. Before applying concrete hedging techniques to mitigate risks, let’s explore risk on a more generic level.</p> 
+  </div> 
+  <div class="readable-text" id="p128"> 
+   <h2 class=" readable-text-h2"><span class="num-string">7.3</span> The human factor</h2> 
+  </div> 
+  <div class="readable-text" id="p129"> 
+   <p>Many engineers have encountered this scenario: the company brings in a new, ultra-strict chief security officer (CSO). Suddenly, after enjoying freedom in previous roles, you now need approvals for everything. Simple tasks become bureaucratic nightmares, requiring endless workarounds.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p130"> 
+   <p>Yet, despite the fortress-like security policies, you stumble upon something absurd—an outsider with unrestricted access to server rooms for maintenance work or hidden “super users” with god-mode permissions.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p131"> 
+   <p>Investing works the same way. Strict risk controls can give a false sense of security, while hidden vulnerabilities can expose you to unexpected threats. Let’s explore this further and how this connects with investment.</p> 
+  </div> 
+  <div class="readable-text" id="p132"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.3.1</span> Negligence</h3> 
+  </div> 
+  <div class="readable-text" id="p133"> 
+   <p>Ask any cybersecurity engineer about the most significant threat, and the answer is likely <em>human negligence</em>. Technical security is deterministic—you can model interactions, strengthen encryption, and enforce multifactor authentication. But you can’t stop someone from writing their password on a sticky note beside an unlocked phone.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p134"> 
+   <p>The same applies to investing. Your most considerable risk isn’t just market volatility or scams—it’s <em>your own psychology</em>. Engineers who understand blockchain may avoid crypto scams but still fall victim to greed, fear, and impulsive decisions. Technology can help: you can set trading limits, restrict access, or execute orders at fixed intervals—but when emotions take over, those safeguards can be overridden.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p135"> 
+   <p>No security manual can eliminate user mistakes, and no investing book can erase emotional biases. However, awareness is the first step. Fear of Missing Out (FOMO) causes investors to chase unsustainable gains, but recognizing this bias helps mitigate its effect.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p136"> 
+   <p>Engineers working in teams use methodologies such as <em>Scrum</em> to improve processes through retrospectives. Investing benefits from a similar approach—analyzing past decisions with hard data and peer reviews. By tracking your portfolio (chapter 6), you gain insights into what worked and what didn’t.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p137"> 
+   <p>If you know your psychology is a weak point, take action. <em>Self-reflection</em>—understanding your deeper motivations—extends beyond trading into personal growth. Brokers offer risk management tools, such as these:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p138"> <em>Risk profiles</em>—Restricts high-risk trades </li> 
+   <li class="readable-text" id="p139"> <em>Cool-off periods</em>—Delays access to risky features </li> 
+  </ul> 
+  <div class="readable-text" id="p140"> 
+   <p>Sometimes, that extra waiting period is the difference between a reckless gamble and a rational decision after a night’s rest. Like cybersecurity, investing isn’t just about technical expertise—it’s about controlling human behavior, including your own.</p> 
+  </div> 
+  <div class="readable-text" id="p141"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.3.2</span> Risk avoidance</h3> 
+  </div> 
+  <div class="readable-text" id="p142"> 
+   <p>Financial advisors and brokers often begin assessing your risk appetite during the Know Your Customer (KYC) process. Despite what some die-hard advocates may claim, there’s no single best investment strategy—only strategies that align with your risk tolerance.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p143"> 
+   <p>The simplest way to mitigate risk is to choose safe investments. Index funds, for example, are widely considered low-risk. While individual companies can fail, index funds would only collapse if the entire economy did—at which point, our portfolio performance would be the least of our concerns.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p144"> 
+   <p>Many investors view index funds as the holy grail of investing. After all, if the odds of beating the market are low, why take unnecessary risks trying? Many people also worry about the “perfect” time to invest. After making a purchase, they often panic if the market dips, leading to short-term mistakes. To mitigate this, you can use <em>dollar-cost averaging (DCA)</em>—investing a fixed amount at regular intervals, regardless of market conditions. While not perfect timing, DCA reduces the risk of buying at a peak and smooths out market volatility over time.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p145"> 
+   <p>A balanced approach works well if you still want to invest actively. You can allocate a fixed amount to index funds and a smaller portion to individual investments. And if you beat the performance of index funds multiple years in a row, you can still adjust the ratio of actively and passively managed investments as much as you like.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p146"> 
+   <p>The most obvious risk-reduction strategy is investing in businesses you understand. Familiarity allows you to assess risks more accurately and identify opportunities others might overlook. This aligns with value investing, which focuses on buying undervalued companies based on fundamental analysis.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p147"> 
+   <p>One core principle of value investing is the <em>margin of safety</em>—buying assets priced below their intrinsic value to provide a cushion against potential losses. To use an engineering analogy, imagine a client requests an application that must handle 100 peak-load requests. If you build it to handle exactly 100, there’s no margin for unexpected surges. The same applies to investing—without a margin of safety, even a slight miscalculation can lead to failure.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p148"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Time horizon and risk</h5> 
+   </div> 
+   <div class="readable-text" id="p149"> 
+    <p>Investment strategies differ. Long-term investors often buy securities and hold them for long periods. Some investors even like the idea of keeping value stocks forever. Short-term trading is usually seen as a strategy closer to gambling. Traders look for chart patterns and buy and sell shares often during the day when they believe they have identified short-term trends. High-frequency trading (HFT) is another strategy focused on buying and selling within milliseconds and seconds, for which traders would need the infrastructure to be faster than other high-frequency traders. The idea is to exploit very short-term price differences for arbitrage.</p> 
+   </div> 
+   <div class="readable-text" id="p150"> 
+    <p>Trading and long-term investing require different approaches to risk. If you believe your investments will grow by 10% annually over the next decade, a single bad trading day is unlikely to concern you. However, in HFT, the risk is significantly higher. Imagine an investor buys shares of ACME at $100, expecting to sell at $120. If the price drops to $80 instead, they face immediate losses. When using leverage, the longer they hold the position, the more they pay in interest, adding to their risk.</p> 
+   </div> 
+   <div class="readable-text" id="p151"> 
+    <p>Short selling carries even more significant risks. As explained earlier in this book, shorting means borrowing stocks to sell them, hoping to repurchase them later at a lower price. Suppose an investor short sells 10 shares of ACME at $100, expecting the price to drop. If the stock instead rises to $120, they must repurchase at a loss. Unlike leveraged trading, short sellers also incur borrowing fees and dividend payments, making waiting out an unfavorable market move costly.</p> 
+   </div> 
+   <div class="readable-text" id="p152"> 
+    <p>Contrast this with long-term investing. Suppose you invest in ACME because you believe in steady demand for its products. You hold the stock for years, confident in its future. But what if the company loses a key business deal or a highly anticipated product becomes a flop? The warning signs may not be immediate—some investors may quietly sell, while others remain unaware. Then, during ACME’s next earnings call, a disappointing report triggers a sudden 30% crash. You research the stock, read analyst reports, and realize ACME may never recover to your purchase price.</p> 
+   </div> 
+   <div class="readable-text" id="p153"> 
+    <p>But then again, in many long positions, drops after earnings calls are temporary. Investors may have feared that a company’s winning streak had reached its end, only to be corrected by the market. Netflix and Meta experienced downtime in 2022 but have since recovered. Others, such as Kodak or Peloton, have not. Risks for long-term investors are different than those for traders. They can sit out temporary down periods, but if they overlook that the product they had bet on years ago has become obsolete with time, they can lose a lot of money too. Some investors might even see the decline of their assets, but avoid selling due to loss aversion.</p> 
+   </div> 
+   <div class="readable-text" id="p154"> 
+    <p>Understanding these different risk dynamics is crucial when selecting an investment strategy. Whether trading actively or investing for the long term, managing downside risk is essential to avoiding costly mistakes. </p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p155"> 
+   <p>The risk-return tradeoff is like scaling a system—you can choose a safe, low-performance setup or an aggressive, high-performance architecture with potential failure risks. If your portfolio feels too risky, you can shift future investments toward safer assets. But the key is always risk awareness. Some strategies carry exceptionally high risks:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p156"> <em>Leverage</em>—Borrowing money to invest. While it amplifies gains, excessive leverage can lead to disastrous losses. </li> 
+   <li class="readable-text" id="p157"> <em>Short selling</em>—Betting against a stock. Losses are theoretically unlimited if the price rises instead. </li> 
+   <li class="readable-text" id="p158"> <em>Derivatives</em>—Complex financial instruments that can magnify both gains and risks. </li> 
+  </ul> 
+  <div class="readable-text" id="p159"> 
+   <p>Understanding risk appetite versus risk capacity is crucial. <em>Risk appetite </em>is your willingness to take risks, while <em>risk capacity</em> is your ability to withstand losses. Think of it like coding for edge cases—you might be comfortable experimenting in a development environment (appetite), but you wouldn’t push risky, untested changes to production (capacity).</p> 
+  </div> 
+  <div class="readable-text" id="p160"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.3.3</span> Resilience</h3> 
+  </div> 
+  <div class="readable-text" id="p161"> 
+   <p>Imagine you buy two stocks at the same price. After a year, Company A dropped to 20% of its initial value, while Company B rose to 150%. You decide to sell one. Which one? Most investors instinctively sell Company B, locking in gains while hoping Company A recovers. But what if Company B keeps rising and Company A continues its decline?</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p162"> 
+   <p>Athletes, especially tennis players, often lose momentum after a mistake. The best ones recover quickly. Successful investors do the same—they accept losses, adapt, and move forward. Every investor loses money at some point. The key is handling it wisely.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p163"> 
+   <p>Loss aversion—the tendency to avoid realizing losses—traps many investors. You may hesitate to sell a losing stock, thinking it might rebound or that you’ll only lose if you sell. However, ignoring loss aversion can lead to even bigger losses. Instead, step back and remove emotions from the equation.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p164"> 
+   <p>Imagine evaluating your portfolio from scratch. If you didn’t own Company A, would you buy it today? Is it truly undervalued, or is it in a downward spiral with no recovery? If the latter, sell it and reallocate the funds elsewhere.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p165"> 
+   <p>Conversely, if new information suggests Company A is a great buy, you might invest more. But be brutally honest—don’t let sunk costs cloud your judgment.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p166"> 
+   <p>This book teaches you how to analyze markets with algorithms, not what to invest in. If you struggle with tough decisions, recognize that your emotions and biases can distort judgment.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p167"> 
+   <p>A trusted peer review, such as Warren Buffett’s with Charlie Munger, can help. But choose your advisors wisely: </p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p168"> The loudmouth at the bar bragging about stock market wins? Not reliable. </li> 
+   <li class="readable-text" id="p169"> A licensed financial advisor, vetted by a reputable institution? Possibly worth it. </li> 
+  </ul> 
+  <div class="readable-text" id="p170"> 
+   <p>Ultimately, the smartest investors cut losses, reassess facts, and stay disciplined—even when it’s uncomfortable. The ability to face discomfort with a rational mind and be ready to follow thought-through principles may be one of the most significant successful factors in investing.</p> 
+  </div> 
+  <div class="readable-text" id="p171"> 
+   <h2 class=" readable-text-h2"><span class="num-string">7.4</span> Hedging</h2> 
+  </div> 
+  <div class="readable-text" id="p172"> 
+   <p>Most of us have encountered Murphy’s law: <em>What can go wrong, will go wrong.</em> Developers embrace this mindset, building metrics to assess code quality and unit tests to catch potential failures. This habit of assuming the worst and preparing for it is invaluable in investing.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p173"> 
+   <p>Hedging is a risk management strategy that reduces or offsets potential losses, like insurance. You sacrifice some potential gains to protect against severe downturns by taking an opposing position in a related asset. While it won’t eliminate risk entirely, it helps you sleep at night, knowing you’re shielded from extreme scenarios. Next, let’s explore some practical ways to mitigate risk.</p> 
+  </div> 
+  <div class="readable-text" id="p174"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.4.1</span> Derivatives</h3> 
+  </div> 
+  <div class="readable-text" id="p175"> 
+   <p>Derivatives are arrangements whose value derives from an underlying asset, such as a commodity, currency, or security. They can be categorized this way:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p176"> <em>Options</em>—Buying a put option on your stock protects against price drops. </li> 
+   <li class="readable-text" id="p177"> <em>Futures</em>—A farmer selling wheat futures locks in a price, avoiding losses if prices fall. </li> 
+   <li class="readable-text" id="p178"> <em>Swaps</em>—Interest rate swaps help companies hedge against rate fluctuations. </li> 
+  </ul> 
+  <div class="readable-text" id="p179"> 
+   <p>Let’s illustrate these concepts with examples:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p180"> <em>Options example</em>—Pedro owns ACME stock, purchased at $100 per share. He knows the stock could move in either direction with an earnings call approaching. To hedge his risk after the earnings call, he buys a put option to sell ACME at $95. If the stock stays above $95, it’s like paying an insurance premium without needing to file a claim. But if ACME drops below $95, he can sell at that price, minimizing losses. </li> 
+   <li class="readable-text" id="p181"> <em>Futures example</em>—Farmer Yumi expects a plentiful harvest this year. However, she also knows grain prices will likely drop if all farmers have high yields. To protect against this risk, she buys futures, locking in a pre-agreed selling price. If market prices fall due to oversupply, she can still sell at the higher, predetermined price. </li> 
+   <li class="readable-text" id="p182"> <em>Swap example</em>—A swap can be a complex agreement between companies or countries to exchange assets with cash flow for some time. Imagine two companies—one based in the United States and another in Europe. The US company needs euros to expand its business in Europe, while the European company needs US dollars to enter the American market. Instead of each company borrowing in a foreign currency and facing exchange rate risks, they enter a swap agreement: 
+    <ul> 
+     <li> The US company borrows dollars at a favorable interest rate and exchanges them for euros with the European company. </li> 
+     <li> The European company borrows euros at a favorable rate and gives them to the US company in exchange for dollars. </li> 
+     <li> Over time, both companies pay each other back in their local currencies, reducing transaction costs and currency risks. </li> 
+    </ul> </li> 
+  </ul> 
+  <div class="readable-text" id="p183"> 
+   <p>This structured agreement ensures both parties benefit by securing better loan terms and minimizing exchange rate fluctuations.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p184"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Advanced derivatives trading: All about options </h5> 
+   </div> 
+   <div class="readable-text" id="p185"> 
+    <p>Derivatives are far more complex and can’t be reduced to insurance. Option traders use advanced trading strategies for income generation. Experienced traders can choose from a compendium of option strategies. Note that there are many strategies on the market. Although we can’t cover them all, let’s look at a couple of them:</p> 
+   </div> 
+   <ul> 
+    <li class="readable-text" id="p186"> <em>Covered call</em>—Let’s say you own 100 shares of a stock at a share price of $100. You believe this stock will continue to pay reliable dividends, but will hardly ever be over $110. So, you sell a call option at $110. You gain money for the premium you just sold. If the stock stays below the strike price, you make some extra money and don’t have to sell the stock. If the stock is on a rally and increases to $120, you would have to sell it for $110, which leads to a loss, as the difference is higher than the premium you earned. </li> 
+   </ul> 
+   <div class="readable-text list-body-item" id="p187"> 
+    <p>Every option has an expiration date. If the expiration date has passed, the option expires. There are also different types of options. European-style options can be exercised only at expiration, and American-style options can be exercised at any time before expiration.</p> 
+   </div> 
+   <ul> 
+    <li class="readable-text" id="p188"> <em>Cash-secured put</em>—Let’s say there is a stock with very volatile share prices. You believe that the stock will gain a lot of value in the long run, but you don’t want to buy it at a high price. You can sell a put option at a lower strike price. If the share price drops and the buyer of your option exercises it, you buy this stock at a lower cost. If your strategy works out, you’ll have gained twice. You’ve earned money by selling a premium, and you’ve bought a stock with a bright future that gains in the long run. </li> 
+   </ul> 
+   <div class="readable-text list-body-item" id="p189"> 
+    <p>If you miscalculate and, let’s say, that specific company runs into a crisis causing the share price to plummet, you might lose a lot of money. Imagine investing in Enron before its collapse, only to have to buy shares from other stockholders at a high price as the company’s value approaches zero.</p> 
+   </div> 
+   <ul> 
+    <li class="readable-text" id="p190"> <em>Iron condor</em>—This is a more advanced option strategy that is commonly used to profit from low volatility in the market. </li> 
+   </ul> 
+   <div class="readable-text list-body-item" id="p191"> 
+    <p>To recap, selling an option means you receive a premium in exchange for taking on the obligation to buy or sell an asset at a specified strike price if the buyer chooses to exercise. Conversely, when you purchase an option, you acquire the right to buy or sell the asset under specific terms.</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p192"> 
+    <p>An option is said to be out of the money (OTM) when it has no intrinsic value—for example, a call option whose strike price is above the current market price, or a put option whose strike price is below it. If the asset price never crosses the strike, the option expires as worthless. If it does cross, the option becomes in the money (ITM).</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p193"> 
+    <p>In an iron condor strategy, you sell an OTM call and an OTM put, expecting the underlying asset’s price to remain within a defined range. If the price stays between the strike prices at expiration, both options expire worthless, and you keep the entire premium collected. This is the ideal scenario, and it reflects a bet on price stability.</p> 
+   </div> 
+   <div class="readable-text list-body-item" id="p194"> 
+    <p>However, the risk grows if the asset moves sharply up or down. To hedge against significant losses, you also purchase an OTM call and an OTM put. These long options cap your maximum loss, converting the strategy into a credit spread on both sides.</p> 
+   </div> 
+   <div class="readable-text" id="p195"> 
+    <p>Let’s walk through an example: imagine ACME stock is trading at $100. You construct a European-style iron condor with six months until expiration:</p> 
+   </div> 
+   <ul> 
+    <li class="readable-text" id="p196"> Sell a call option with a strike price of $120. </li> 
+    <li class="readable-text" id="p197"> Sell a put option with a strike price of $80. </li> 
+    <li class="readable-text" id="p198"> Buy a call option with a strike price of $130. </li> 
+    <li class="readable-text" id="p199"> Buy a put option with a strike price of $70. </li> 
+   </ul> 
+   <div class="readable-text" id="p200"> 
+    <p>In this setup, you collect premiums from the short call and put, and you pay smaller premiums for the protective long options. The net result is a net credit, your maximum potential profit, if ACME stays between $80 and $120.</p> 
+   </div> 
+   <div class="readable-text" id="p201"> 
+    <p>Suppose an unexpected lawsuit from a disgruntled customer, Wile E. Coyote, sends ACME’s stock tumbling. At expiration, the price is $20. The buyer of the $80 put option exercises their option, and you’re assigned—you must buy shares at $80, even though they’re only worth $20. That’s a $60 per share loss.</p> 
+   </div> 
+   <div class="readable-text" id="p202"> 
+    <p>But because you bought the $70 put as protection, you can now sell those shares at $70, limiting your loss to $10 per share (the difference between the short and long put strikes), minus the net credit you originally received.</p> 
+   </div> 
+   <div class="readable-text" id="p203"> 
+    <p>This structure—collecting premium while using long options to cap risk—makes the iron condor a defined-risk, nondirectional strategy. The protective aspect of buying cheaper options to hedge against your sold options is called a <em>credit spread</em>.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p204"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.4.2</span> Diversification</h3> 
+  </div> 
+  <div class="readable-text" id="p205"> 
+   <p>Ongoing discussions debate whether randomly picking stocks—akin to throwing darts—can yield better results than actively managed funds, a question raised by Burton Malkiel in <em>A Random Walk Down Wall Street</em>. While opinions vary, nearly everyone agrees that putting all your eggs in one basket is risky. Significant risks remain even if you invest in a company with the highest market capitalization, such as one of the <em>Magnificent Seven</em> (Alphabet, Amazon, Apple, Meta, Microsoft, NVIDIA, and Tesla). The company might not face bankruptcy in your lifetime, but stock prices reflect market sentiment. You could buy at a peak, only to see years of stagnation or decline.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p206"> 
+   <p>A common risk-management strategy is diversification—avoiding a single point of failure. Programmers can relate: relying on a single server invites disaster if it crashes. But does spreading investments across all Magnificent Seven stocks provide proper diversification? As we’ve learned, fluctuations in stock prices are often correlated. These companies share the same sector, so events affecting one could affect them all. While your eggs may be in seven baskets, they’re still in the same AI truck heading down the road of capital appreciation—if that truck veers off course, all of your eggs are at risk.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p207"> 
+   <p>Proper diversification means reducing exposure to a single market. This could involve holding stocks across different sectors or investing in a mix of assets such as bonds and real estate.</p> 
+  </div> 
+  <div class="readable-text" id="p208"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.4.3</span> Pair trading</h3> 
+  </div> 
+  <div class="readable-text" id="p209"> 
+   <p><em>Pair trading</em> is a market-neutral strategy where an investor goes long on one asset and short on another, typically within the same industry or among correlated assets. The goal is to profit from relative price movements rather than overall market direction, reducing exposure to market fluctuations.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p210"> 
+   <p>Let’s consider a practical example. Suppose you analyze two AI sector companies:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p211"> Company A has strong growth potential. </li> 
+   <li class="readable-text" id="p212"> Company B is slowing down, with limited upside. </li> 
+  </ul> 
+  <div class="readable-text" id="p213"> 
+   <p>You short $100 of Company B’s stock and use the proceeds to buy Company A’s stock. If the AI boom continues, Company A will grow significantly while Company B will rise only slightly. Your trade is profitable, provided interest costs on your short position don’t erode gains.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p214"> 
+   <p>Now, let’s explore a different scenario. Suppose the AI market crashes due to competition from a Chinese AI firm or overvaluation concerns. If both stocks decline, you lose on your long position but gain on your short position, potentially offsetting losses.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p215"> 
+   <p>However, risks remain. Short selling incurs interest costs, and if your prediction is wrong—Company A declines while Company B unexpectedly rises—you could face amplified losses. Proper risk management is essential. Figure 7.5 outlines this principle, marking Company A as a rising star and Company B as a poor dog, which are the Boston Consulting Group (BCG) Growth-Share Matrix classifications.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p216">  
+   <img alt="figure" src="../Images/7-5.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.5</span> The investors are long on A and short on B. In the bull case, the long position increases more than the short position, and the long gain minus the short loss is the profit. In a bear case, the short position loses more than the long position. The profit is the gain from the short position minus the loss in the long position.</h5>
+  </div> 
+  <div class="readable-text" id="p217"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.4.4</span> Risk pairing</h3> 
+  </div> 
+  <div class="readable-text" id="p218"> 
+   <p>Passion for innovation can drive investment decisions. Some see Small Modular Reactors (SMRs) as the future of energy, while others envision carbon capture technologies such as direct-air capture becoming financial gold mines. However, investing in emerging technologies is inherently risky.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p219"> 
+   <p>Yes, data centers require constant energy, and nuclear power is promising, but what if SMRs fail to meet expectations or public sentiment stalls their adoption? Similarly, direct-air capture aims to remove CO<sub>2</sub> from the atmosphere, but its success hinges on reducing operational costs. What if that never happens?</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p220"> 
+   <p>Balancing speculative bets with stable investments is a smart way to manage this risk. The key is understanding your risk tolerance. For instance, if 80% of your portfolio is in index funds and 20% in high-risk assets, even a total loss in the speculative portion wouldn’t threaten your financial foundation. Over time, the growth of stable investments can help absorb those losses, making risk more manageable. In addition, you can use staged investing. Assuming that, as a developer, you have streaks of high income, you can keep investing smaller portions into emerging technologies while maintaining the 20% to 80% risk ratio.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p221"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Catalysts and events</h5> 
+   </div> 
+   <div class="readable-text" id="p222"> 
+    <p>Hedging isn’t just about <em>how</em>—it’s about <em>when.</em> Earnings calls are critical moments for long-term investors. Brokers notify you in advance and provide analysts’ forecasts on potential price movements. Earnings calls can be make-or-break. Reviewing transcripts—something GenAI can summarize—helps, but summaries alone may not be enough.</p> 
+   </div> 
+   <div class="readable-text" id="p223"> 
+    <p>Bad earnings? The stock drops. But is it a buying opportunity? That’s the real question. So, as an investor, you want to always be on the lookout for special events that might shift share prices more heavily in one or another direction.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p224"> 
+   <h2 class=" readable-text-h2"><span class="num-string">7.5</span> Nonfinancial risk</h2> 
+  </div> 
+  <div class="readable-text" id="p225"> 
+   <p>Some risks aren’t reflected in a company’s financial statement and can be summed up as nonfinancial risks. The subcategories are broad and may differ by industry. The overall global economic situation, for instance, affects all companies. Economic downturns harm companies unless a business model is targeted to perform well during crises.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p226"> 
+   <p>The 2020s are likely to be a decade that leads to more global challenges than many other decades before. COVID-19 and geopolitical conflicts have created challenges in many parts of the world. With the unfolding of social media and AI, we also witness more extreme views. Many people speak about a very heated and aggressive situation in many countries. They are afraid that a straw will break the camel’s back at some point, and we’ll end up with big riots and unrest in which religious and political extremists fight each other.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p227"> 
+   <p>Optimists might disagree with this view and assert that everything will be all right. As an investor, you can remain impartial. Will there be unrest in country X? The correct answer might be “I don’t know!” Instead, we’re interested in the probability of unrest. We need to find ways to quantify risks in numbers. Let’s explore potential methods to measure nonfinancial risks, encompassing all risks not addressed by financial risk management.</p> 
+  </div> 
+  <div class="readable-text" id="p228"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.5.1</span> Markets</h3> 
+  </div> 
+  <div class="readable-text" id="p229"> 
+   <p>Market trends are commonly symbolized by two animals: the bull and the bear. These aren’t just arbitrary animals; they symbolize specific movements in the market:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p230"> <em>Bull market</em>—The bull charges upward with its horns, symbolizing a rising market. Stock prices are climbing, optimism is in the air, and investors feel confident. </li> 
+   <li class="readable-text" id="p231"> <em>Bear market</em>—The bear swipes downward with its paws, symbolizing a declining market. Stock prices are dropping, uncertainty looms, and fear takes over. </li> 
+  </ul> 
+  <div class="readable-text" id="p232"> 
+   <p>Some investors get overexcited during bull markets. They take too many risks to replace good gains with exceptional gains. However, ignoring risks by picking random securities that promise huge gains without looking into the details of those assets can lead to a disaster.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p233"> 
+   <p>Some investors might tell you to ignore Mr. Market. If you’ve invested in solid companies with a bright future, their share price may decrease during a bear market, but the future looks bright in the long run. At the same time, you can’t ignore that sometimes companies might get into serious trouble during a market crisis, from which they can’t recover. Selling them as soon as possible is often the only alternative to minimize permanent losses. Making the right decisions is hard. You don’t have all the information you need, and psychological factors might affect you. Looking at a position when it’s 20% below the purchase price still gives you the idea that there can be a turnaround. But selling that position at 20% below the purchase price is like acknowledging a loss. For many of us, this leads to negative emotions. It’s human to push these feelings away and to keep the illusion that everything will be good again at some point, even if some facts tell us that it would be better to walk away with a slight loss.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p234"> 
+   <p>As a risk-taker, you might see a bear market as an opportunity to short sell assets. This means you borrow shares from someone to sell them and repurchase them at a lower price later. While famous investors, such as Michael Burry, became wealthy by predicting the housing bubble crash in 2008, other investors had been wrong with their predictions.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p235"> 
+   <p>Managing emotions and sticking to discipline and fact-based decision-making may be key to being a good investor. Anyone who feels that they might not have the nerve to stay disciplined during difficult times or knows they won’t be able to sleep when the market is in turmoil should consider adjusting their strategy to their risk profile.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p236"> 
+   <p>Some investors try to sell growth stocks at the end of a bull run to stock up on defensive stocks. Once the next bear market is over, you can repurchase growth stocks at a lower price. This leads to one big question: Can we predict a bear or bull market?</p> 
+  </div> 
+  <div class="readable-text" id="p237"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.5.2</span> Economic data</h3> 
+  </div> 
+  <div class="readable-text" id="p238"> 
+   <p>Some analysts try to look at economic data to predict a recession. One of these metrics is the “10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity.” Some investors see the spread between the yields on 10-year and 2-year US Treasury bonds as a yield curve proxy indicator of a recession. Figure 7.6 shows a graph that outlines these numbers.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p239">  
+   <img alt="figure" src="../Images/7-6.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.6</span> The 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity</h5>
+  </div> 
+  <div class="readable-text" id="p240"> 
+   <p>Another indicator is the unemployment rate, which we can collect through the Federal Reserve Economic Data (FRED), as shown in figure 7.7. The more people are employed, the greater the risk we face. We might exclude 2020, as the COVID-19 crisis resulted from unforeseeable events.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p241">  
+   <img alt="figure" src="../Images/7-7.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.7</span> Unemployment rate over the years</h5>
+  </div> 
+  <div class="readable-text" id="p242"> 
+   <p>The graph shows that unemployment gradually increased before most recessions. Then, when the recession was here, it went up enormously.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p243"> 
+   <p>Reading charts can only give you indications. Whoever listens to podcasts and interviews with experts will detect contradicting views. While some predict imminent crises, others predict colossal growth.</p> 
+  </div> 
+  <div class="readable-text" id="p244"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.5.3</span> Assessing nonfinancial risk</h3> 
+  </div> 
+  <div class="readable-text" id="p245"> 
+   <p>Public companies must report their numbers using predefined standards and would be in trouble if they violated the regulations. Some accountants might try to disguise some unpleasant details with tricks in their reporting, but experienced financial data analysts have a framework in which they can interpret the numbers and decide if something is off.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p246"> 
+   <p>We’ll investigate nonfinancial data in chapter 11 in more detail to explore how we can integrate insights outside of financial statements into more advanced analyses. For now, let’s start with the awareness that nonfinancial risks are defined by what they are not. We might look for social media sentiments, weather data, and other sources. Still, unlike financial data, no central data repository is available to host all possible data to analyze nonfinancial risks. It wouldn’t even be clear what we would need to store.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p247"> 
+   <p>Let’s reference the fictitious case study for ACME that we used to discuss options trading. Let’s assume a disgruntled customer, Mr. Coyote, sues ACME Corporation because their products don’t live up to the promises in the sales material. Let’s also assume that his case gets some media coverage. How can we rate the reputation risk for ACME? Experienced analysts may take similar cases from the past as a reference and assess the reputation risk for ACME; others might analyze the sentiments on social media posts related to the case. However, different analysts may come to different conclusions.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p248"> 
+   <p>The ACME case study is most likely only relevant to one company. Let’s also look at a systemic risk. Let’s assume a country gets a new political leader. We can analyze transcripts of speeches and create sentiment analyses based on keywords. This way, we might also detect hidden messages between the lines. We might also investigate the election campaigns to determine who donated how much to this new leader to understand his priorities further.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p249"> 
+   <p>Let’s assume this new leader is erratic, contradicts his predecessors, and does many things differently. Some investors might view a country’s political leader as a risk to the economy, while others may assume that he will stir up stagnation and do good things. Maybe some companies will benefit while others suffer. It’s challenging to translate behavior into risk. While many believe that a politician who is rude, aggressive, and with plenty of evidence of narcissistic behavior must be a risk for every country, we might lack proof for what we might call common sense. Predicting the future based on data requires enough historical data. As every leader of the past is a different person who ruled under other circumstances, it’s hard to create an accurate model to compare current performance with past performance. Therefore, analyses based on nonfinancial risks, especially politics-related ones, can be speculative: It’s likely harder to predict the possible effect of a legal case or elections on a corporation’s share price than assessing the financial risk of a company going bankrupt.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p250"> 
+   <p>One additional question is whether we’ll group nonfinancial risks into subgroups. The following is one attempt: </p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p251"> <em>Operational risks</em>—System downtime, security breaches </li> 
+   <li class="readable-text" id="p252"> <em>Regulatory risks</em>—Lawsuits, compliance fines </li> 
+   <li class="readable-text" id="p253"> <em>ESG risks</em>—Environmental, social, and governance factors </li> 
+   <li class="readable-text" id="p254"> <em>Tech obsolescence</em>—R&amp;D spending, patent filings </li> 
+   <li class="readable-text" id="p255"> <em>Political risk</em>—Country stability, trade restrictions </li> 
+   <li class="readable-text" id="p256"> <em>Reputation risk</em>—Social media sentiment, brand issues </li> 
+   <li class="readable-text" id="p257"> <em>Management risk</em>—CEO turnover, employee satisfaction </li> 
+  </ul> 
+  <div class="readable-text" id="p258"> 
+   <p>Professional investors and organizations, such as central banks, have more refined risk taxonomies, which may be overkill for a private investor to study. We can also dive deeper into specific risks. The current decade has experienced a pandemic, geopolitical conflicts, political paradigm shifts, and the effect of climate change through wildfires and hurricanes. Instead of asking on a generic level, such as what ESG risks a company might face, we can also ask more concrete questions: How will climate change affect that company’s business?</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p259"> 
+   <p>We may consider two approaches to addressing the topic. We can develop individual scoring systems that collect data from various sources and build algorithms. If we take our work seriously, we could write books about each risk type and company, as we might consider building digital twins and simulating the effect of various catastrophes.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p260"> 
+   <p>As this is a lot of effort, we may use an alternative approach. In chapters 8 and 9, we examine large language models (LLMs) in more detail. But if we agree that risk assessments always contain room for error because there are unknowns, we can also use LLMs for basic risk assessments, knowing that they might hallucinate. Even if we need to review an LLM’s response, we might still discover patterns that are helpful in our risk strategy. In chapter 8, we’ll also provide an example of how to assess nonfinancial risks.</p> 
+  </div> 
+  <div class="readable-text" id="p261"> 
+   <h2 class=" readable-text-h2"><span class="num-string">7.6</span> Portfolio optimization</h2> 
+  </div> 
+  <div class="readable-text" id="p262"> 
+   <p>Let’s explore how to optimize our portfolios. We can collect data and then define the riskiness of individual positions. We can also use these techniques to create portfolios that optimize risk and return rates. Let’s start by exploring the Markowitz-efficient portfolio in detail.</p> 
+  </div> 
+  <div class="readable-text" id="p263"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.6.1</span> Markowitz-efficient portfolio</h3> 
+  </div> 
+  <div class="readable-text" id="p264"> 
+   <p>A Markowitz-efficient portfolio is any portfolio that lies on the efficient frontier, as defined by modern portfolio theory (MPT), introduced by Harry Markowitz in 1952. The <em>efficient frontier</em> represents the set of optimal portfolios that offer the highest expected return for a given level of risk (standard deviation). A portfolio is Markowitz-efficient if there’s no other portfolio with a higher return for the same risk or a lower risk for the same return. These portfolios are obtained by diversifying assets to minimize variance while maintaining an optimal return. We do this by loading data in memory, comparing past share price volatility and returns, and constructing a portfolio that optimally balances risks and returns. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p265"> 
+   <p>Let’s see how to create an efficient portfolio. In listing 7.2, we start by loading stock data. For this example, we take Apple (AAPL), Walmart (WMT), Alphabet (GOOGL), Coca-Cola (KO), Pfizer (PFE), Berkshire Hathaway (BRK-B), and NVIDIA (NVDA). In the code, we collect data for three years.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p266"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.2</span> Collecting data for the Markowitz-efficient portfolio</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import yfinance as yf
+from datetime import datetime, timedelta
+
+def load_stocks(tickers, year_backs):
+    start_date = datetime.today() - timedelta(days=365*year_backs) 
+    end_date = datetime.today()
+    stock_data = yf.download(tickers, start=start_date, end=end_date)['Close']
+    return stock_data.pct_change().dropna()
+
+tickers = ["AAPL", "WMT", "GOOGL", "KO", "PFE", "BRK-B", "NVDA"]
+year_backs = 3
+returns = load_stocks(tickers, year_backs)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p267"> 
+   <p>After loading the data with the returns, we set up the parameters for calculating the efficient frontier in listing 7.3. The number of trading days doesn’t equal the number of yearly days, as we must factor in weekends and public holidays.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p268"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.3</span> Setting up variables</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">TRADING_DAYS = 252
+
+mean_returns = returns.mean() * TRADING_DAYS    <span class="aframe-location"/> #1
+cov_matrix = returns.cov() * TRADING_DAYS        #1
+
+num_portfolios = 10000       <span class="aframe-location"/> #2
+num_assets = len(tickers)     #2
+
+port_returns = np.zeros(num_portfolios)
+port_volatility = np.zeros(num_portfolios)
+sharpe_ratios = np.zeros(num_portfolios)
+all_weights = np.zeros((num_portfolios, num_assets))</pre> 
+    <div class="code-annotations-overlay-container"> #1 Annualized mean returns and covariance matrices
+     <br/>#2 Number of portfolios to simulate
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p269"> 
+   <p>It’s time to talk about the risk-free rate and the Sharpe ratio. The Sharpe ratio, developed by William F. Sharpe, is a performance measure used to evaluate the risk-adjusted return of a portfolio. A higher Sharpe ratio means the portfolio has a better return per unit of risk. A Markowitz-efficient portfolio doesn’t necessarily have the highest Sharpe ratio. The tangency portfolio on the efficient frontier, which maximizes the Sharpe ratio, is often the best portfolio when risk-free borrowing/lending is allowed.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p270"> 
+   <p>Think of the Sharpe ratio as a return-to-risk efficiency metric, which measures how much helpful work a function does per unit of computational cost. In investing, it tells you how much extra return you get per unit of risk taken.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p271"> 
+   <p>Some investments are de facto risk-free, ignoring black swan events; the assets can’t go broke. The risk-free rate is the baseline where the lowest return can be found with the least risk. If you have assets for which you expect lower returns but are at a higher risk, these would be the first to be removed from a portfolio. So, every asset with a risk must provide higher returns than an asset without risk. But what is a risk-free rate? </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p272"> 
+   <p>A possible but wrong way to think of a risk-free rate is to consider the stock market’s average, as shown in figure 7.8. Taking the returns since 1950, we get average returns of approximately 9.21%. Even if we factor in a 3% inflation rate, we still get solid returns.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p273">  
+   <img alt="figure" src="../Images/7-8.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.8</span> Market returns from 1950 until the present day</h5>
+  </div> 
+  <div class="readable-text" id="p274"> 
+   <p>A risk-free rate means I can trust that I’ll get x amount of money at a specific time. Average returns on stock markets don’t help here. Instead, T-bills are assumed to have zero default risk as the US government backs them. At the time of writing this book, the treasury bill rate was 4.22%. So, this is what we need to beat. The value fluctuates significantly, so if you run these examples on your own, be sure to update the information with the latest data.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p275"> 
+   <p><span class="print-book-callout-head">Note </span> In chapter 5, we show how to collect historical data for bonds.</p> 
+  </div> 
+  <div class="readable-text" id="p276"> 
+   <p>Listing 7.4 creates a Markowitz-efficient portfolio. The first step is to set the risk-free rate to 0.0422. We then run a Monte Carlo simulation for random portfolios to find a good match. We store portfolios with all the assets and assign them random weights. Then, we calculate the returns and volatilities based on these random portfolios. To calculate the Sharpe ratio, we must subtract the risk-free rate from the returns and then divide by volatility. In the final step, we get the optimal weights.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p277"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.4</span> Creating a Markowitz efficient portfolio</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">risk_free_rate = 0.0422
+
+for i in range(num_portfolios):     <span class="aframe-location"/> #1
+    weights = np.random.dirichlet(np.ones(num_assets), size=1).flatten()
+    all_weights[i, :] = weights
+    port_returns[i] = np.dot(weights, mean_returns)
+    port_volatility[i] = np.sqrt(np.dot(weights.T, 
+                                 np.dot(cov_matrix, weights)))
+    sharpe_ratios[i] = (port_returns[i] - risk_free_rate) / port_volatility[i]
+# 
+max_sharpe_idx = np.argmax(sharpe_ratios)           <span class="aframe-location"/> #2
+optimal_weights = all_weights[max_sharpe_idx, :]     #2</pre> 
+    <div class="code-annotations-overlay-container"> #1 Monte Carlo simulation for random portfolios
+     <br/>#2 Finds the optimal Sharpe ratio portfolio
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p278"> 
+   <p>After calculating the optimal portfolio with the best Sharpe ratio, let’s look at the code to plot the results in listing 7.5. We set the labels and highlight the best portfolio with the highest maximum Sharpe ratio. We plot the results as a scatter plot.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p279"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.5</span> Plotting the efficient frontier</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">plt.figure(figsize=(10, 6))                                  <span class="aframe-location"/> #1
+plt.scatter(port_volatility, port_returns, c=sharpe_ratios,
+            cmap='viridis', marker='o')   #1                   
+plt.colorbar(label='Sharpe Ratio')        #1                  
+plt.xlabel('Volatility (Risk)')           #1                   
+plt.ylabel('Expected Return')             #1                 
+plt.title('Efficient Frontier with Actual Stock Data')  #1     
+
+plt.scatter(port_volatility[max_sharpe_idx], 
+            port_returns[max_sharpe_idx], 
+            c='red', marker='*', s=200, 
+            label='Max Sharpe Portfolio')    <span class="aframe-location"/> #2
+plt.legend()                                  #2
+plt.show()                                    #2</pre> 
+    <div class="code-annotations-overlay-container">
+     #1 Sets plotting parameters
+     <br/>#2 Plots a scatter plot
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p280"> 
+   <p>Let’s look at the plot we created in figure 7.9. We see the random portfolios plotted. Some portfolios would bring higher returns at a higher risk, but we’re interested in the portfolio with the best risk-return ratio.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p281">  
+   <img alt="figure" src="../Images/7-9.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.9</span> Showing the efficient frontier with the portfolio with the best Sharpe ratio</h5>
+  </div> 
+  <div class="readable-text" id="p282"> 
+   <p>To get the portfolio with its weights, we need only to get the results in a DataFrame and display them:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p283"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">optimal_portfolio_df = pd.DataFrame({
+    'Stock': tickers,
+    'Optimal Weight': optimal_weights
+})
+print(optimal_portfolio_df)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p284"> 
+   <p>Let’s look at the results, which, based on historical data, give us some insights about the most efficient portfolio, as shown in table 7.6.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p285"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.6</span> Results of a Markowitz portfolio calculation</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Stock 
+       </div> </th> 
+      <th> 
+       <div>
+         Optimal weight 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  AAPL <br/> </td> 
+      <td>  0.045226 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  WMT <br/> </td> 
+      <td>  0.015196 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  GOOGL <br/> </td> 
+      <td>  0.005023 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  KO <br/> </td> 
+      <td>  0.004842 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  PFE <br/> </td> 
+      <td>  0.293244 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  BRK-B <br/> </td> 
+      <td>  0.000245 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  NVDA <br/> </td> 
+      <td>  0.636224 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p286"> 
+   <p>NVIDIA was a star performer over the past few years. And nobody would have expected a portfolio with data from recent years in which NVIDIA wasn’t dominant. We also see Pfizer as quite dominant, which might be logical considering COVID-19, in which Pfizer had huge earnings through vaccine sales. We would have to buy and sell positions in our existing portfolio to use the insights until we have the weights as proposed in table 7.6.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p287"> 
+   <p>We get different results if we change the risk-free rate and time horizon parameters. Past performance may indicate possible future results, but the future remains uncertain. Especially at the beginning of this decade, the world economy was enormously affected by the pandemic and other global crises. Many investment firms that estimate target prices of stocks are getting predictions wrong more often than before, which underlines that we can’t eliminate uncertainty.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p288"> 
+   <p>Statistical methods can’t eliminate risks, but can help us manage them better. Following the best practices created by researchers such as Harry Markowitz enables us to calculate likely gains and risks. Many may start their investment approach by looking at single assets. They analyze single companies and pick likely performers based on their expected earnings and other ratios. Investors who learn to analyze portfolios can extend their approach. They still look for valuable companies and validate how new assets fit into their portfolios. Sometimes, they might decide not to buy shares because they don’t fit into what they already own.</p> 
+  </div> 
+  <div class="readable-text" id="p289"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.6.2</span> Shiller P/E ratio</h3> 
+  </div> 
+  <div class="readable-text" id="p290"> 
+   <p>The Shiller P/E ratio (often also referred to as the CAPE ratio [cyclically adjusted price-to-earnings ratio]) is a stock market valuation metric that smooths out earnings fluctuations and gives a clearer picture of long-term market valuation. It helps gauge stock market valuation. Using this method, you take the current price of a stock or index, such as the S&amp;P 500, as the numerator. You use the average real (inflation-adjusted) earnings over the past 10 years for the denominator. The purpose of this 10-year smoothing is to eliminate short-term noise from economic or market disruptions.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p291"> 
+   <p>High CAPE ratios suggest overvaluation, while low ratios suggest undervaluation. We can track and monitor the CAPE ratio for broad indices (e.g., S&amp;P 500). Then, we can decide what to do next. We can adjust equity allocation based on CAPE:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p292"> <em>High CAPE (overvalued market)</em>—Reduce equity exposure and shift to bonds, gold, or alternatives. </li> 
+   <li class="readable-text" id="p293"> <em>Low CAPE (undervalued market)</em>—Increase equity exposure. </li> 
+  </ul> 
+  <div class="readable-text" id="p294"> 
+   <p>Let’s look at an example. The historical average CAPE ratio for the S&amp;P 500 is around 16–18. The market may be overheated if the CAPE exceeds this range (e.g., &gt; 30). A low CAPE (e.g., &lt; 10) may suggest buying opportunities.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p295"> 
+   <p>We must still be aware that a CAPE ratio is an indication, but not a definitive prediction. A high CAPE ratio doesn’t mean a crash is imminent, and a low CAPE doesn’t guarantee immediate gains. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p296"> 
+   <p>We must also be aware of limitations. Economic changes, such as structural shifts (e.g., lower interest rates or changing tax laws), can influence what a “fair” CAPE might be today compared to historical norms. Sector composition is also a topic. The composition of indices changes over time (e.g., tech-heavy markets today versus industrial-heavy in the past), which can skew CAPE comparisons.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p297"> 
+   <p>For long-term investors, CAPE is a tool for assessing potential future returns over a decade or more, not short-term trades. It also helps them stay grounded during periods of market exuberance or pessimism. In short, the CAPE ratio provides a historical perspective on market valuation, assisting investors in making informed decisions about risk and reward. We can collect the ratio for stock exchanges from web pages, as shown in figure 7.10.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p298">  
+   <img alt="figure" src="../Images/7-10.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 7.10</span> Shiller CAPE ratio per month</h5>
+  </div> 
+  <div class="readable-text" id="p299"> 
+   <p>The Shiller CAPE ratio is high on this chart, which could indicate that the market is overvalued. Someone with strong views on the validity of this indicator would tell us to get out of equities. But this is just one interpretation out of many. Others may see more room to grow. Some might see an upcoming market correction, but until then, you can still gain a lot. The hard truth is that financial experts often contradict themselves; after all, it’s up to you to decide whom you want to believe.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p300"> 
+   <p>Some investors combine Markowitz-efficient portfolios with the CAPE ratio. They use the CAPE ratio for macro allocation and adjust the stock/bond allocation based on CAPE. When CAPE is high, they reduce the stock exposure to lower drawdown risk. When balancing the portfolios, they use the Sharpe ratio for micro-optimization. Here’s an example: </p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p301"> If CAPE is low (e.g., &lt; 20), allocate 80% to equities and 20% to bonds. </li> 
+   <li class="readable-text" id="p302"> If CAPE is high (e.g., &gt; 30), allocate 50% to equities, 30% to bonds, and 20% to gold. </li> 
+  </ul> 
+  <div class="readable-text" id="p303"> 
+   <p>Within the equity portion, they optimize weights using the Sharpe ratio. As with every strategy, there are exceptions and risks.</p> 
+  </div> 
+  <div class="readable-text" id="p304"> 
+   <h3 class=" readable-text-h3"><span class="num-string">7.6.3</span> Rebalancing</h3> 
+  </div> 
+  <div class="readable-text" id="p305"> 
+   <p><em>Rebalancing</em> is the process of adjusting the weights of assets in a portfolio to maintain the desired asset allocation over time. It helps control risk, optimize returns, and prevent drift from the original investment strategy.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p306"> 
+   <p>Rebalancing is important. Market movements cause asset weights to shift away from the target allocation. We also want to manage risks to prevent overexposure to certain well-performing assets (reducing concentration risk) and optimize returns to ensure that gains are captured and reinvested according to the original strategy. There are three main strategies for rebalancing:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p307"> <em>Periodic rebalancing (time-based)</em>—Rebalance on predefined intervals. </li> 
+   <li class="readable-text" id="p308"> <em>Threshold-based rebalancing (percentage-based)</em>—Rebalance only when an asset deviates by a certain percentage from the target allocation (e.g., &plusmn;5% drift). </li> 
+   <li class="readable-text" id="p309"> <em>Hybrid approach (time + threshold)</em>—Combine both methods. </li> 
+  </ul> 
+  <div class="readable-text" id="p310"> 
+   <p>A hybrid approach often works best. We must remember that too-frequent rebalances cost money. Each sell and buy order leads to transaction costs and maybe tax consequences.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p311"> 
+   <p>In addition, we can consider different methods of rebalancing. One way is to buy and sell from positions within a portfolio to return to optimal weight. In that case, we calculate the efficient portfolio at a specific time. Let’s say we rebalance quarterly. Then, we run our algorithms, sell those underperforming assets, and buy more of those that performed well.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p312"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Selling underperformers and buying overperformers</h5> 
+   </div> 
+   <div class="readable-text" id="p313"> 
+    <p>If we rebalance, we must define rules for what to sell and buy. One of the best investment practices is buying more high-performers and selling low-performers, which might contradict our instinct to hold on to stocks that have lost value in the hope that they will rebound.</p> 
+   </div> 
+   <div class="readable-text" id="p314"> 
+    <p>At the same time, we need to be aware of not tuning our algorithms in a way that risks de-diversifying. Imagine you have one superstar in your portfolio that grows far more than any other stock. Some algorithms might conclude that selling the rest and buying only the superstar would be best.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p315"> 
+   <p>Investors with a strong cash flow, such as programmers who make a lot of money by working on projects, can also decide to balance by making optimal buy decisions. They deposit new cash into their brokerage account and run the algorithms, but instead of selling weak positions, they buy recommended stocks with the new money.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p316"> 
+   <p>Let’s look at some code. We take the basis allocation from the results we collected from the efficient portfolio: </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p317"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">target_allocation = {
+"AAPL":        0.016804,
+"WMT":        0.007427,
+"GOOGL":        0.015956,
+"KO":        0.142700,
+"PFE":        0.193730,
+"BRK-B":        0.009315,
+"NVDA":        0.614068
+}</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p318"> 
+   <p>In this model, we assume we’ve invested in all stocks equally in dollars (although this is unlikely, but we need to start somewhere). As you’ve learned how to collect data from your brokers in chapter 6, feel free to load it and use these positions as a base:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p319"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import pandas as pd
+current_portfolio = {
+"AAPL":        10000,
+"WMT":        10000,
+"GOOGL":        10000,
+"KO":        10000,
+"PFE":        10000,
+"BRK-B":        10000,
+"NVDA":        10000,
+}</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p320"> 
+   <p>Before we go into more detail, let’s set up some parameters. We need to map our current portfolio to the weights in listing 7.6. We set a threshold of 0.05 and sum up all values. Then, we review each position and set the current allocation based on weights.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p321"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.6</span> Rebalancing preparation</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">threshold = 0.05   <span class="aframe-location"/> #1
+total_value = sum(current_portfolio.values())
+
+current_allocation = {stock: value / total_value 
+                      for stock, value 
+                      in current_portfolio.items()}    <span class="aframe-location"/> #2</pre> 
+    <div class="code-annotations-overlay-container"> #1 Defines the rebalancing threshold (e.g., 5% deviation from target)
+     <br/>#2 Computes current allocations based on the weights
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p322"> 
+   <p>Now, we can calculate the deviations in listing 7.7 from our target allocation and identify the rebalancing actions. We review all stocks with a higher deviation than the threshold defined before and calculate the required adjustments.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p323"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 7.7</span> Calculate required adjustments</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">dev = {
+    stock: current_allocation[stock] 
+    - target_allocation[stock] 
+    for stock in target_allocation
+}                                      <span class="aframe-location"/> #1
+
+rebalance_needed = {
+    stock: value 
+    for stock, value in dev.items() 
+    if abs(value) &gt; threshold
+}     #1                                 
+
+adjustments = {}                                             <span class="aframe-location"/> #2
+for stock in rebalance_needed:                                #2
+    target_value = target_allocation[stock] * total_value     #2
+    current_value = current_portfolio[stock]                  #2
+    adjustments[stock] = target_value - current_value         #2</pre> 
+    <div class="code-annotations-overlay-container">
+     #1 Finds rebalancing
+     <br/>#2 Defines sell and buy actions
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p324"> 
+   <p>In the last step, we must put everything in a DataFrame and analyze the results to create a DataFrame that holds buy and sell recommendations:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p325"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">rebalance_df = pd.DataFrame({
+    "Stock": list(adjustments.keys()),
+    "Current Value ($)": [
+        current_portfolio[stock] 
+        for stock in adjustments
+    ],
+    "Target Value ($)": [
+        target_allocation[stock] * total_value
+        for stock in adjustments
+    ],
+    "Adjustment ($)": [
+        adjustments[stock] 
+        for stock in adjustments
+    ],
+    "Action": [
+        "Buy" if adj &gt; 0 else "Sell" 
+        for adj in adjustments.values()
+    ]
+})</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p326"> 
+   <p>With that, we get some results, as shown in table 7.7. We must create four sell and two buy orders to balance our portfolio. Keep in mind that most portfolios can’t be ideally matched. This is especially true if you own high-priced shares in a company and your broker doesn’t allow you to sell fractions of a share (at the time of writing this chapter, a few brokers still don’t support it). If one share is around $1000, such as BlackRock, selling half a share is often impossible.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p327"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 7.7</span> Rebalancing actions </h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Stock 
+       </div> </th> 
+      <th> 
+       <div>
+         Current value 
+       </div> </th> 
+      <th> 
+       <div>
+         Target value 
+       </div> </th> 
+      <th> 
+       <div>
+         Adjustment 
+       </div> </th> 
+      <th> 
+       <div>
+         Action 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  AAPL <br/> </td> 
+      <td>  10,000 <br/> </td> 
+      <td>  1,176.28 <br/> </td> 
+      <td>  –8,823.72 <br/> </td> 
+      <td>  Sell <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  WMT <br/> </td> 
+      <td>  10,000 <br/> </td> 
+      <td>  519.89 <br/> </td> 
+      <td>  –9,480.11 <br/> </td> 
+      <td>  Sell <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  GOOGL <br/> </td> 
+      <td>  10,000 <br/> </td> 
+      <td>  1,116.92 <br/> </td> 
+      <td>  –8,883.08 <br/> </td> 
+      <td>  Sell <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  PFE <br/> </td> 
+      <td>  10,000 <br/> </td> 
+      <td>  13,561.1 <br/> </td> 
+      <td>  3,561.10 <br/> </td> 
+      <td>  Buy <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  BRK-B <br/> </td> 
+      <td>  10,000 <br/> </td> 
+      <td>  652.05 <br/> </td> 
+      <td>  –9,347.95 <br/> </td> 
+      <td>  Sell <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  NVDA <br/> </td> 
+      <td>  10,000 <br/> </td> 
+      <td>  42,984.76 <br/> </td> 
+      <td>  32,984.76 <br/> </td> 
+      <td>  Buy <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p328"> 
+   <h2 class=" readable-text-h2">Summary</h2> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p329"> <em>Ukemi</em> is a term borrowed from martial arts. In this chapter, we use it to raise awareness of the importance of learning to deal with possible setbacks before taking risks. </li> 
+   <li class="readable-text" id="p330"> Stop-loss orders can be the most efficient loss protection tool. You instruct your broker to sell the position once it reaches a specific price. </li> 
+   <li class="readable-text" id="p331"> “Bikeshedding,” or Parkinson’s Law of Triviality, tells you about the risk of overlooking the most significant threats as you get distracted by trivial topics. </li> 
+   <li class="readable-text" id="p332"> Bull markets represent growth markets, and bear markets are markets of decline. Often, the challenge is less to create a well-performing portfolio during good times, but to minimize losses during bad times. Value at Risk (VaR) calculates how much you can likely lose in extreme cases in a period. We can use Monte Carlo simulations to measure the VaR of stocks. </li> 
+   <li class="readable-text" id="p333"> Correlation in the context of two share prices means their price movements are often interlinked. If stock A goes up, so does stock B, in most cases. </li> 
+   <li class="readable-text" id="p334"> We can use past returns and variances to determine risks. Then, we can select a portfolio of many stocks to produce the desired mix of expected risk-adjusted returns. </li> 
+   <li class="readable-text" id="p335"> We can use Monte Carlo simulations to calculate efficient portfolios. </li> 
+   <li class="readable-text" id="p336"> Human psychology is a significant risk factor when investing. </li> 
+   <li class="readable-text" id="p337"> Hedging describes practices to protect oneself against risk using techniques and assets such as derivatives, diversification, pair trading, or risk pairing. </li> 
+   <li class="readable-text" id="p338"> Derivatives are like insurance against changing prices. Some derivative traders also use them to create additional income. </li> 
+   <li class="readable-text" id="p339"> Diversification is essential but requires a deep understanding of the assets within one portfolio that might correlate. </li> 
+   <li class="readable-text" id="p340"> Pair trading is the idea of offsetting risk by going long in one position and short in another. </li> 
+   <li class="readable-text" id="p341"> Risk pairing means pairing risky investments with less risky assets. </li> 
+   <li class="readable-text" id="p342"> Nonfinancial risks comprise all risks without a direct link to finance. This broad category includes issues caused by geopolitical changes or overall market movements. </li> 
+   <li class="readable-text" id="p343"> You might be unable to protect yourself against all nonfinancial risks, as this category is vast, but you can identify the most concerning risks through a risk matrix. </li> 
+   <li class="readable-text" id="p344"> One way to protect a business against nonfinancial risks is by keeping a margin of safety and preparing for risks by anticipating worst-case scenarios. </li> 
+   <li class="readable-text" id="p345"> Some companies are more resilient against market movements than others. The beta ratio measures a stock’s volatility relative to the overall market. The lower a stock’s beta, the more resilient it is against market movements. </li> 
+   <li class="readable-text" id="p346"> Some investors see macroeconomic data, such as unemployment rates and the 10-Year Treasury Constant Maturity Minus the 2-Year Treasury Constant Maturity, as indicators of possible recessions. </li> 
+   <li class="readable-text" id="p347"> Past performance indicates a possible future performance, but doesn’t guarantee it. </li> 
+   <li class="readable-text" id="p348"> Having multiple assets in a portfolio, with past returns for possible gains and past share price volatility as risk, allows us to create strategies. </li> 
+   <li class="readable-text" id="p349"> The Markowitz efficient portfolio recommends optimal weights in your portfolio based on historical data. These weights—in a closer sense, the distribution of shares within a portfolio—can be calculated through Monte Carlo simulation and reflect the optimal risk and return rate. </li> 
+   <li class="readable-text" id="p350"> The Shiller P/E ratio, also known as the CAPE ratio, is a valuation measure that uses real earnings per share over 10 years to smooth out fluctuations in corporate profits. It’s often used to assess if a market, such as the S&amp;P 500, is overvalued. </li> 
+   <li class="readable-text" id="p351"> Portfolios often become skewed with time. To overcome this, they need to be rebalanced. However, rebalancing too frequently can accumulate substantial transaction costs. </li> 
+  </ul>
+ </body>
+</html>

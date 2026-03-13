@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>chapter-10</title>
+  <link href="../Styles/stylesheet.css" rel="stylesheet" type="text/css"/>
+ </head>
+ <body>
+  <div class="readable-text" id="p1"> 
+   <h1 class=" readable-text-h1"><span class="chapter-title-numbering"><span class="num-string">10</span></span> <span class="chapter-title-text">Charts and technical analysis</span></h1> 
+  </div> 
+  <div class="introduction-summary"> 
+   <h3 class="introduction-header">This chapter covers</h3> 
+   <ul> 
+    <li class="readable-text" id="p2">Interpreting patterns in charts</li> 
+    <li class="readable-text" id="p3">How to use candlesticks</li> 
+    <li class="readable-text" id="p4">Which averages help you assess stocks </li> 
+    <li class="readable-text" id="p5">Bollinger Bands, moving average convergence divergence, and moving average ribbons</li> 
+    <li class="readable-text" id="p6">Displaying an Ichimoku Cloud</li> 
+    <li class="readable-text" id="p7">Using Streamlit for visualization</li> 
+   </ul> 
+  </div> 
+  <div class="readable-text" id="p8"> 
+   <p>Imagine being presented with a captivating product—something you never considered but now find yourself intrigued by. The possibilities are endless, whether it’s a stunning piece of art, a luxurious property, or an exquisite car. Now, picture that the seller turns to you, eyes glinting with opportunity, and asks, “How much would you offer?”</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p9"> 
+   <p>Imagine you’ve never bought a similar product. No advisor stands next to you, and you can’t ask any search engine or AI chatbot for a reasonable price. Without any historical data or reference, all you can do is guess.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p10"> 
+   <p>Many potential buyers find this situation distressing. If they overpay, they might regret their purchase for years. However, offering too little can cause issues. A buyer risks offending the seller or showing everyone around them that they are unaware of the market value, which can jeopardize their reputation.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p11"> 
+   <p>Historical data provide a solid foundation for informed decisions. For instance, if you know the purchase price of neighboring houses, you can at least estimate the price of real estate (though you could still end up with a lousy deal for various reasons). The more data you have, the easier it is to determine if the price is reasonable.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p12"> 
+   <p>Technical analysis of financial data is, to a large extent, a study of historical price developments. Knowledge about past movements is good. However, it’s even better when historical prices are visualized, as many people prefer visuals over numbers in tables. Let’s start by looking at charts and how we can interpret them. Afterward, we’ll examine specific charts for investment and explore how to visualize information ourselves.</p> 
+  </div> 
+  <div class="readable-text" id="p13"> 
+   <h2 class=" readable-text-h2"><span class="num-string">10.1</span> Charts</h2> 
+  </div> 
+  <div class="readable-text" id="p14"> 
+   <p>In previous chapters, we often plotted charts using share prices over time. The idea that charts represent data is, therefore, not a new concept. Once you have price and time, you can plot a chart where the x-axis is usually the time, and the y-axis defines the value of an asset in a currency. Let’s examine a chart without context in figure 10.1.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p15">  
+   <img alt="figure" src="../Images/10-1.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.1</span> A chart without context in which we still must interpret a lot</h5>
+  </div> 
+  <div class="readable-text" id="p16"> 
+   <p>We can start making assumptions if we look at a chart without context. Knowing that the x-axis represents time and the y-axis represents price, we see that the cost of an asset was relatively stable until approximately the middle of the chart. Then something happened, and we had a sharp decline with minor corrections in between. We can make basic observations without context, but to interpret what was going on, we need details. Let’s add some context and examine figure 10.2.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p17">  
+   <img alt="figure" src="../Images/10-2.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.2</span> The price development of the S&amp;P 500 (ticker: ^GSPC) after Liberation Day (April 2, 2025), in which President Donald Trump announced a fundamental change in the US tariff strategy</h5>
+  </div> 
+  <div class="readable-text" id="p18"> 
+   <p>With context, we can give meaning to charts. We understand that we’re looking at the S&amp;P 500. We examine a relatively short interval of a few days, as we have data on the S&amp;P 500 since its inception on March 4, 1957.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p19"> 
+   <p>If we had the data displayed in the chart as a DataFrame, we would have time series data starting from April 1 at a price of around $5,600 and ending slightly below $5,000. We don’t know how many data points this DataFrame would hold, as this depends on the update frequency. We’ll have 60 times as much data if the data is updated per minute than if it’s updated per hour.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p20"> 
+   <p>The price of the S&amp;P 500 data has fallen by 11.15%. Someone who had a value of $100,000 in an index fund that mirrors the S&amp;P 500 would lose $11,150 in value within five days. This chart appears alarming to conservative investors, who expect the value of their assets to increase. But at the same time, let’s look at a chart in figure 10.3.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p21">  
+   <img alt="figure" src="../Images/10-3.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.3</span> The extreme price development of GameStop is often seen as a case study for volatile share prices. GameStop is a video game retailer whose share price rose after discussions on the subreddit r/wallstreetbets suggested that the stock was undervalued. This resulted in significant losses for hedge funds that had shorted the stock.</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p22"> 
+   <p>Someone accustomed to price movements, such as those seen with GameStop stock, might find the changes in the S&amp;P 500 less dramatic. After all, an 11% drawdown at an index doesn’t mean the value is likely gone forever. Unless there is a dramatic shift in the global economy, index prices are expected to continue recovering and growing. However, the S&amp;P 500 is an index fund, and comparing it to the share price development of a distressed company is far-fetched. Let’s relate the data to other past stock market crashes to understand what falling by more than 10% means in a short time frame. We see in table 10.1 that losses following President Trump’s announcement of sweeping tariffs on foreign goods were comparable to those in the aftermath of the Lehman Brothers’ collapse.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p23"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 10.1</span> Five most significant drawdowns in the past few decades</h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Day 
+       </div> </th> 
+      <th> 
+       <div>
+         Date 
+       </div> </th> 
+      <th> 
+       <div>
+         % Change 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  Black Monday <br/> </td> 
+      <td>  October 19, 1987 <br/> </td> 
+      <td>  –24.57 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Black Tuesday <br/> </td> 
+      <td>  October 20, 1987 <br/> </td> 
+      <td>  –16.23 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Covid-19 pandemic <br/> </td> 
+      <td>  March 12, 2020 <br/> </td> 
+      <td>  –13.93 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  Lehman Brothers’ collapse <br/> </td> 
+      <td>  November 20, 2008 <br/> </td> 
+      <td>  –12.43 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  US tariff announcement <br/> </td> 
+      <td>  April 4, 2025 <br/> </td> 
+      <td>  –10.53 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p24"> 
+   <p>We can also scale out and examine a larger time interval to determine what a drop in share prices signifies. In figure 10.4, we present the S&amp;P 500 data from November 1996.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p25">  
+   <img alt="figure" src="../Images/10-4.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.4</span> The S&amp;P index from November to April 4, 1996, shows various crises in the past, such as the dot-com bubble burst (early 2000), the housing crisis (2008), the COVID-19 pandemic (2020), the assault on Ukraine (2022), and the announcement of tariffs by the United States (2025). </h5>
+  </div> 
+  <div class="readable-text intended-text" id="p26"> 
+   <p>We see some drawdowns in the chart. We see the dot-com crash, the Lehman Brothers’ bankruptcy, COVID, and the start of the Russian invasion of Ukraine. The aftermath of Liberation Day will leave a lasting effect on the chart, one that will remain visible for decades to come. However, even after falling significantly, the S&amp;P 500 remains higher in April 2025 than it was at the beginning of 2024.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p27"> 
+   <p>Let’s look at other charts and focus on single stocks. In figure 10.5, we examine NVIDIA’s share price development.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p28">  
+   <img alt="figure" src="../Images/10-5.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.5</span> NVIDIA’s share price data grew by 1787.89% in five years, which is an exceptional result in the stock market’s history.</h5>
+  </div> 
+  <div class="readable-text" id="p29"> 
+   <p>Single stocks are more volatile than indices. A buyer who purchased NVIDIA shares at a price equivalent to $6.65 in 2020 would have made a good decision. After five years, having $120 per share is the fulfillment of every investor’s dream.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p30"> 
+   <p><span class="print-book-callout-head">Note </span> Remember that NVIDIA has undergone two stock splits since 2020. If you bought one share of stock in January 2020 for $266, it would have been split into 40 shares.</p> 
+  </div> 
+  <div class="readable-text" id="p31"> 
+   <p>Technology companies often aim for significant growth, relying heavily on being at the forefront of innovation to outperform competitors. Consequently, they usually exhibit a higher price-to-earnings (P/E) ratio and lower dividend payments, as a significant portion of the earnings is reinvested in R&amp;D. If competitors outperform them, a technology company that doesn’t consistently increase its yearly earnings compared to its competitors can be a risky investment.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p32"> 
+   <p>Figure 10.6 outlines NVIDIA’s earnings. As this company grows and generates more revenue, investors have a positive outlook for a company that continues to grow. Even if NVIDIA’s P/E ratio is higher today than some of its peers, NVIDIA can be a good asset when calculating potential future growth.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p33">  
+   <img alt="figure" src="../Images/10-6.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.6</span> NVIDIA’s annual revenue, including estimates for 2026 and 2027 that were reported in January 2025</h5>
+  </div> 
+  <div class="readable-text" id="p34"> 
+   <p>In chapter 7, our portfolio analysis concluded that, based on historical returns, we should allocate a greater weight to Pfizer and NVIDIA in a portfolio. Let’s examine Pfizer in figure 10.7, which tells a different story than NVIDIA’s.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p35">  
+   <img alt="figure" src="../Images/10-7.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.7</span> Pfizer shares provided no capital appreciation if you bought shares five years ago, which means that sometimes buying low and selling high doesn’t always work out.</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p36"> 
+   <p>If we bought Pfizer shares in 2020, we would have less value today. Pfizer is a high-dividend-paying stock, meaning we would have received annual payments over the years, which helps balance out some of the missing capital appreciation.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p37"> 
+   <p>The Pfizer chart reflects the history of COVID-19. This is also reflected in its earnings, as shown in figure 10.8.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p38">  
+   <img alt="figure" src="../Images/10-8.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.8</span> Pfizer had massive earnings during the COVID-19 pandemic, and once it was over, the earnings went back.</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p39"> 
+   <p>Earnings are a substantial factor for every company. However, we can’t expect constant increases in earnings in every sector. Pfizer investors would have to accept that the earnings during the COVID-19 pandemic’s peak can’t last forever. Still, they can also expect Pfizer to continue generating sufficient revenue to pay good dividends and grow at a steady pace.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p40"> 
+   <p>Earnings and share prices can correlate. Often, a profitable year is reflected in the share price. Investors watch an earnings call, see tremendous results, and buy shares. If the results are disappointing, they sell. Technical analysis also looks at share prices, but the focus is different. Technical analysis tries to discover patterns in price development to forecast share prices based on these patterns. This may sound like superstition, but if everyone believes in the same patterns, these patterns will reappear because some individuals follow these signals, and then many more follow the herd, causing the repeating trend. Let’s delve deeper by examining charts and defining these patterns that may influence technical analysts’ decisions.</p> 
+  </div> 
+  <div class="readable-text" id="p41"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.1.1</span> Reading charts</h3> 
+  </div> 
+  <div class="readable-text" id="p42"> 
+   <p>Let’s examine the charts in figure 10.9. These charts show the price developments of assets over the past five years.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p43">  
+   <img alt="figure" src="../Images/10-9.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.9</span> Four charts (NVIDIA, Bitcoin, the 10-year USD T-Notes/T-Bond yield interest rate, and the US dollar exchange rate to the euro). Every chart tells a story, and we can assume what was happening.</h5>
+  </div> 
+  <div class="readable-text" id="p44"> 
+   <p>Some talent shows require candidates to solve challenges. If there were a talent show for investors, one of the challenges could be to ask contestants to identify the company when presented with unlabeled charts. Sort of like <em>Name That Tune</em>. Some investors can do that for familiar charts. They might look at Bitcoin and say something like this: </p> 
+  </div> 
+  <div class="readable-text" id="p45"> 
+   <blockquote>
+    <div>
+     Do you see these two humps on the left? Remember, this was 2021. The year started so well. In May, I thought I was screwed and then in November I cheered again until . . . well you know the story, Luna, FTX, it was a nightmare for a while.
+    </div>
+   </blockquote> 
+  </div> 
+  <div class="readable-text" id="p46"> 
+   <p>Now, there’s a game show I would watch! Identifying some patterns is a start—even if we don’t have names for them yet—because you create stories based on the patterns. You rose to the stars, to fall again, and then you were reborn to rise like a phoenix again! Some stories of share price developments could be dramatized. Let’s have a closer look.</p> 
+  </div> 
+  <div class="callout-container sidebar-container"> 
+   <div class="readable-text" id="p47"> 
+    <h5 class=" callout-container-h5 readable-text-h5">Universal principles?</h5> 
+   </div> 
+   <div class="readable-text" id="p48"> 
+    <p>Are there general insights about how prices must move? Let’s give it a try. One principle is <em>mean reversion</em>: what goes up must go down again, and vice versa. If we see mean reversion as a guiding principle, we’re tempted to sell after a massive rally, believing a market correction is inevitable.</p> 
+   </div> 
+   <div class="readable-text" id="p49"> 
+    <p>Someone who sees <em>momentum</em> as a core principle might disagree. If a stock rises, its momentum can continue to increase. Why sell if a streak is ongoing? Although the momentum won’t last forever, they will try to ride it as long as possible.</p> 
+   </div> 
+   <div class="readable-text" id="p50"> 
+    <p>A <em>contrarian investor</em> might disagree with that assessment. They might say, “I will lose if I do what the market does. I instead look for something that nobody else does.”</p> 
+   </div> 
+   <div class="readable-text" id="p51"> 
+    <p>Investors hold different and sometimes conflicting beliefs. If a share price increases, a believer in mean reversion and a contrarian might advise selling, while a momentum believer might suggest holding or even continuing to buy. Everyone can’t always be right.</p> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p52"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.1.2</span> Patterns</h3> 
+  </div> 
+  <div class="readable-text" id="p53"> 
+   <p>Let’s examine asset price changes to see if we can identify similarities. The pattern in the Bitcoin chart, which we previously referred to as humps, can be interpreted as a bearish double top. Look at figure 10.10, which depicts this pattern and reflects share price developments (vertical) over time (horizontal).<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p54">  
+   <img alt="figure" src="../Images/10-10.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.10</span> The bearish double top is a pattern that, after an uptrend, has two peaks before it goes down again. If traders identify this pattern in time, they can sell or buy accordingly.</h5>
+  </div> 
+  <div class="readable-text" id="p55"> 
+   <p>First, we have an uptrend. Traders are excited; they see momentum and expect more gains. The asset price will increase as investors see rewards from buying low and selling high, and continue to buy. Various platforms assess the mood of their clients and provide a fear and greed index about specific assets. In this phase, investors’ sentiment is characterized by extreme greed.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p56"> 
+   <p>Then, we reach a point where the mood turns, marked in the chart as Top 1. The reasons for the trend reversal can be manifold, but investors likely examined the fundamentals and judged the asset as overvalued following the price increase. People start to sell, and the mood changes. However, enough people still see potential in that asset and begin buying again at some point. The price goes up again. Then, after the second reversal, the price drops again. But this time, the downtrend continues.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p57"> 
+   <p>You can look up many chart patterns online or in technical analysis documents. They will find many examples, such as the head-and-shoulders, rising wedge, expanding triangle, triple top, or pennant pattern. The basic idea remains the same: there are up-and-down movements, and a trader attempts to identify patterns based on past experiences to predict what comes next. Each pattern has a bearish and bullish form, as shown in figure 10.11.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p58">  
+   <img alt="figure" src="../Images/10-11.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.11</span> A bullish double top and its “twin”, the bearish double top. Investors looking up other chart patterns, such as the head and shoulders or rising wedge, will always find bullish or bearish patterns.</h5>
+  </div> 
+  <div class="readable-text" id="p59"> 
+   <p>The double top is a reversal pattern. The bearish version starts with an uptrend and ends with a downtrend, and vice versa in the bullish version. It’s also a continuation pattern. It starts with a trend until it gets into an opposite trend, to turn into its original trend again. Figure 10.12 provides an example of bullish and bearish flag patterns as a reference for a continuation pattern. Again, we start with a trend being disrupted by an opposite trend. Eventually, however, the original trend continues in a continuation pattern.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p60">  
+   <img alt="figure" src="../Images/10-12.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.12</span> The bullish and bearish flag patterns are reference examples for continuation patterns. A temporary initial trend was reversed and continues again in the same direction.</h5>
+  </div> 
+  <div class="readable-text" id="p61"> 
+   <p>Chart patterns are just templates. “Chart whisperers” have often been wrong in the past. Many of them have misjudged movements, as there is no guarantee that asset prices will always follow the pattern.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p62"> 
+   <p>When an asset’s price falls, analysts often discuss support lines. A <em>support line</em> is a price level at which an asset is unlikely to fall. Investors also frequently discuss <em>resistance lines</em>, which are high prices that are difficult to break through. Another important term is <em>breakout</em>, when a price crosses a support or resistance line.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p63"> 
+   <p>Support and resistance lines are essential for investors who explore more volatile assets. At the time of writing, the price of 1 Bitcoin is $78,940. Analysts may suggest that we see a support line at $72,000, which is another way of saying that it’s unlikely for the price to drop below that level unless an external event occurs. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p64"> 
+   <p>Although support and resistance lines are an interpretation of data, we must not overlook the psychological effect. Imagine a resistance line at $100,000. You see prices going up and down, and when the price is nearing $100,000, you may hear yourself arguing in your head. The more adventurous you might say: “Come on, buddy! Buy! It’s an asset that will always go up in the long run. Today is the day, you’ll see.” The more cautious you will reply to that, something like: “Investors are rational beings. The price of that asset is already so high, and six digits are huge. While you buy below $100,000, others will sell, and the price will decrease. You’ll sit on an asset you can’t sell for profit. Better to wait until the price drops.” Again, your adventurous part might reply, “What if it crosses the resistance line and never goes back? We must buy now, or it’s too late.” While knowing current resistance or support lines is essential for traders, long-term investors may ignore them, as their idea is that assets will continue to grow over a long period.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p65"> 
+   <p>The shorter the time window you aim to hold an asset, the more critical chart patterns become. Short-term traders tend to borrow resources—using leverage—to buy assets. If they don’t sell soon, they must pay interest.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p66"> 
+   <p>Conclusively, charts can help traders and investors decide when it’s a good time to buy and sell. Additionally, long-term investors won’t ignore them entirely. Let’s examine how we can interpret a chart.</p> 
+  </div> 
+  <div class="readable-text" id="p67"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.1.3</span> Interpreting a chart</h3> 
+  </div> 
+  <div class="readable-text" id="p68"> 
+   <p>Many financial analysis platforms such as TradingView, Finviz, and Seeking Alpha provide advanced charting features. They allow you to plot the share prices, and you can add indicators on top of the chart showing price movements. This chapter will show how to plot some of these indicators in later sections using Python. But be aware that the indicators presented in this book, such as moving averages, Bollinger Bands, or Ichimoku Cloud, are a small selection of the existing indicators that advanced charts provide.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p69"> 
+   <p>Figure 10.13 shows a chart on Finviz.com, which also provides charting functionalities. You can view the chart with the latest data on that asset (NuScale Power Corporation) at <a href="https://finviz.com/quote.ashx?t=SMR&amp;p=d">https://finviz.com/quote.ashx?t=SMR&amp;p=d</a>. The screenshot is based on data from June 13, 2025.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p70">  
+   <img alt="figure" src="../Images/10-13.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.13</span> A NuScale (SMR) chart provided by Finviz.com shows how quickly we can perceive price movements over a longer time when the details are visualized.</h5>
+  </div> 
+  <div class="readable-text" id="p71"> 
+   <p>Technical investors attempt to identify bearish and bullish patterns based on such charts. You can even paste screenshots like the previous one into a GenAI chatbot and ask the LLM to recognize patterns. It will return interpretations and, in some cases, even speculate on possible price developments based on signals such as a golden cross in late May, which describes that an SMA 50 crossed above the SMA 200 (we’ll investigate simple moving averages [SMAs] later in this chapter).</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p72"> 
+   <p>Some investors argue that the effectiveness of technical analysis hasn’t been proven and consider it a form of gambling. Others will tell you they start making money if they are successful, just 51% of the time. Whether you try to leverage price patterns for short-term trading or not, reading charts is also essential for long-term investors, as they tell an important story over time.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p73"> 
+   <p>An asset has momentum, which is often reflected in patterns on the chart. Time is also an essential aspect of reading a chart. While a share price might decrease in the short term, a long-term trader may not be overly concerned if they still see a long-term upward trend. A short-term trader who has borrowed money to buy leveraged assets must make decisions earlier, as they must pay interest on the borrowed funds.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p74"> 
+   <p>Technical traders develop algorithms to analyze moving averages, Bollinger Bands, Fibonacci retracements, Elliott waves, and other technical indicators. Many technical investors employ SMA crossover strategies, such as the 200-day SMA versus the 5-day SMA. Let’s look at some of these principles to understand what this is all about. </p> 
+  </div> 
+  <div class="readable-text" id="p75"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.1.4</span> Alternative chart types</h3> 
+  </div> 
+  <div class="readable-text" id="p76"> 
+   <p>While we primarily use line charts to visualize the price of an asset over time, investors often employ other chart types as well. Let’s explore some of them. </p> 
+  </div> 
+  <div class="readable-text" id="p77"> 
+   <h4 class=" readable-text-h4">Treemaps</h4> 
+  </div> 
+  <div class="readable-text" id="p78"> 
+   <p>Treemaps have become popular on platforms such as Finviz. They show the growth and fall of prices. Figure 10.14 shows the treemap displayed on Finviz. <span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p79">  
+   <img alt="figure" src="../Images/10-14.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.14</span> A treemap from Finviz gives us an idea about price movement. Check out today’s chart (<a href="https://finviz.com/map.ashx">https://finviz.com/map.ashx</a>) to get the latest data, drill down, interactively, and get a better impression of how much you can read through the color scheme. </h5>
+  </div> 
+  <div class="readable-text" id="p80"> 
+   <h4 class=" readable-text-h4">Bar chart</h4> 
+  </div> 
+  <div class="readable-text" id="p81"> 
+   <p>Bar charts can help show the distribution of elements within a category. Again, Finviz provides an excellent example that can be explored at <a href="https://finviz.com/groups.ashx">https://finviz.com/groups.ashx</a>. In figure 10.15, we can see which sectors did well within one day. Finviz also provides bar charts that reflect the performance of assets over an extended period.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p82">  
+   <img alt="figure" src="../Images/10-15.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.15</span> A bar chart showing the distribution of growth by sector within a day. Bar charts are effective for illustrating the distribution of elements within a group.</h5>
+  </div> 
+  <div class="readable-text" id="p83"> 
+   <h4 class=" readable-text-h4">Histogram</h4> 
+  </div> 
+  <div class="readable-text" id="p84"> 
+   <p>Histograms plot the distribution of values for a numeric variable as a series of bars, so we can use them to validate whether the data follows a Gaussian distribution. In chapter 7, we used a histogram in a Monte Carlo simulation to display returns, as shown in figure 10.16. Here, we have them distributed well-balanced over a Gaussian curve.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p85">  
+   <img alt="figure" src="../Images/10-16.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.16</span> This shows a histogram of Apple’s returns over time, indicating that the returns of Apple follow a normal distribution, which, in other words, means there’s no need to worry about the stock’s performance.</h5>
+  </div> 
+  <div class="readable-text" id="p86"> 
+   <h4 class=" readable-text-h4">Scatterplot</h4> 
+  </div> 
+  <div class="readable-text" id="p87"> 
+   <p>In chapter 8, we used a scatterplot to plot companies. A scatterplot helps to identify interesting assets if you group multiples of them based on various criteria. For example, if we’re interested in examining multiple assets based on risk and returns, we can plot them in a scatterplot with risk and return axes, as shown in chapter 8.</p> 
+  </div> 
+  <div class="readable-text" id="p88"> 
+   <p>We again display the figure from chapter 8 in figure 10.17 to immediately illustrate the value of a scatterplot. We see three outliers. The dot on the far left represents an asset that has lost significant value. If we hovered over the dot, we would know that it’s Moderna, a capital-intensive business that is, among other things, affected by high federal interest rates. The topmost dot represents Super Micro Computer, a semiconductor company that had been in turmoil due to its failure to report on time, which caused its share price to plummet. On the far right, we have Palantir, whose high returns are also reflected in its P/E ratio, as indicated by a review of that ratio.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p89">  
+   <img alt="figure" src="../Images/10-17.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.17</span> A scatterplot that categorizes stocks by volatility and returns </h5>
+  </div> 
+  <div class="readable-text" id="p90"> 
+   <h2 class=" readable-text-h2"><span class="num-string">10.2</span> Using charts to interpret price changes</h2> 
+  </div> 
+  <div class="readable-text" id="p91"> 
+   <p>We learned how charts can help us gain faster insights than viewing the raw data. In a sense, charts are a shortcut to data analysis. Now, we shift our focus slightly toward analyzing price movements by putting them into context, which is essential for some investment and trading strategies.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p92"> 
+   <p>At the beginning of this chapter, we highlighted that a price tag without additional knowledge and context can be confusing. Something we want to buy has an intrinsic value, also called the real value. The essential pattern in trading goods that existed already before the advent of money was to get a better value in goods exchange. This universal principle also applies to securities: we can make good or bad deals depending on the price we pay to acquire an asset.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p93"> 
+   <p>When studying fundamentals, as we did in the previous chapters, we examine a company’s details to determine whether an asset has lost or gained value. Efficient market theorists, such as Eugene Fama, say that assets are priced approximately at their worth unless you’re an insider and know things the rest of the investors can’t know. Some experts disagree with the efficient market theory, as some investors have repeatedly beaten the market.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p94"> 
+   <p>By analyzing fundamentals, you determine what you believe the company is worth. You investigate changes in balance sheets and other documents to hypothesize whether an asset is undervalued or overvalued based on changes within the company. Analyzing price development in charts is a different approach, often called technical analysis. In this aspect, you examine price developments over time concerning what the market thinks the company is worth to determine trends, so you time your purchases accordingly. Let’s get started.</p> 
+  </div> 
+  <div class="readable-text" id="p95"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.2.1</span> Candlesticks</h3> 
+  </div> 
+  <div class="readable-text" id="p96"> 
+   <p>Candlestick charts visualize price movements in financial markets. They provide insights into market sentiment and show how prices fluctuate within a given time frame.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p97"> 
+   <p>A candlestick chart is like a time series plot, but enhanced with additional information about a stock, cryptocurrency, or other financial asset’s <em>open</em>, <em>high</em>, <em>low</em>, and <em>close</em> (OHLC) prices. Let’s look at the anatomy of candlesticks to see how they work.</p> 
+  </div> 
+  <div class="readable-text" id="p98"> 
+   <h4 class=" readable-text-h4">Anatomy of a candlestick chart</h4> 
+  </div> 
+  <div class="readable-text" id="p99"> 
+   <p>Figure 10.18 shows NVIDIA’s candlestick chart for three trading days with each candlestick representing a day in this chart. Time is scalable, meaning we can view it in terms of hours or months in such a chart.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p100">  
+   <img alt="figure" src="../Images/10-18.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.18</span> This candlestick diagram references three trading days of NVIDIA, from which we deduce price movements. Days 1 and 3 ended with a lower closing price than the opening price, and we can also see that on Day 3, the price was more volatile than on the preceding days.</h5>
+  </div> 
+  <div class="readable-text" id="p101"> 
+   <p>Candlesticks use different schemata. On most platforms, the schema is represented by green and red colors. White and black are also common for other use cases, such as in print media like this book. If the candlestick is green or white, it means that, within the specified period—one day in our example—the closing price is higher than the opening price, indicating a bullish movement. If the closing price is lower than the opening price, the body is red or black, indicating a bearish movement (the price has decreased). If you’re interested in seeing charts as examples, you can explore platforms such as Finviz (<a href="https://finviz.com">https://finviz.com</a>) or TradingView (<a href="http://www.tradingview.com">www.tradingview.com</a>), where you can drill down into charts and zoom in on specific days to examine details. It’s also often helpful to study charts of companies you know, as you can usually see how investors reacted to specific catalysts affecting your company (see chapter 11).</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p102"> 
+   <p>Figure 10.19 shows the anatomy of a candlestick. The height of the candle’s body represents the difference between the opening and closing prices. The wicks, also known as shadows, represent the highest and lowest prices reached during the trading period, as depicted by a candle. The upper wick extends from the top of the body to the highest point, and the lower wick extends from the bottom to the lowest point.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p103">  
+   <img alt="figure" src="../Images/10-19.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.19</span> The anatomy of a bullish (white) and bearish (black) candlestick </h5>
+  </div> 
+  <div class="readable-text" id="p104"> 
+   <p>Knowing all of this and referring to figure 10.18 shown earlier, the share price began at $138 on January 10th. It rallied up during the day until it reached $140, but it also fell at some point to a bit above $134, to end a bit below $136.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p105"> 
+   <p>To create a plot similar to the figure 10.19, we need the mplfinance library, a Python library for financial data visualization. We load data from NVIDIA and plot it as shown in listing 10.1. We get the same result as in figure 10.6 earlier.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p106"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.1</span> Creating candlestick charts</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import mplfinance as mpf
+import pandas as pd
+
+import yfinance as yf
+ticker = "NVDA"
+data = yf.Ticker(ticker).history(start="2025-01-10", end="2025-01-15")
+df = pd.DataFrame(data).dropna()
+mpf.plot(df, type='candle', style='charles', title='Candlestick Chart')</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p107"> 
+   <p>Now, let’s examine candlestick patterns in more detail to understand how we can interpret their price movements. For that, we need to examine multiple consecutive days.</p> 
+  </div> 
+  <div class="readable-text" id="p108"> 
+   <h4 class=" readable-text-h4">Candlestick patterns</h4> 
+  </div> 
+  <div class="readable-text" id="p109"> 
+   <p>Candlestick patterns enable traders and investors to interpret price action quickly. We can detect market trends, reversals, and continuation patterns by analyzing multiple candles, such as the following:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p110"> Long wicks indicate rejection and support of certain price levels. </li> 
+   <li class="readable-text" id="p111"> Small bodies suggest indecision in the market. </li> 
+   <li class="readable-text" id="p112"> Large bodies indicate strong momentum. </li> 
+  </ul> 
+  <div class="readable-text" id="p113"> 
+   <p>Some patterns are commonly used to predict price movements, as shown in figure 10.20:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p114"> <em>Doji</em>—The opening and closing prices are almost the same, forming a small body, which signals market indecision. </li> 
+   <li class="readable-text" id="p115"> <em>Hammer</em>—A small body with a long lower wick indicates a potential reversal after a downtrend. </li> 
+   <li class="readable-text" id="p116"> <em>Engulfing</em>—A large candle that completely engulfs the previous one signals a substantial shift in momentum.<span class="aframe-location"/> </li> 
+  </ul> 
+  <div class="browsable-container figure-container" id="p117">  
+   <img alt="figure" src="../Images/10-20.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.20</span> Various candlestick patterns in which we can describe the behavior of the market. In addition to the Doji, Hammer, and Engulfing patterns, we can see the volatility of prices. You immediately realize that candles with long bodies represent high volatility, whereas candles with multiple short bodies represent a calm market situation.</h5>
+  </div> 
+  <div class="readable-text" id="p118"> 
+   <p>Using the terminology from the figure, we can describe the patterns. A Spinning Top is a pattern in which, on two consecutive days, we experience high price volatility during the trading day but end up with a Doji. As another example, a Shooting Star is a pattern that has a high volatility during the day, and then the closing price is lower than the opening price. Being able to give the patterns names facilitates discussions about trends with other investors. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p119"> 
+   <p>Now that we know how to interpret candlesticks, we can investigate averages over multiple periods to gain a deeper understanding of the share price development. Let’s discuss that next.</p> 
+  </div> 
+  <div class="readable-text" id="p120"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.2.2</span> Charts based on averages</h3> 
+  </div> 
+  <div class="readable-text" id="p121"> 
+   <p>At the beginning of the chapter, we highlighted the importance of data about past purchases. Imagine an item listed for $100. Knowing that similar items have been sold for $80 on average will lead you to consider it differently than knowing that the item is usually sold for $120.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p122"> 
+   <p>When working with shares with frequent price changes, we must examine price developments over an extended period. In addition to highs and lows, one central benchmark is the average price: you have three numbers—let’s take 1, 2, and 3—and everyone with basic math skills knows that the average is 2. Let’s explore some more complex scenarios.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p123"> 
+   <p>Let’s take the closing price of a stock for <em>x</em> days and calculate the average by adding all values and dividing them by the total number of values. If we look at changes over time, we set a window (say 20 days) and calculate the average. When we add a new value to an existing set of 20 days, we remove the oldest value from the set. This is that simple moving average (SMA) that we mentioned earlier in the chapter<em>.</em></p> 
+  </div> 
+  <div class="readable-text intended-text" id="p124"> 
+   <p>We might wonder if it’s efficient to weigh all numbers the same. Would it not make sense to weigh the more recent values higher than the oldest ones? For this reason, other average calculation formulas incorporate weighting, such as the <em>exponential moving average (EMA), weighted moving average (WMA),</em> and <em>Hull moving average (HMA)</em>, which we explore in this chapter<em>.</em> The goal is to smooth price data and identify trends earlier. As different average calculations have different goals, they target different scenarios.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p125"> 
+   <p>In listing 10.2, we create a data set for demonstration and then apply the SMA and EMA. The EMA weights the later values more. We define a set of random data and use the algorithms.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p126"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.2</span> Calculating SMA and EMAs</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import pandas as pd
+
+data = {
+    "Date": pd.date_range(start="2023-01-01", periods=10),
+    "Price": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+}
+df = pd.DataFrame(data)
+
+window_size = 3
+df['SMA'] = df['Price'].rolling(
+    window=window_size).mean()      <span class="aframe-location"/> #1
+df['EMA'] = df['Price'].ewm(
+    span=window_size, adjust=False).mean()    <span class="aframe-location"/> #2</pre> 
+    <div class="code-annotations-overlay-container"> #1 SMA is the unweighted mean of the last N values.
+     <br/>#2 EMA gives more weight to recent values.
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p127"> 
+   <p>Looking at the results, the EMA returns a slightly higher result (17.003906) for the mean of 16, 17, and 18 than 17, which would be the result of SMA based on these numbers. These differences don’t seem significant unless you consider large transactions. If you trade millions, it will have a considerable effect. Let’s compare data using historical share prices and add the remaining two average calculations.</p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p128"> 
+   <p><span class="print-book-callout-head">Note </span> We’ll use an option to limit floating-point numbers behind the decimal point, using the following parameter to enhance visualization: <code>pd.options</code> <code>.display.float_format</code> <code>=</code> <code>'{:,.2f}'.format</code>.</p> 
+  </div> 
+  <div class="readable-text" id="p129"> 
+   <p>The WMA also weights averages, but unlike the EMA, it does this linearly, balancing some of the differences between the EMA and SMA. The HMA uses the WMA as a base to smooth out the extra by adding half the time window and the square root of the time window in the calculation. If you’re interested in the details, you can look up the math; in brief, the formula is HMA &gt; WMA &gt; EMA &gt; SMA. The further to the left, the more sensitive our calculations are to recent changes. Let’s look at the Python implementation in the following code:</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p130"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">def weighted_moving_average(prices, window):
+    weights = np.arange(1, window + 1)
+    return prices.rolling(window).apply(
+       lambda x: np.dot(x, weights) / weights.sum(), raw=True)
+
+def hull_moving_average(prices, window):
+    half_window = int(window / 2)
+    sqrt_window = int(np.sqrt(window))
+    wma_half = weighted_moving_average(prices, half_window)
+    wma_full = weighted_moving_average(prices, window)
+    hma = weighted_moving_average(2 * wma_half - wma_full, sqrt_window)
+    return hma</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p131"> 
+   <p>Now that everything is defined, let’s load data from NVIDIA for 2024 and compare the results. In the following code, we load the data and add all averages of the closing prices to the DataFrame.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p132"> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+ticker = "NVDA"
+data = yf.Ticker(ticker).history(start="2024-01-01", end="2024-12-31")
+averages = pd.DataFrame(data).dropna()
+averages.reset_index(inplace=True)
+
+def add_averages(close, window_size):
+    close['SMA'] = close['Close'].rolling(window=window_size).mean()
+    close['EMA'] = close['Close'].ewm(span=window_size, adjust=False).mean()
+    close['WMA'] = weighted_moving_average(close['Close'], window_size)
+    close['HMA'] = hull_moving_average(close['Close'], window_size)
+    return close[['Date', 'Close', 'SMA', 'EMA', 'WMA', 'HMA']]</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p133"> 
+   <p>Examining the data, we observe that the larger the window we use, the more not a number (NaN) values we encounter at the beginning of the DataFrame. We’ll confirm that each average has slightly different values. Let’s extract a single entry and look at it. In table 10.2, we display the average for a 3-day window on February 2, 2024. In the row below, we show the average for a 20-day time window on the same day.</p> 
+  </div> 
+  <div class="browsable-container browsable-table-container framemaker-table-container" id="p134"> 
+   <h5 class=" browsable-container-h5"><span class="num-string">Table 10.2</span> Multiple averages for the same day, each with a different time window </h5> 
+   <table> 
+    <thead> 
+     <tr> 
+      <th> 
+       <div>
+         Window (days) 
+       </div> </th> 
+      <th> 
+       <div>
+         Closing 
+       </div> </th> 
+      <th> 
+       <div>
+         SMA 
+       </div> </th> 
+      <th> 
+       <div>
+         EMA 
+       </div> </th> 
+      <th> 
+       <div>
+         WMA 
+       </div> </th> 
+      <th> 
+       <div>
+         HMA 
+       </div> </th> 
+     </tr> 
+    </thead> 
+    <tbody> 
+     <tr> 
+      <td>  3 <br/> </td> 
+      <td>  66.14 <br/> </td> 
+      <td>  63.55 <br/> </td> 
+      <td>  64.29 <br/> </td> 
+      <td>  64.33 <br/> </td> 
+      <td>  67.96 <br/> </td> 
+     </tr> 
+     <tr> 
+      <td>  20 <br/> </td> 
+      <td>  66.14 <br/> </td> 
+      <td>  58.33 <br/> </td> 
+      <td>  58.83 <br/> </td> 
+      <td>  60.60 <br/> </td> 
+      <td>  64.19 <br/> </td> 
+     </tr> 
+    </tbody> 
+   </table> 
+  </div> 
+  <div class="readable-text" id="p135"> 
+   <p>Examining the EMA, WMA, and HMA, we can conclude that the more recent data is weighted, the closer the results will be to the closing price of the last day. The SMA is further away from the closing price. We can also conclude that the SMA reacts more slowly to price changes than other moving averages. This doesn’t have to be negative; if we look for long-term trends, recent spikes wouldn’t bother us. We can sum up with the following conclusions:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p136"> SMA is the best for long-term trend analysis. </li> 
+   <li class="readable-text" id="p137"> EMA is suitable for short-term trading strategies that require quicker reactions. </li> 
+   <li class="readable-text" id="p138"> WMA offers a balance between EMA and SMA, emphasizing recent prices. </li> 
+   <li class="readable-text" id="p139"> HMA is the most effective approach for detecting rapid trends. </li> 
+  </ul> 
+  <div class="readable-text" id="p140"> 
+   <p>We can also create another hypothesis. Regardless of which moving average we use, we can also employ different time windows, which provide us with distinct insights. Let’s look at that next.</p> 
+  </div> 
+  <div class="readable-text" id="p141"> 
+   <h4 class=" readable-text-h4">Moving average ribbons</h4> 
+  </div> 
+  <div class="readable-text" id="p142"> 
+   <p>M<em>oving average ribbons</em> visualize trend strengths: narrow ribbons indicate consolidation, and wide ribbons show strong trends. In listing 10.3, which plots moving average ribbons, we use six windows: 10, 20, 30, 40, 50, and 60.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p143"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.3</span> Plotting moving average ribbons</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+import matplotlib.pyplot as plt
+
+ticker = "NVDA"
+df = yf.Ticker(ticker).history(start="2024-01-1", end="2025-01-1")
+df.reset_index(inplace=True)
+
+periods = [10, 20, 30, 40, 50, 60]               <span class="aframe-location"/> #1
+for period in periods:                           #1
+    df[f"SMA_{period}"] = df["Close"].rolling(
+        window=period).mean()                    #1
+
+plt.figure(figsize=(12, 6))
+plt.plot(df["Date"], df["Close"], label="Price", color="black", linewidth=1.5)
+for period in periods:
+    plt.plot(df["Date"], df[f"SMA_{period}"], label=f"SMA {period}")
+plt.title("Moving Average Ribbon")
+plt.xlabel("Date")
+plt.ylabel("Price")
+plt.legend()
+plt.grid()
+plt.show()</pre> 
+    <div class="code-annotations-overlay-container"> #1 Creates different windows
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p144"> 
+   <p>The results are shown in figure 10.21. We observe fewer movements in May and October, indicating that the price has been more stable than at other times, where the ribbons are more spread out.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p145">  
+   <img alt="figure" src="../Images/10-21.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.21</span> Moving average ribbons that contract around 2024-05 and 2024-10, indicating that the market was consolidating at that time</h5>
+  </div> 
+  <div class="readable-text print-book-callout" id="p146"> 
+   <p><span class="print-book-callout-head">Note </span> We’ll explore multiple SMA trading strategies in chapter 11. In that chapter, we’ll also examine optimal time windows for trading strategies and investigate whether standard parameters, such as the SMA 50 versus the SMA 200, are optimal.</p> 
+  </div> 
+  <div class="readable-text" id="p147"> 
+   <p>Let’s look at Bollinger Bands next to understand better how we can show overbought or oversold conditions more clearly.</p> 
+  </div> 
+  <div class="readable-text" id="p148"> 
+   <h4 class=" readable-text-h4">Bollinger Bands</h4> 
+  </div> 
+  <div class="readable-text" id="p149"> 
+   <p><em>Bollinger Bands</em> is a popular technical analysis tool that measures price volatility and identifies overbought or oversold conditions in a security. They use the following parameters:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p150"> <em>Middle band</em>—This is a 20-period SMA, representing the average price over the chosen period. The default value is 20, and traders can adjust it. Too high or too low values risk being overly sensitive or not responsive enough to trading signals.  </li> 
+   <li class="readable-text" id="p151"> <em>Upper band</em>—This equals the middle band plus two times the standard deviation of price, representing a level often seen as overbought or a resistance area. </li> 
+   <li class="readable-text" id="p152"> <em>Lower band</em>—This equals the middle band minus two times the standard deviation of price, representing a level typically considered oversold or a support area. </li> 
+  </ul> 
+  <div class="readable-text" id="p153"> 
+   <p>Let’s use Python code to plot Bollinger Bands and then interpret them. We collect technical data from a stock and calculate the bands with the parameters defined in listing 10.4. We first load stock tickers. Then, we define 20 as the default window and calculate the necessary values for the bands described in the preceding list. Lastly, we plot the Bollinger Bands.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p154"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.4</span> Plotting Bollinger Bands</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+import pandas as pd
+import matplotlib.pyplot as plt
+
+ticker = "NVDA"
+data = yf.download(ticker, start="2024-01-01")
+
+window = 20                                   <span class="aframe-location"/> #1
+std_dev_factor = 2                            #1
+data['SMA'] = data['Close'].rolling(
+    window=sma_window_length).mean()          #1
+rolling_std = data['Close'].rolling(
+    window=sma_window_length).std()           #1
+data['rf'] = (rolling_std * std_dev_factor)   #1
+data['upper'] =  data['SMA'] + data['rf']     #1
+data['lower'] =  data['SMA'] - data['rf']     #1
+
+plt.figure(figsize=(12, 6))
+plt.plot(data.index, data['Close'], label="Close Price", color="blue", 
+linewidth=1)
+plt.plot(data.index, data['SMA'], label=f"{window}-Day SMA", 
+color="orange", linewidth=1.5)
+plt.plot(data.index, data['upper'], label="Upper Bollinger Band", 
+color="green", linestyle="--", linewidth=1)
+plt.plot(data.index, data['lower'], label="Lower Bollinger Band", 
+color="red", linestyle="--", linewidth=1)
+
+plt.title(f"Bollinger Bands for {ticker} (20-day window)", fontsize=14)
+plt.xlabel("Date", fontsize=12)
+plt.ylabel("Price", fontsize=12)
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()</pre> 
+    <div class="code-annotations-overlay-container">
+     #1 Calculates the bands
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p155"> 
+   <p>Figure 10.22 shows the Bollinger Bands. The plot represents all the lines we’ve created based on the preceding formulas. Now, we should see more evident upper and lower barriers.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p156">  
+   <img alt="figure" src="../Images/10-22.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.22</span> The Bollinger Bands for NVIDIA provide insight into potential days to buy or sell shares.</h5>
+  </div> 
+  <div class="readable-text" id="p157"> 
+   <p>Bollinger Bands expand during periods of high volatility and contract during periods of low volatility. Around August 2024, the closing price also exhibited significant fluctuations. Typically, following periods of high volatility, we experience a phase of contraction, indicating a consolidation period and a potential breakout. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p158"> 
+   <p>Prices tend to stay within the band. We attempt to identify moments when it deviates, which signals price action, potential trend continuation, or reversal. In late April 2024, the share price was below 80 and crossed the lower band, signaling a possible buy opportunity. At the same time, around 2024-06, we have a sell signal. While buying in April 2024 would have led to profits, the sell signal in June 2024 would have resulted in losses if we hadn’t identified this as a strong uptrend, which likely would have rendered the sell signal obsolete. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p159"> 
+   <p>In chapter 11, we’ll test strategies using backtesting. But let’s move forward to the next indicator.</p> 
+  </div> 
+  <div class="readable-text" id="p160"> 
+   <h4 class=" readable-text-h4">Moving Average Convergence Divergence (MACD)</h4> 
+  </div> 
+  <div class="readable-text" id="p161"> 
+   <p><em>The Moving Average Convergence Divergence (MACD)</em> is a momentum-based technical indicator used to spot potential buying or selling opportunities in the market. It analyzes the relationship between two moving averages of a share price: the short-term and long-term moving averages. Let’s examine the details of MACDs. As we can see, we use different window sizes or periods to detect buy or sell signals:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p162"> <em>MACD line</em>—The difference between a short-term EMA and a long-term EMA. Commonly, the 12-period EMA is subtracted from the 26-period EMA. </li> 
+   <li class="readable-text" id="p163"> <em>Signal line</em>—A nine-period EMA of the MACD line, which is a trigger for buy or sell signals. </li> 
+   <li class="readable-text" id="p164"> <em>Histogram</em>—A visual representation of the difference between the MACD and signal lines. When the histogram is above 0, the MACD line is above the signal line, indicating bullish momentum. Conversely, when it’s below 0, bearish momentum is indicated. </li> 
+  </ul> 
+  <div class="readable-text" id="p165"> 
+   <p>Let’s examine the code in listing 10.5. In the <code>calculate_macd</code> method, we calculate the <code>EMA_12</code> and <code>EMA_26</code> based on the close price. With that, we get the <code>MACD</code> and, consequently, the signal line. After calculating the <code>MACD</code> parameter, we plot the MACD chart using the method <code>plot_macd</code>.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p166"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.5</span> Moving Average Convergence Divergence</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import pandas as pd
+import matplotlib.pyplot as plt
+
+def calculate_macd(data, short_window=12, long_window=26, signal_window=9):
+    data['EMA_12'] = data['Close'].ewm(
+        span=short_window, adjust=False).mean()      <span class="aframe-location"/> #1
+    data['EMA_26'] = data['Close'].ewm(
+        span=long_window, adjust=False).mean()       #1
+    data['MACD'] = data['EMA_12'] - data['EMA_26']   #1
+    data['Signal_Line'] = data['MACD'].ewm(
+        span=signal_window, adjust=False).mean()     #1
+    return data
+
+def plot_macd(data):
+    plt.figure(figsize=(12,6))
+    plt.plot(data.index, data['MACD'], label='MACD', color='blue')
+    plt.plot(data.index, data['Signal_Line'], 
+      label='Signal Line', color='red')
+    plt.bar(data.index, data['MACD'] - data['Signal_Line'], 
+      label='Histogram', color='gray', alpha=0.5)
+    plt.legend(loc='best')
+    plt.title('MACD Indicator')
+    plt.xlabel('Date')
+    plt.ylabel('MACD Value')
+    plt.grid()
+    plt.show()
+
+import yfinance as yf
+ticker = "NVDA"
+df = yf.Ticker(ticker).history(start="2024-01-01")
+df = calculate_macd(df)
+plot_macd(df)</pre> 
+    <div class="code-annotations-overlay-container"> #1 Calculates the MACD parameter
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p167"> 
+   <p>We obtain the data from NVIDIA in a chart, as shown in figure 10.23. We can then examine historical buy and sell signals.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p168">  
+   <img alt="figure" src="../Images/10-23.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.23</span> Shows the MACD for NVIDIA closing prices. Whenever a signal line crosses the MACD, a trading signal is generated.</h5>
+  </div> 
+  <div class="readable-text intended-text" id="p169"> 
+   <p>Buy and sell signals are identified by crossover signals. We have a bullish signal when the MACD line crosses above the signal line. We see them before March 2024 and again in May 2024. A bearish signal occurs when the MACD line crosses below the signal line. This indicates downward momentum and may suggest a potential selling opportunity, particularly near or around April 2024. We also need to examine the zero-line crossings and conclude that the sentiment was more bearish in March 2025 than in March 2024.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p170"> 
+   <p>The larger the histogram bars grow, the more it suggests increasing momentum in the current trend. Shrinking bars indicate weakening momentum, which might hint at an impending reversal.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p171"> 
+   <p>Understanding MACD can be particularly useful if you build or use algorithmic trading systems. While MACD is a powerful tool, it’s not foolproof. It may produce false signals in choppy or sideways markets. For confirmation, it’s best used with other indicators or fundamental analysis.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p172"> 
+   <p>In chapter 11, we’ll also examine how we can back-test such strategies and how much money we would have made or lost if we had used this strategy for buying or selling. Let’s explore the next technical indicator.</p> 
+  </div> 
+  <div class="readable-text" id="p173"> 
+   <h3 class=" readable-text-h3"><span class="num-string">10.2.3</span> Ichimoku Cloud</h3> 
+  </div> 
+  <div class="readable-text" id="p174"> 
+   <p>The Ichimoku Cloud (or just Ichimoku) is a charting technique used in technical analysis that provides a comprehensive view of price action by incorporating trend, momentum, and support and resistance levels in a single chart. Unlike SMAs or candlesticks, the Ichimoku offers a multidimensional approach to understanding market conditions. </p> 
+  </div> 
+  <div class="readable-text print-book-callout" id="p175"> 
+   <p><span class="print-book-callout-head">Note </span> The Ichimoku Cloud often uses Japanese terms for its key elements. They have been omitted from this book for clarity and brevity. You can look them up on Investopedia or similar sites.</p> 
+  </div> 
+  <div class="readable-text" id="p176"> 
+   <p>Although it may appear complex initially, breaking it down into its components makes it much easier to understand. The Ichimoku consists of five key elements:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p177"> <em>Conversion line</em>—A short-term moving average that reacts quickly to price changes </li> 
+   <li class="readable-text" id="p178"> <em>Baseline</em>—A medium-term trend line used as a momentum and trend direction </li> 
+   <li class="readable-text" id="p179"> <em>Leading span A</em>—Forms the first boundary of the cloud, acting as dynamic support or resistance </li> 
+   <li class="readable-text" id="p180"> <em>Leading span B</em>—Forms the second boundary of the cloud </li> 
+   <li class="readable-text" id="p181"> <em>Lagging span</em>—Helps confirm trends by comparing the current price to past prices </li> 
+  </ul> 
+  <div class="readable-text" id="p182"> 
+   <p>We adjust the time windows for the averages accordingly. The conversion line has a lower window (nine days), and the baseline has longer time windows. We also use the base and conversion lines to calculate other lines, as demonstrated in the code. </p> 
+  </div> 
+  <div class="readable-text intended-text" id="p183"> 
+   <p>Let’s implement the Ichimoku using Python and Matplotlib in listing 10.6. We reload the NVIDIA data, calculate all parameters, and then plot them.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p184"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.6</span> Creating an Ichimoku</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import yfinance as yf
+import matplotlib.pyplot as plt
+ticker = "NVDA"
+data = yf.Ticker(ticker).history(start="2024-01-10", end="2025-01-15")
+df = pd.DataFrame(data).dropna()
+df.reset_index(inplace=True)
+
+df["ConversationLine"] = (df["Close"].rolling(
+  window=9).max() + df["Close"].rolling(
+  window=9).min()) / 2                                  <span class="aframe-location"/> #1
+df["BaseLine"] = (df["Close"].rolling(
+  window=26).max() + df["Close"].rolling(
+  window=26).min()) / 2                               #1  
+df["SpanA"] = ((df["ConversationLine"] 
+                + df["BaseLine"]) / 2).shift(26)      #1  
+df["SpanB"] = ((df["Close"].rolling(
+               window=52).max() + df["Close"].rolling(
+               window=52).min()) / 2).shift(26)       #1  
+df["LaggingSpan"] = df["Close"].shift(-26)            #1  
+
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df["Close"], label="Close Price", color="black")
+plt.plot(df.index, df["ConversationLine"], label="ConversationLine", 
+color="red")
+plt.plot(df.index, df["BaseLine"], label="BaseLine", color="blue")
+plt.fill_between(df.index, df["SpanA"], df["SpanB"], 
+  where=df["SpanA"] &gt;= df["SpanA"], color="lightgreen", alpha=0.5)
+plt.fill_between(df.index, df["SpanA"], df["SpanB"], 
+  where=df["SpanA"] &lt; df["SpanB"], color="lightcoral", alpha=0.5)
+plt.plot(df.index, df["LaggingSpan"], label="LaggingSpan", color="purple", linestyle="dotted")
+
+plt.title("Ichimoku Cloud")
+plt.legend()
+plt.show()</pre> 
+    <div class="code-annotations-overlay-container">
+     #1 Calculates the parameter for the Ichimoku
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p185"> 
+   <p>Now, let’s look at the plot results in figure 10.24. We can see that we had essentially a bullish momentum, as evidenced by the many green (light gray in grayscale) clouds.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p186">  
+   <img alt="figure" src="../Images/10-24.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.24</span> An Ichimoku for NVIDIA closing prices indicating multiple bullish moments</h5>
+  </div> 
+  <div class="readable-text" id="p187"> 
+   <p>The space between spans A and B forms the Ichimoku Cloud, and green (light gray in grayscale) means that span A is above span B. It’s a bullish signal. If span B is above span A, the cloud is red (dark gray in grayscale), a bearish signal.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p188"> 
+   <p>The cloud acts as support in an uptrend and resistance in a downtrend. We can use them to identify trends:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p189"> If the price is above the cloud, the market is in an uptrend. </li> 
+   <li class="readable-text" id="p190"> If the price is below the cloud, the market is in a downtrend. </li> 
+   <li class="readable-text" id="p191"> If the price is inside the cloud, the market is in a consolidation phase (uncertainty). </li> 
+  </ul> 
+  <div class="readable-text" id="p192"> 
+   <p>We can also look for buy and sell signals:</p> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p193"> <em>Bullish signal (Buy)</em>—When the conversion line crosses above the baseline while the price is above the cloud </li> 
+   <li class="readable-text" id="p194"> <em>Bearish signal (Sell)</em>—When the conversion line crosses below the baseline while the price is below the cloud </li> 
+  </ul> 
+  <div class="readable-text" id="p195"> 
+   <p>The cloud acts as support in uptrends and resistance in downtrends. A thicker cloud suggests stronger support or resistance, making it harder for the price to break through.</p> 
+  </div> 
+  <div class="readable-text" id="p196"> 
+   <h2 class=" readable-text-h2"><span class="num-string">10.3</span> Visualization with Streamlit</h2> 
+  </div> 
+  <div class="readable-text" id="p197"> 
+   <p>In certain situations, it can be beneficial to visualize results online. Although some of you may have experience with advanced web technologies, others may not want to delve into a powerful but complex solution. We need a technology that keeps visualization simple and straightforward.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p198"> 
+   <p>One way to quickly generate web UIs is to use the Streamlit library, which can be installed as a Python package. Streamlit allows us to define web controls, and once we execute the Python files, it generates a local web page. Note that we use traditional Python files in the following example (ending with the .py extension), not the data science notebooks used throughout the rest of the book.</p> 
+  </div> 
+  <div class="readable-text intended-text" id="p199"> 
+   <p>Listing 10.7 provides a simple example of plotting returns. We have multiple predefined tickers and define input controls to collect the start and end times of the plot. The code’s logic checks whether one or more stocks have been selected. If we have the data, we calculate the returns and plot a line chart. </p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p200"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.7</span> Displaying returns with Streamlit </h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import streamlit as st
+import pandas as pd
+import yfinance as yf
+st.title("Finance Dashboard")
+
+tickers = ('TSLA', 'AAPL', 'MSFT', 'ETH-USD', 'BTC-USD')
+dropdown = st.multiselect("Select Ticker", tickers)
+
+start = st.date_input('Start Date', pd.to_datetime('2024-01-01'))
+end = st.date_input('End Date', pd.to_datetime('today'))
+
+def relativeret(df):
+    rel = df.pct_change()
+    cumret = (1+rel).cumprod() -1
+    cumret = cumret.fillna(0)
+    return cumret
+
+if len (dropdown) &gt; 0:
+    df = relativeret(yf.download(dropdown, start=start, end=end))['Close']
+    st.header(f"Returns of {dropdown}")
+    st.line_chart(df)</pre>  
+   </div> 
+  </div> 
+  <div class="readable-text" id="p201"> 
+   <p>We start the Streamlit website by calling the Streamlit application on the command line using the syntax <code>streamlit</code> <code>run</code> <code>&lt;pythonfile&gt;</code>. We need to open our web browser and follow the directions in the command line to view a figure similar to the one displayed in figure 10.25.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p202">  
+   <img alt="figure" src="../Images/10-25.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.25</span> The returns of Apple and Tesla in a chart rendered on a website by Streamlit</h5>
+  </div> 
+  <div class="readable-text" id="p203"> 
+   <p>Now that we understand the principles of Streamlit, we can plot moving average ribbons, Bollinger Bands, MACDs, and candlesticks. In the code shown in listing 10.8, we use select boxes instead of multi-select controls, as in the previous examples, because we’ll always examine one company at a time. Be aware that this listing omits the logic for Bollinger Bands, MACDs, and moving average ribbons, as it’s identical to the code previously shown in the listings and has been incorporated into methods. The complete code for this chapter, as well as the code for the other chapters, is available for download from the Manning site for this book. We added the technique to display a plot from the Streamlit library, mplfinance, for the candles. As with mplfinance, you need to pass a specific parameter, <code>returnfig=True,</code> so that the plots can be plotted correctly. To display a selected chart, we pass a method parameter to the method and call it to create the plot, which will then be plotted.</p> 
+  </div> 
+  <div class="browsable-container listing-container" id="p204"> 
+   <h5 class=" listing-container-h5 browsable-container-h5"><span class="num-string">Listing 10.8</span> Streamlit Technical Analysis</h5> 
+   <div class="code-area-container"> 
+    <pre class="code-area">import streamlit as st
+import pandas as pd
+import yfinance as yf
+import matplotlib.pyplot as plt
+import mplfinance as mpf
+
+st.title("Technical Analysis")
+
+ptype = ('NONE', 'MA', 'BOLL', 'MACD', 'CANDLE', 'CLOUD')
+tickers = ('TSLA', 'AAPL', 'MSFT', 'ETH-USD', 'BTC-USD')
+dropdown = st.selectbox("Select Ticker", tickers)
+plot = st.selectbox("Select Plot", ptype)
+start = st.date_input('Start Date', pd.to_datetime('2024-01-01'))
+end = st.date_input('End Date', pd.to_datetime('today'))
+
+def bollinger(data):
+    pass
+
+def macd(data):
+    pass
+
+def ma(data):
+    pass
+
+def cloud(data):
+    pass
+
+def candle(data):
+    fig, ax = mpf.plot(data, type='candle', 
+style='charles',figsize=(15,10), title='Candlestick Chart', returnfig=True)
+    return fig 
+
+def plot_ta(title: str, method):    <span class="aframe-location"/> #1
+    st.header(title)                 #1
+    plt = method(df)                 #1
+    st.pyplot(plt)                   #1
+
+if len (dropdown) &gt; 0 and plot != 'NONE':
+    df = yf.Ticker(dropdown).history(start=start, end=end)
+    match(plot):
+        case 'BOLL':
+            plot_ta("Bollinger bands", bollinger)
+        case 'MA':
+            plot_ta("Moving Average Ribbons", ma)
+        case 'MACD':
+            plot_ta("MACD", macd)
+        case 'CANDLE':
+            plot_ta("CANDLE", candle)
+        case 'CLOUD':
+            plot_ta("CLOUD", cloud)</pre> 
+    <div class="code-annotations-overlay-container">
+     #1 Method to plot the chart
+     <br/>
+    </div> 
+   </div> 
+  </div> 
+  <div class="readable-text" id="p205"> 
+   <p>In figure 10.26, we can see a reference example of the result using Bollinger Bands. If you run the Streamlit application downloadable from the GitHub repository for this book, you’ll also be able to plot other charts.<span class="aframe-location"/></p> 
+  </div> 
+  <div class="browsable-container figure-container" id="p206">  
+   <img alt="figure" src="../Images/10-26.png"/> 
+   <h5 class=" figure-container-h5"><span class="num-string">Figure 10.26</span> A Streamlit web page displaying Bollinger Bands</h5>
+  </div> 
+  <div class="readable-text" id="p207"> 
+   <p>To sum it all up, even if you’re not a technical trader who identifies buy or sell opportunities based on chart patterns, charts can help you understand better how share prices are evolving. You can use charts to identify potential weak points in your portfolio and combine this analysis with a reevaluation of your investment thesis for the stock.</p> 
+  </div> 
+  <div class="readable-text" id="p208"> 
+   <h2 class=" readable-text-h2">Summary</h2> 
+  </div> 
+  <ul> 
+   <li class="readable-text" id="p209"> Every chart tells a story. If you plot the share price development of an asset, you’ll also see the effect of catalysts—events that propel significant changes in asset prices. </li> 
+   <li class="readable-text" id="p210"> You need to put price movements into context. For some asset classes, you expect more or less volatility than for others. </li> 
+   <li class="readable-text" id="p211"> You can look for patterns in a chart to predict future development. </li> 
+   <li class="readable-text" id="p212"> Patterns, such as the double top, serve as a reference example. These patterns can reveal a trend, but identifying them can be tricky, as they are merely templates of the past. </li> 
+   <li class="readable-text" id="p213"> Chart patterns can be categorized into two main groups: reversals and continuations. The first follows a trend and then reverses it; the second continues to follow a trend. </li> 
+   <li class="readable-text" id="p214"> Treemaps of a full stock market, popularized by platforms such as Finviz, provide a comprehensive overview of all constituents within the stock market. </li> 
+   <li class="readable-text" id="p215"> Bar charts allow the display of the distribution of participants in a group. You can visualize the assets within an exchange-traded fund (ETF) weighted by their size. </li> 
+   <li class="readable-text" id="p216"> Histograms are ideal for plotting daily returns. If their returns follow a Gaussian distribution, everything is in order. </li> 
+   <li class="readable-text" id="p217"> Scatterplots can be used to detect specific assets within a group of assets. </li> 
+   <li class="readable-text" id="p218"> Candlesticks provide insights into market trends and movements during the period represented by a candle. </li> 
+   <li class="readable-text" id="p219"> A candlestick body represents the price difference between the security’s opening and closing prices. The wicks of a candlestick identify the maximum and minimum price during a trading day. </li> 
+   <li class="readable-text" id="p220"> We can identify patterns across multiple trading days using candlesticks and name trends. Some prominent patterns in candlesticks that identify trends are Doji (opening and closing prices are almost the same), Hammer (possible reversal after a downtrend), and Engulfing (a substantial shift in momentum). </li> 
+   <li class="readable-text buletless-item" id="p221"> You can calculate averages in many ways; some approaches weigh values differently: 
+    <ul> 
+     <li> Use simple moving averages (SMAs) for long-term trend analysis. </li> 
+     <li> Use exponential moving averages (EMAs) for momentum and recent changes. </li> 
+     <li> Use weighted moving averages (WMAs) for fast-moving signals. </li> 
+     <li> Use Hull moving averages (HMAs) for lag reduction with smoothness. </li> 
+    </ul> </li> 
+   <li class="readable-text" id="p222"> Moving average ribbons are a way to plot multiple moving averages with different time windows over the closing price of a stock. </li> 
+   <li class="readable-text" id="p223"> If moving average ribbons contract, we can identify a consolidation in the share price. </li> 
+   <li class="readable-text" id="p224"> Use Bollinger Bands to analyze volatility and price extremes, as they can be easily detected when they cross the upper and lower bands plotted in the chart. </li> 
+   <li class="readable-text" id="p225"> Moving average convergence divergence (MACD) measures the relationship between two moving averages of a share price. Use MACD for momentum and crossovers. </li> 
+   <li class="readable-text" id="p226"> Traders look for crossovers in such charts, as they serve as trading signals to buy or sell stocks. </li> 
+   <li class="readable-text" id="p227"> Streamlit is an excellent way for Python programmers to visualize content on a web page without needing to learn web programming. </li> 
+  </ul>
+ </body>
+</html>
