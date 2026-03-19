@@ -138,7 +138,7 @@ celerybeat.pid
 
 # Environments
 .env
-.venv
+.venv/
 env/
 venv/
 ENV/
@@ -181,3 +181,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Large data snapshots
+data/snapshots/*.parquet
